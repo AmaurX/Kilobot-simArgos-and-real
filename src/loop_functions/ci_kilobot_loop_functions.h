@@ -10,6 +10,7 @@
 #include <argos3/plugins/robots/generic/control_interface/ci_leds_actuator.h>
 #include <argos3/plugins/robots/kilobot/control_interface/ci_kilobot_communication_actuator.h>
 #include <argos3/plugins/robots/kilobot/control_interface/ci_kilobot_communication_sensor.h>
+#include <argos3/plugins/robots/kilobot/control_interface/ci_kilobot_controller.h>
 
 #include <argos3/core/utility/configuration/argos_configuration.h>
 #include <argos3/core/utility/math/vector2.h>

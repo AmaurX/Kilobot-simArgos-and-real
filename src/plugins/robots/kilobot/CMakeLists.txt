@@ -2,14 +2,12 @@
 # kilobot headers
 #
 # argos3/plugins/robots/kilobot/control_interface
-# set(ARGOS_BUILD_FOR_SIMULATOR 1)
-# set (ARGOS_BUILD_FOR simulator)
+
 
 set(ARGOS3_HEADERS_PLUGINS_ROBOTS_KILOBOT_CONTROLINTERFACE
   control_interface/ci_kilobot_communication_actuator.h
   control_interface/ci_kilobot_communication_sensor.h
   control_interface/ci_kilobot_controller.h
-  control_interface/ci_kilobot_loop_functions.h
   control_interface/ci_kilobot_light_sensor.h
   control_interface/kilolib.h
   control_interface/message.h
@@ -35,8 +33,7 @@ set(ARGOS3_SOURCES_PLUGINS_ROBOTS_KILOBOT
   control_interface/ci_kilobot_communication_actuator.cpp
   control_interface/ci_kilobot_communication_sensor.cpp
   control_interface/ci_kilobot_controller.cpp
-  control_interface/ci_kilobot_light_sensor.cpp
-  control_interface/ci_kilobot_loop_functions.cpp)
+  control_interface/ci_kilobot_light_sensor.cpp)
 
 if(ARGOS_BUILD_FOR_SIMULATOR)
   set(ARGOS3_SOURCES_PLUGINS_ROBOTS_KILOBOT
@@ -105,52 +102,3 @@ if(ARGOS_BUILD_FOR_SIMULATOR)
     LIBRARY DESTINATION lib/argos3
     ARCHIVE DESTINATION lib/argos3)
 endif(ARGOS_BUILD_FOR_SIMULATOR)
-
-########################### ADDED BY AMAURY ##############################
-
-# set(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} /usr/include)
-# set(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} /opt/local/include)
-# set(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} /home/amaury/istc/argos3-kilobot/src)
-# set(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} /home/amaury/istc/argos3-kilobot/build/plugins/robots/kilobot)
-
-# set(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} /opt/local/lib)
-# set(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} /usr/lib)
-# set(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} /home/amaury/istc/argos3-kilobot/build/plugins/robots/kilobot)
-
-# set(kilobot_rw_SOURCES 
-#   control_interface/ci_kilobot_controller.cpp
-#   control_interface/ci_kilobot_loop_functions.cpp
-# )
-# # set(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} /usr/include)
-# # set(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} /usr/bin)
-# # set(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} /usr/lib)
-
-
-# add_library(kilobot_rw SHARED ${kilobot_rw_SOURCES})
-# target_link_libraries(kilobot_rw
-#   argos3core_simulator
-#   argos3plugin_simulator_dynamics2d
-#   argos3plugin_simulator_entities
-#   argos3plugin_simulator_kilobot
-#   argos3plugin_simulator_genericrobot
-#   argos3plugin_simulator_media)
-
-# if(ARGOS_COMPILE_QTOPENGL)
-#   target_link_libraries(kilobot_rw argos3plugin_simulator_qtopengl)
-# endif(ARGOS_COMPILE_QTOPENGL)
-
-
-# set(main_IMPLEMENTATIONS
-#   control_interface/argos_mng.cpp
-#   )
-
-# add_executable(argos_mng ${main_IMPLEMENTATIONS})
-# target_link_libraries(argos_mng
-#   kilobot_rw
-#   argos3plugin_simulator_kilobot
-#   argos3core_simulator
-#   argos3plugin_simulator_dynamics2d
-#   argos3plugin_simulator_entities
-#   argos3plugin_simulator_genericrobot
-#   argos3plugin_simulator_media
-#   )

@@ -15,6 +15,8 @@ set(CMAKE_MACOSX_RPATH 0)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
 
 set(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} /usr/include)
+set(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} /usr/include)
+
 set(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} ${CMAKE_SOURCE_DIR}/kilobots )
 
 set(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} /opt/local/lib)
@@ -69,3 +71,4 @@ include(${CMAKE_SOURCE_DIR}/cmake/ARGoSPackaging.cmake)
 add_subdirectory(plugins)
 add_subdirectory(behaviors behaviors_simulation)
 add_subdirectory(kilobots)
+add_subdirectory(loop_functions)

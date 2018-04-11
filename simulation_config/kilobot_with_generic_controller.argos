@@ -9,7 +9,7 @@
 
   <framework>
     <system threads="0" />
-    <experiment length="1000"
+    <experiment length="10000"
                 ticks_per_second="30"
                 random_seed="11684" />
   </framework>
@@ -61,7 +61,7 @@
     <distribute>
       <position method="uniform" min="-0.5,-0.5,0" max="0.5,0.5,0" />
       <orientation method="gaussian" mean="0,0,0" std_dev="360,0,0" />
-      <entity quantity="80" max_trials="200">
+      <entity quantity="20" max_trials="200">
         <kilobot id="kba">
           <controller config="kbc_agent" />>
         </kilobot>
@@ -91,9 +91,9 @@
   <!-- ******************* -->
   <!-- * Loop functions * -->
   <!-- ******************* -->
-  <loop_functions library = "build/plugins/robots/kilobot/libargos3plugin_simulator_kilobot"
+  <loop_functions library = "build/loop_functions/libloop_functions"
       label="ci_kilobot_loop_functions"
-      num_robots=80 >
+      num_robots=20 >
   </loop_functions>
 
 
