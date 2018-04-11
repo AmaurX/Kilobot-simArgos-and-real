@@ -66,3 +66,4 @@ Steps:
 - Make sure you have argos3 installed (typing `which argos3` should give the path to the executable)  
 - Make sure you are in the root folder
 - From the root folder, use the command `argos3 -c simulation_config/MY_CONFIG.argos`
+
