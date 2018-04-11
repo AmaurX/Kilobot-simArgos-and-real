@@ -19,9 +19,10 @@ The content of this folder **shoud not be modified** except for the Makefile, to
 
 ## plugins folder
 This folder contains the code which creates the library that is used to compile behaviors for simulation.    
-**It should not be modified**.    
-__Warning__ : I did modify it a bit, adding loop functions (ci_kilobot_loop_functions) into the library, but as they are custom for one specific purpose, they should be placed in another folder. For now, it poses problem with the make process (right now, it is easier to compile with the rest of the kilobot plugin library).
+**It should not be modified**. 
 
+## loop_functions folder 
+I added loop functions (ci_kilobot_loop_functions). They are compiled against the rest of the kilobot simulation plugin, but are use dependant and don't belong in the plugin.
 
 ## CMakelists.txt
 This CMakelists.txt initializes variables and calls the compilation of:

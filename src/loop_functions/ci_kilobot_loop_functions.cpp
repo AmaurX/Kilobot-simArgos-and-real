@@ -43,6 +43,16 @@ void CIKilobotLoopFunctions::Init(TConfigurationNode &t_node)
 
       m_cKilobots = GetSpace().GetEntitiesByType("kilobot");
 
+      UInt32 un_robot_index = 0;
+      for (CSpace::TMapPerType::iterator it = m_cKilobots.begin(); it != m_cKilobots.end(); ++it, ++un_robot_index)
+      {
+            /* Get handle to kilobot entity and controller */
+            CKilobotEntity &c_kilobot = *any_cast<CKilobotEntity *>(it->second);
+            CVector2 c_kilobot_xy_position(c_kilobot.GetEmbodiedEntity().GetOriginAnchor().Position.GetX(), c_kilobot.GetEmbodiedEntity().GetOriginAnchor().Position.GetY());
+            CCI_KilobotController &c_controller = dynamic_cast<CCI_KilobotController &>(c_kilobot.GetControllableEntity().GetController());
+            m_cKilobotOriginalPositions.push_back(c_kilobot_xy_position);
+            m_cKilobotGreatestDisplacement.push_back((Real)0.0);
+      }
       // // set the experiment
       // SetExperiment();
 }
@@ -85,7 +95,17 @@ void CIKilobotLoopFunctions::PostStep()
       {
             /* Get handle to kilobot entity and controller */
             CKilobotEntity &c_kilobot = *any_cast<CKilobotEntity *>(it->second);
-            // CVector2 c_kilobot_xy_position(c_kilobot.GetEmbodiedEntity().GetOriginAnchor().Position.GetX(), c_kilobot.GetEmbodiedEntity().GetOriginAnchor().Position.GetY());
+            CVector2 c_kilobot_xy_position(c_kilobot.GetEmbodiedEntity().GetOriginAnchor().Position.GetX(), c_kilobot.GetEmbodiedEntity().GetOriginAnchor().Position.GetY());
+
+            CVector2 originPlace = m_cKilobotOriginalPositions.at(un_robot_index);
+            Real greatestDisplacement = m_cKilobotGreatestDisplacement.at(un_robot_index);
+            Real squareDisplacement = (c_kilobot_xy_position - originPlace).SquareLength();
+
+            if (squareDisplacement > greatestDisplacement)
+            {
+                  m_cKilobotGreatestDisplacement[un_robot_index] = squareDisplacement;
+            }
+
             CCI_KilobotController &c_controller = dynamic_cast<CCI_KilobotController &>(c_kilobot.GetControllableEntity().GetController());
 
             int sharedMemFD = c_controller.GetSharedMemFD();

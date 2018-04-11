@@ -96,6 +96,8 @@ private:
   //  Real m_fTargetRadius;
 
   CSpace::TMapPerType m_cKilobots;
+  std::vector<CVector2> m_cKilobotOriginalPositions;
+  std::vector<Real> m_cKilobotGreatestDisplacement;
   TRWResults m_tResults;
   Real fractionDiscovery_;
   Real fractionInformation_;
