@@ -46,7 +46,7 @@ Normaly, it should not be modified, except if you have to add include or library
 
 
 ## Build and use
-In a build folder (same level as src):
+In a build folder (same level as src):   
 `cmake ../src`   
 `make`   
 `sudo -H make install` To install the kilobot argos3 libs and headers    

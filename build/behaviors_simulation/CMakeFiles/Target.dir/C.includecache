@@ -6,33 +6,33 @@
 
 #IncludeRegexTransform: 
 
-/home/amaury/istc/NewCleanDirectory-real/src/behaviors/Target.c
+/home/amaury/istc/Kilobot-simArgos-and-real/src/behaviors/Target.c
 kilolib.h
-/home/amaury/istc/NewCleanDirectory-real/src/behaviors/kilolib.h
+/home/amaury/istc/Kilobot-simArgos-and-real/src/behaviors/kilolib.h
 debug.h
-/home/amaury/istc/NewCleanDirectory-real/src/behaviors/debug.h
+/home/amaury/istc/Kilobot-simArgos-and-real/src/behaviors/debug.h
 stdlib.h
 -
 enum.h
-/home/amaury/istc/NewCleanDirectory-real/src/behaviors/enum.h
+/home/amaury/istc/Kilobot-simArgos-and-real/src/behaviors/enum.h
 
-/home/amaury/istc/NewCleanDirectory-real/src/behaviors/enum.h
+/home/amaury/istc/Kilobot-simArgos-and-real/src/behaviors/enum.h
 stdlib.h
 -
 
-/home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/kilolib.h
+/home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/kilolib.h
 stdint.h
 -
 message.h
-/home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/message.h
+/home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/message.h
 message_crc.h
-/home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/message_crc.h
+/home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/message_crc.h
 
-/home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/message.h
+/home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/message.h
 stdint.h
 -
 
-/home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/message_crc.h
+/home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/message_crc.h
 message.h
-/home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/message.h
+/home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/message.h
 

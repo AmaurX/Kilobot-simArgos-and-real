@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/amaury/istc/NewCleanDirectory-real/src
+CMAKE_SOURCE_DIR = /home/amaury/istc/Kilobot-simArgos-and-real/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/amaury/istc/NewCleanDirectory-real/build
+CMAKE_BINARY_DIR = /home/amaury/istc/Kilobot-simArgos-and-real/build
 
 # Utility rule file for kilobot_real.
 
@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/amaury/istc/NewCleanDirectory-real/build
 include kilobots/CMakeFiles/kilobot_real.dir/progress.make
 
 kilobots/CMakeFiles/kilobot_real:
-	cd /home/amaury/istc/NewCleanDirectory-real/src/kilobots && make all
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/src/kilobots && make all
 
 kilobot_real: kilobots/CMakeFiles/kilobot_real
 kilobot_real: kilobots/CMakeFiles/kilobot_real.dir/build.make
@@ -67,10 +67,10 @@ kilobots/CMakeFiles/kilobot_real.dir/build: kilobot_real
 .PHONY : kilobots/CMakeFiles/kilobot_real.dir/build
 
 kilobots/CMakeFiles/kilobot_real.dir/clean:
-	cd /home/amaury/istc/NewCleanDirectory-real/build/kilobots && $(CMAKE_COMMAND) -P CMakeFiles/kilobot_real.dir/cmake_clean.cmake
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/kilobots && $(CMAKE_COMMAND) -P CMakeFiles/kilobot_real.dir/cmake_clean.cmake
 .PHONY : kilobots/CMakeFiles/kilobot_real.dir/clean
 
 kilobots/CMakeFiles/kilobot_real.dir/depend:
-	cd /home/amaury/istc/NewCleanDirectory-real/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/amaury/istc/NewCleanDirectory-real/src /home/amaury/istc/NewCleanDirectory-real/src/kilobots /home/amaury/istc/NewCleanDirectory-real/build /home/amaury/istc/NewCleanDirectory-real/build/kilobots /home/amaury/istc/NewCleanDirectory-real/build/kilobots/CMakeFiles/kilobot_real.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/amaury/istc/Kilobot-simArgos-and-real/src /home/amaury/istc/Kilobot-simArgos-and-real/src/kilobots /home/amaury/istc/Kilobot-simArgos-and-real/build /home/amaury/istc/Kilobot-simArgos-and-real/build/kilobots /home/amaury/istc/Kilobot-simArgos-and-real/build/kilobots/CMakeFiles/kilobot_real.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : kilobots/CMakeFiles/kilobot_real.dir/depend
 

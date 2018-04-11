@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/amaury/istc/NewCleanDirectory-real/src
+CMAKE_SOURCE_DIR = /home/amaury/istc/Kilobot-simArgos-and-real/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/amaury/istc/NewCleanDirectory-real/build
+CMAKE_BINARY_DIR = /home/amaury/istc/Kilobot-simArgos-and-real/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -70,7 +70,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /home/amaury/istc/NewCleanDirectory-real/build && /usr/bin/cpack --config ./CPackSourceConfig.cmake /home/amaury/istc/NewCleanDirectory-real/build/CPackSourceConfig.cmake
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build && /usr/bin/cpack --config ./CPackSourceConfig.cmake /home/amaury/istc/Kilobot-simArgos-and-real/build/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -92,7 +92,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /home/amaury/istc/NewCleanDirectory-real/build && /usr/bin/cpack --config ./CPackConfig.cmake
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build && /usr/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -146,14 +146,14 @@ install/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/amaury/istc/NewCleanDirectory-real/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/amaury/istc/NewCleanDirectory-real/build/CMakeFiles /home/amaury/istc/NewCleanDirectory-real/build/kilobots/CMakeFiles/progress.marks
-	cd /home/amaury/istc/NewCleanDirectory-real/build && $(MAKE) -f CMakeFiles/Makefile2 kilobots/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/amaury/istc/NewCleanDirectory-real/build/CMakeFiles 0
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/amaury/istc/Kilobot-simArgos-and-real/build/CMakeFiles /home/amaury/istc/Kilobot-simArgos-and-real/build/kilobots/CMakeFiles/progress.marks
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build && $(MAKE) -f CMakeFiles/Makefile2 kilobots/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/amaury/istc/Kilobot-simArgos-and-real/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/amaury/istc/NewCleanDirectory-real/build && $(MAKE) -f CMakeFiles/Makefile2 kilobots/clean
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build && $(MAKE) -f CMakeFiles/Makefile2 kilobots/clean
 .PHONY : clean
 
 # The main clean target
@@ -163,22 +163,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/amaury/istc/NewCleanDirectory-real/build && $(MAKE) -f CMakeFiles/Makefile2 kilobots/preinstall
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build && $(MAKE) -f CMakeFiles/Makefile2 kilobots/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/amaury/istc/NewCleanDirectory-real/build && $(MAKE) -f CMakeFiles/Makefile2 kilobots/preinstall
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build && $(MAKE) -f CMakeFiles/Makefile2 kilobots/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/amaury/istc/NewCleanDirectory-real/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 kilobots/CMakeFiles/kilobot_real.dir/rule:
-	cd /home/amaury/istc/NewCleanDirectory-real/build && $(MAKE) -f CMakeFiles/Makefile2 kilobots/CMakeFiles/kilobot_real.dir/rule
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build && $(MAKE) -f CMakeFiles/Makefile2 kilobots/CMakeFiles/kilobot_real.dir/rule
 .PHONY : kilobots/CMakeFiles/kilobot_real.dir/rule
 
 # Convenience name for target.
@@ -188,7 +188,7 @@ kilobot_real: kilobots/CMakeFiles/kilobot_real.dir/rule
 
 # fast build rule for target.
 kilobot_real/fast:
-	cd /home/amaury/istc/NewCleanDirectory-real/build && $(MAKE) -f kilobots/CMakeFiles/kilobot_real.dir/build.make kilobots/CMakeFiles/kilobot_real.dir/build
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build && $(MAKE) -f kilobots/CMakeFiles/kilobot_real.dir/build.make kilobots/CMakeFiles/kilobot_real.dir/build
 .PHONY : kilobot_real/fast
 
 # Help Target
@@ -217,6 +217,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/amaury/istc/NewCleanDirectory-real/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

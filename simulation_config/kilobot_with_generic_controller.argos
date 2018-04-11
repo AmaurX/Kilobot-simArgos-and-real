@@ -50,7 +50,7 @@
   <!-- *********************** -->
   <!-- * Arena configuration * -->
   <!-- *********************** -->
-  <arena size="2, 2, 1" center="0,0,0.5">num_robots_with_discovery
+  <arena size="2, 2, 1" center="0,0,0.5">
     <light id="l0"
            position="0,0,0.95"
            orientation="0,0,0"

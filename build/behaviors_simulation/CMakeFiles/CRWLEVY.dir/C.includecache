@@ -6,13 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/home/amaury/istc/NewCleanDirectory-real/src/behaviors/CRWLEVY.c
+/home/amaury/istc/Kilobot-simArgos-and-real/src/behaviors/CRWLEVY.c
 kilolib.h
-/home/amaury/istc/NewCleanDirectory-real/src/behaviors/kilolib.h
+/home/amaury/istc/Kilobot-simArgos-and-real/src/behaviors/kilolib.h
 math.h
 -
 distribution_functions.c
-/home/amaury/istc/NewCleanDirectory-real/src/behaviors/distribution_functions.c
+/home/amaury/istc/Kilobot-simArgos-and-real/src/behaviors/distribution_functions.c
 stdlib.h
 -
 stdio.h
@@ -20,15 +20,15 @@ stdio.h
 string.h
 -
 enum.h
-/home/amaury/istc/NewCleanDirectory-real/src/behaviors/enum.h
+/home/amaury/istc/Kilobot-simArgos-and-real/src/behaviors/enum.h
 debug.h
-/home/amaury/istc/NewCleanDirectory-real/src/behaviors/debug.h
+/home/amaury/istc/Kilobot-simArgos-and-real/src/behaviors/debug.h
 avr/eeprom.h
 -
 inttypes.h
 -
 
-/home/amaury/istc/NewCleanDirectory-real/src/behaviors/distribution_functions.c
+/home/amaury/istc/Kilobot-simArgos-and-real/src/behaviors/distribution_functions.c
 stdlib.h
 -
 stdio.h
@@ -36,27 +36,27 @@ stdio.h
 math.h
 -
 distribution_functions.h
-/home/amaury/istc/NewCleanDirectory-real/src/behaviors/distribution_functions.h
+/home/amaury/istc/Kilobot-simArgos-and-real/src/behaviors/distribution_functions.h
 
-/home/amaury/istc/NewCleanDirectory-real/src/behaviors/distribution_functions.h
+/home/amaury/istc/Kilobot-simArgos-and-real/src/behaviors/distribution_functions.h
 
-/home/amaury/istc/NewCleanDirectory-real/src/behaviors/enum.h
+/home/amaury/istc/Kilobot-simArgos-and-real/src/behaviors/enum.h
 stdlib.h
 -
 
-/home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/kilolib.h
+/home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/kilolib.h
 stdint.h
 -
 message.h
-/home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/message.h
+/home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/message.h
 message_crc.h
-/home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/message_crc.h
+/home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/message_crc.h
 
-/home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/message.h
+/home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/message.h
 stdint.h
 -
 
-/home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/message_crc.h
+/home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/message_crc.h
 message.h
-/home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/message.h
+/home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/message.h
 

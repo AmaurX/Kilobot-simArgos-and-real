@@ -7,11 +7,11 @@ C_FLAGS = -Wall   -Wno-unknown-pragmas
 
 C_DEFINES = -DARGOS_simulator_BUILD -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB
 
-C_INCLUDES = -I/home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot -I/home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot -I/home/amaury/istc/NewCleanDirectory-real/src -I/home/amaury/istc/NewCleanDirectory-real/build -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/usr/include/lua5.2 
+C_INCLUDES = -I/home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot -I/home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot -I/home/amaury/istc/Kilobot-simArgos-and-real/src -I/home/amaury/istc/Kilobot-simArgos-and-real/build -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/usr/include/lua5.2 
 
 CXX_FLAGS = -Wall   -Wno-unknown-pragmas -std=gnu++14
 
 CXX_DEFINES = -DARGOS_simulator_BUILD -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB
 
-CXX_INCLUDES = -I/home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot -I/home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot -I/home/amaury/istc/NewCleanDirectory-real/src -I/home/amaury/istc/NewCleanDirectory-real/build -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/usr/include/lua5.2 
+CXX_INCLUDES = -I/home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot -I/home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot -I/home/amaury/istc/Kilobot-simArgos-and-real/src -I/home/amaury/istc/Kilobot-simArgos-and-real/build -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/usr/include/lua5.2 
 

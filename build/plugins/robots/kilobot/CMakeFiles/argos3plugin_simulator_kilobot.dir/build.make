@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/amaury/istc/NewCleanDirectory-real/src
+CMAKE_SOURCE_DIR = /home/amaury/istc/Kilobot-simArgos-and-real/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/amaury/istc/NewCleanDirectory-real/build
+CMAKE_BINARY_DIR = /home/amaury/istc/Kilobot-simArgos-and-real/build
 
 # Include any dependencies generated for this target.
 include plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/depend.make
@@ -58,17 +58,17 @@ include plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/pro
 include plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/flags.make
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_actuator.cpp.o: plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/flags.make
-plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_actuator.cpp.o: /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_communication_actuator.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amaury/istc/NewCleanDirectory-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_actuator.cpp.o"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_actuator.cpp.o -c /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_communication_actuator.cpp
+plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_actuator.cpp.o: /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_communication_actuator.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amaury/istc/Kilobot-simArgos-and-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_actuator.cpp.o"
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_actuator.cpp.o -c /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_communication_actuator.cpp
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_actuator.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_actuator.cpp.i"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_communication_actuator.cpp > CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_actuator.cpp.i
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_communication_actuator.cpp > CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_actuator.cpp.i
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_actuator.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_actuator.cpp.s"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_communication_actuator.cpp -o CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_actuator.cpp.s
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_communication_actuator.cpp -o CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_actuator.cpp.s
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_actuator.cpp.o.requires:
 
@@ -82,17 +82,17 @@ plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_int
 
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_sensor.cpp.o: plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/flags.make
-plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_sensor.cpp.o: /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_communication_sensor.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amaury/istc/NewCleanDirectory-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_sensor.cpp.o"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_sensor.cpp.o -c /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_communication_sensor.cpp
+plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_sensor.cpp.o: /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_communication_sensor.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amaury/istc/Kilobot-simArgos-and-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_sensor.cpp.o"
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_sensor.cpp.o -c /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_communication_sensor.cpp
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_sensor.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_sensor.cpp.i"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_communication_sensor.cpp > CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_sensor.cpp.i
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_communication_sensor.cpp > CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_sensor.cpp.i
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_sensor.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_sensor.cpp.s"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_communication_sensor.cpp -o CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_sensor.cpp.s
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_communication_sensor.cpp -o CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_sensor.cpp.s
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_communication_sensor.cpp.o.requires:
 
@@ -106,17 +106,17 @@ plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_int
 
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_controller.cpp.o: plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/flags.make
-plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_controller.cpp.o: /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_controller.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amaury/istc/NewCleanDirectory-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_controller.cpp.o"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_controller.cpp.o -c /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_controller.cpp
+plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_controller.cpp.o: /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_controller.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amaury/istc/Kilobot-simArgos-and-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_controller.cpp.o"
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_controller.cpp.o -c /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_controller.cpp
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_controller.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_controller.cpp.i"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_controller.cpp > CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_controller.cpp.i
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_controller.cpp > CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_controller.cpp.i
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_controller.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_controller.cpp.s"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_controller.cpp -o CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_controller.cpp.s
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_controller.cpp -o CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_controller.cpp.s
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_controller.cpp.o.requires:
 
@@ -130,17 +130,17 @@ plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_int
 
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_light_sensor.cpp.o: plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/flags.make
-plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_light_sensor.cpp.o: /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_light_sensor.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amaury/istc/NewCleanDirectory-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_light_sensor.cpp.o"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_light_sensor.cpp.o -c /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_light_sensor.cpp
+plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_light_sensor.cpp.o: /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_light_sensor.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amaury/istc/Kilobot-simArgos-and-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_light_sensor.cpp.o"
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_light_sensor.cpp.o -c /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_light_sensor.cpp
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_light_sensor.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_light_sensor.cpp.i"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_light_sensor.cpp > CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_light_sensor.cpp.i
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_light_sensor.cpp > CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_light_sensor.cpp.i
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_light_sensor.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_light_sensor.cpp.s"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_light_sensor.cpp -o CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_light_sensor.cpp.s
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_light_sensor.cpp -o CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_light_sensor.cpp.s
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_light_sensor.cpp.o.requires:
 
@@ -154,17 +154,17 @@ plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_int
 
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_loop_functions.cpp.o: plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/flags.make
-plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_loop_functions.cpp.o: /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_loop_functions.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amaury/istc/NewCleanDirectory-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_loop_functions.cpp.o"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_loop_functions.cpp.o -c /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_loop_functions.cpp
+plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_loop_functions.cpp.o: /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_loop_functions.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amaury/istc/Kilobot-simArgos-and-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_loop_functions.cpp.o"
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_loop_functions.cpp.o -c /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_loop_functions.cpp
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_loop_functions.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_loop_functions.cpp.i"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_loop_functions.cpp > CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_loop_functions.cpp.i
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_loop_functions.cpp > CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_loop_functions.cpp.i
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_loop_functions.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_loop_functions.cpp.s"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_loop_functions.cpp -o CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_loop_functions.cpp.s
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/control_interface/ci_kilobot_loop_functions.cpp -o CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_loop_functions.cpp.s
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_interface/ci_kilobot_loop_functions.cpp.o.requires:
 
@@ -178,17 +178,17 @@ plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/control_int
 
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/dynamics2d_kilobot_model.cpp.o: plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/flags.make
-plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/dynamics2d_kilobot_model.cpp.o: /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/dynamics2d_kilobot_model.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amaury/istc/NewCleanDirectory-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/dynamics2d_kilobot_model.cpp.o"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/dynamics2d_kilobot_model.cpp.o -c /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/dynamics2d_kilobot_model.cpp
+plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/dynamics2d_kilobot_model.cpp.o: /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/dynamics2d_kilobot_model.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amaury/istc/Kilobot-simArgos-and-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/dynamics2d_kilobot_model.cpp.o"
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/dynamics2d_kilobot_model.cpp.o -c /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/dynamics2d_kilobot_model.cpp
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/dynamics2d_kilobot_model.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/dynamics2d_kilobot_model.cpp.i"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/dynamics2d_kilobot_model.cpp > CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/dynamics2d_kilobot_model.cpp.i
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/dynamics2d_kilobot_model.cpp > CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/dynamics2d_kilobot_model.cpp.i
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/dynamics2d_kilobot_model.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/dynamics2d_kilobot_model.cpp.s"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/dynamics2d_kilobot_model.cpp -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/dynamics2d_kilobot_model.cpp.s
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/dynamics2d_kilobot_model.cpp -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/dynamics2d_kilobot_model.cpp.s
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/dynamics2d_kilobot_model.cpp.o.requires:
 
@@ -202,17 +202,17 @@ plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/d
 
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_entity.cpp.o: plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/flags.make
-plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_entity.cpp.o: /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/kilobot_entity.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amaury/istc/NewCleanDirectory-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_entity.cpp.o"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_entity.cpp.o -c /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/kilobot_entity.cpp
+plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_entity.cpp.o: /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/kilobot_entity.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amaury/istc/Kilobot-simArgos-and-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_entity.cpp.o"
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_entity.cpp.o -c /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/kilobot_entity.cpp
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_entity.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_entity.cpp.i"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/kilobot_entity.cpp > CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_entity.cpp.i
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/kilobot_entity.cpp > CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_entity.cpp.i
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_entity.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_entity.cpp.s"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/kilobot_entity.cpp -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_entity.cpp.s
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/kilobot_entity.cpp -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_entity.cpp.s
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_entity.cpp.o.requires:
 
@@ -226,17 +226,17 @@ plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/k
 
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_light_rotzonly_sensor.cpp.o: plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/flags.make
-plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_light_rotzonly_sensor.cpp.o: /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/kilobot_light_rotzonly_sensor.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amaury/istc/NewCleanDirectory-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_light_rotzonly_sensor.cpp.o"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_light_rotzonly_sensor.cpp.o -c /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/kilobot_light_rotzonly_sensor.cpp
+plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_light_rotzonly_sensor.cpp.o: /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/kilobot_light_rotzonly_sensor.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amaury/istc/Kilobot-simArgos-and-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_light_rotzonly_sensor.cpp.o"
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_light_rotzonly_sensor.cpp.o -c /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/kilobot_light_rotzonly_sensor.cpp
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_light_rotzonly_sensor.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_light_rotzonly_sensor.cpp.i"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/kilobot_light_rotzonly_sensor.cpp > CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_light_rotzonly_sensor.cpp.i
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/kilobot_light_rotzonly_sensor.cpp > CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_light_rotzonly_sensor.cpp.i
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_light_rotzonly_sensor.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_light_rotzonly_sensor.cpp.s"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/kilobot_light_rotzonly_sensor.cpp -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_light_rotzonly_sensor.cpp.s
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/kilobot_light_rotzonly_sensor.cpp -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_light_rotzonly_sensor.cpp.s
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_light_rotzonly_sensor.cpp.o.requires:
 
@@ -250,17 +250,17 @@ plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/k
 
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_actuator.cpp.o: plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/flags.make
-plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_actuator.cpp.o: /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/kilobot_communication_default_actuator.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amaury/istc/NewCleanDirectory-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_actuator.cpp.o"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_actuator.cpp.o -c /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/kilobot_communication_default_actuator.cpp
+plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_actuator.cpp.o: /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/kilobot_communication_default_actuator.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amaury/istc/Kilobot-simArgos-and-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_actuator.cpp.o"
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_actuator.cpp.o -c /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/kilobot_communication_default_actuator.cpp
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_actuator.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_actuator.cpp.i"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/kilobot_communication_default_actuator.cpp > CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_actuator.cpp.i
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/kilobot_communication_default_actuator.cpp > CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_actuator.cpp.i
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_actuator.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_actuator.cpp.s"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/kilobot_communication_default_actuator.cpp -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_actuator.cpp.s
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/kilobot_communication_default_actuator.cpp -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_actuator.cpp.s
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_actuator.cpp.o.requires:
 
@@ -274,17 +274,17 @@ plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/k
 
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_sensor.cpp.o: plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/flags.make
-plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_sensor.cpp.o: /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/kilobot_communication_default_sensor.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amaury/istc/NewCleanDirectory-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_sensor.cpp.o"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_sensor.cpp.o -c /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/kilobot_communication_default_sensor.cpp
+plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_sensor.cpp.o: /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/kilobot_communication_default_sensor.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amaury/istc/Kilobot-simArgos-and-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_sensor.cpp.o"
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_sensor.cpp.o -c /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/kilobot_communication_default_sensor.cpp
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_sensor.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_sensor.cpp.i"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/kilobot_communication_default_sensor.cpp > CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_sensor.cpp.i
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/kilobot_communication_default_sensor.cpp > CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_sensor.cpp.i
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_sensor.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_sensor.cpp.s"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/kilobot_communication_default_sensor.cpp -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_sensor.cpp.s
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/kilobot_communication_default_sensor.cpp -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_sensor.cpp.s
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_default_sensor.cpp.o.requires:
 
@@ -298,17 +298,17 @@ plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/k
 
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_entity.cpp.o: plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/flags.make
-plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_entity.cpp.o: /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/kilobot_communication_entity.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amaury/istc/NewCleanDirectory-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_entity.cpp.o"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_entity.cpp.o -c /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/kilobot_communication_entity.cpp
+plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_entity.cpp.o: /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/kilobot_communication_entity.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amaury/istc/Kilobot-simArgos-and-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_entity.cpp.o"
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_entity.cpp.o -c /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/kilobot_communication_entity.cpp
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_entity.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_entity.cpp.i"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/kilobot_communication_entity.cpp > CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_entity.cpp.i
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/kilobot_communication_entity.cpp > CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_entity.cpp.i
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_entity.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_entity.cpp.s"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/kilobot_communication_entity.cpp -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_entity.cpp.s
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/kilobot_communication_entity.cpp -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_entity.cpp.s
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_entity.cpp.o.requires:
 
@@ -322,17 +322,17 @@ plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/k
 
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_medium.cpp.o: plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/flags.make
-plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_medium.cpp.o: /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/kilobot_communication_medium.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amaury/istc/NewCleanDirectory-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_medium.cpp.o"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_medium.cpp.o -c /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/kilobot_communication_medium.cpp
+plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_medium.cpp.o: /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/kilobot_communication_medium.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amaury/istc/Kilobot-simArgos-and-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_medium.cpp.o"
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_medium.cpp.o -c /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/kilobot_communication_medium.cpp
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_medium.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_medium.cpp.i"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/kilobot_communication_medium.cpp > CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_medium.cpp.i
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/kilobot_communication_medium.cpp > CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_medium.cpp.i
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_medium.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_medium.cpp.s"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/kilobot_communication_medium.cpp -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_medium.cpp.s
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/kilobot_communication_medium.cpp -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_medium.cpp.s
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/kilobot_communication_medium.cpp.o.requires:
 
@@ -346,17 +346,17 @@ plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/k
 
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/qtopengl_kilobot.cpp.o: plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/flags.make
-plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/qtopengl_kilobot.cpp.o: /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/qtopengl_kilobot.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amaury/istc/NewCleanDirectory-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/qtopengl_kilobot.cpp.o"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/qtopengl_kilobot.cpp.o -c /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/qtopengl_kilobot.cpp
+plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/qtopengl_kilobot.cpp.o: /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/qtopengl_kilobot.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amaury/istc/Kilobot-simArgos-and-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/qtopengl_kilobot.cpp.o"
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/qtopengl_kilobot.cpp.o -c /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/qtopengl_kilobot.cpp
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/qtopengl_kilobot.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/qtopengl_kilobot.cpp.i"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/qtopengl_kilobot.cpp > CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/qtopengl_kilobot.cpp.i
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/qtopengl_kilobot.cpp > CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/qtopengl_kilobot.cpp.i
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/qtopengl_kilobot.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/qtopengl_kilobot.cpp.s"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot/simulator/qtopengl_kilobot.cpp -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/qtopengl_kilobot.cpp.s
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot/simulator/qtopengl_kilobot.cpp -o CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/qtopengl_kilobot.cpp.s
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/qtopengl_kilobot.cpp.o.requires:
 
@@ -371,16 +371,16 @@ plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/simulator/q
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/argos3plugin_simulator_kilobot_automoc.cpp.o: plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/flags.make
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/argos3plugin_simulator_kilobot_automoc.cpp.o: plugins/robots/kilobot/argos3plugin_simulator_kilobot_automoc.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amaury/istc/NewCleanDirectory-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/argos3plugin_simulator_kilobot_automoc.cpp.o"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos3plugin_simulator_kilobot.dir/argos3plugin_simulator_kilobot_automoc.cpp.o -c /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot/argos3plugin_simulator_kilobot_automoc.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amaury/istc/Kilobot-simArgos-and-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/argos3plugin_simulator_kilobot_automoc.cpp.o"
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos3plugin_simulator_kilobot.dir/argos3plugin_simulator_kilobot_automoc.cpp.o -c /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot/argos3plugin_simulator_kilobot_automoc.cpp
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/argos3plugin_simulator_kilobot_automoc.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/argos3plugin_simulator_kilobot.dir/argos3plugin_simulator_kilobot_automoc.cpp.i"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot/argos3plugin_simulator_kilobot_automoc.cpp > CMakeFiles/argos3plugin_simulator_kilobot.dir/argos3plugin_simulator_kilobot_automoc.cpp.i
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot/argos3plugin_simulator_kilobot_automoc.cpp > CMakeFiles/argos3plugin_simulator_kilobot.dir/argos3plugin_simulator_kilobot_automoc.cpp.i
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/argos3plugin_simulator_kilobot_automoc.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/argos3plugin_simulator_kilobot.dir/argos3plugin_simulator_kilobot_automoc.cpp.s"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot/argos3plugin_simulator_kilobot_automoc.cpp -o CMakeFiles/argos3plugin_simulator_kilobot.dir/argos3plugin_simulator_kilobot_automoc.cpp.s
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot/argos3plugin_simulator_kilobot_automoc.cpp -o CMakeFiles/argos3plugin_simulator_kilobot.dir/argos3plugin_simulator_kilobot_automoc.cpp.s
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/argos3plugin_simulator_kilobot_automoc.cpp.o.requires:
 
@@ -429,8 +429,8 @@ plugins/robots/kilobot/libargos3plugin_simulator_kilobot.so: plugins/robots/kilo
 plugins/robots/kilobot/libargos3plugin_simulator_kilobot.so: plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/argos3plugin_simulator_kilobot_automoc.cpp.o
 plugins/robots/kilobot/libargos3plugin_simulator_kilobot.so: plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/build.make
 plugins/robots/kilobot/libargos3plugin_simulator_kilobot.so: plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/amaury/istc/NewCleanDirectory-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Linking CXX shared library libargos3plugin_simulator_kilobot.so"
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/argos3plugin_simulator_kilobot.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/amaury/istc/Kilobot-simArgos-and-real/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Linking CXX shared library libargos3plugin_simulator_kilobot.so"
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/argos3plugin_simulator_kilobot.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/build: plugins/robots/kilobot/libargos3plugin_simulator_kilobot.so
@@ -455,10 +455,10 @@ plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/requires: p
 .PHONY : plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/requires
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/clean:
-	cd /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot && $(CMAKE_COMMAND) -P CMakeFiles/argos3plugin_simulator_kilobot.dir/cmake_clean.cmake
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot && $(CMAKE_COMMAND) -P CMakeFiles/argos3plugin_simulator_kilobot.dir/cmake_clean.cmake
 .PHONY : plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/clean
 
 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/depend:
-	cd /home/amaury/istc/NewCleanDirectory-real/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/amaury/istc/NewCleanDirectory-real/src /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots/kilobot /home/amaury/istc/NewCleanDirectory-real/build /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot /home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/amaury/istc/Kilobot-simArgos-and-real/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/amaury/istc/Kilobot-simArgos-and-real/src /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots/kilobot /home/amaury/istc/Kilobot-simArgos-and-real/build /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot /home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot.dir/depend
 

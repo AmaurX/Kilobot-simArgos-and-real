@@ -1,4 +1,4 @@
-# Install script for directory: /home/amaury/istc/NewCleanDirectory-real/src/behaviors
+# Install script for directory: /home/amaury/istc/Kilobot-simArgos-and-real/src/behaviors
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

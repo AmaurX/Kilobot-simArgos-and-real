@@ -1,4 +1,4 @@
-# Install script for directory: /home/amaury/istc/NewCleanDirectory-real/src/plugins/robots
+# Install script for directory: /home/amaury/istc/Kilobot-simArgos-and-real/src/plugins/robots
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,7 +34,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot/cmake_install.cmake")
+  include("/home/amaury/istc/Kilobot-simArgos-and-real/build/plugins/robots/kilobot/cmake_install.cmake")
 
 endif()
 
