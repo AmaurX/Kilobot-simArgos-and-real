@@ -13,3 +13,4 @@ Makefile
 plugins
 -r
 build/
+build
