@@ -1,0 +1,6 @@
+# Hashes of file build rules.
+e53f9302390f42269ae0ccf2df234c0a behaviors_simulation/CMakeFiles/CRWLEVY_automoc
+22884e3b5b6b237f9c8d35e62ba9cc77 behaviors_simulation/CMakeFiles/Target_automoc
+8a3f925021e61cbda0062d82c81d8cee kilobots/CMakeFiles/kilobot_real
+a17ef624bcb37fe6479b1e5a00a24238 plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilobot_automoc
+877ce2d32416e83dd87da999e0a2a5df plugins/robots/kilobot/CMakeFiles/argos3plugin_simulator_kilolib_automoc

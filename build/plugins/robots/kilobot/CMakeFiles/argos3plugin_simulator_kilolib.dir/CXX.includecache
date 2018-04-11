@@ -1,0 +1,10 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/amaury/istc/NewCleanDirectory-real/build/plugins/robots/kilobot/argos3plugin_simulator_kilolib_automoc.cpp
+
