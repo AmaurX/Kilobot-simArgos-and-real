@@ -46,7 +46,11 @@ Normaly, it should not be modified, except if you have to add include or library
 
 
 ## Build and use
-In a build folder (same level as src):   
+
+### Building
+At the root folder (same level as src):  
+`mkdir build` (if it doesn't already exists)    
+`cd build`   
 `cmake ../src`   
 `make`   
 `sudo -H make install` To install the kilobot argos3 libs and headers    
@@ -57,3 +61,8 @@ It should compile everything.
 
 **TODO** : install step : create a install folder, that would only contain dynamic libs and the above files.
 
+### Launching a simulation
+Steps:
+- Make sure you have argos3 installed (typing `which argos3` should give the path to the executable)  
+- Make sure you are in the root folder
+- From the root folder, use the command `argos3 -c simulation_config/MY_CONFIG.argos`
