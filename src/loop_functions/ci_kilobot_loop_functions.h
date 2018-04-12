@@ -19,6 +19,8 @@
 #include <argos3/core/utility/logging/argos_log.h>
 #include <vector>
 #include <argos3/plugins/simulator/entities/box_entity.h>
+#include <sys/types.h>
+#include <dirent.h>
 
 using namespace argos;
 
@@ -97,8 +99,12 @@ private:
 
   CSpace::TMapPerType m_cKilobots;
   std::vector<CVector2> m_cKilobotOriginalPositions;
-  std::vector<Real> m_cKilobotGreatestDisplacement;
+  std::vector<std::vector<Real>> m_cKilobotDisplacements;
+  std::vector<std::vector<CVector2>> m_cKilobotPositions;
+
   TRWResults m_tResults;
+  int m_samplingPeriod;
+  int internal_counter;
   Real fractionDiscovery_;
   Real fractionInformation_;
 };

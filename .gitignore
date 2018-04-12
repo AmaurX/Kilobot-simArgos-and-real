@@ -14,3 +14,8 @@ plugins
 -r
 build/
 build
+20180412_experiments
+20180412_experiments_10*10_20robots
+20180412_experiments_15*15_20robots
+20180412_experiments_5*5_10robots
+experiments/
