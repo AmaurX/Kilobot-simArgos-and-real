@@ -7,7 +7,6 @@
 #include <argos3/core/simulator/simulator.h>
 #include <argos3/core/utility/plugins/dynamic_loading.h>
 #include <argos3/core/simulator/argos_command_line_arg_parser.h>
-#include "ci_kilobot_loop_functions.h"
 #include <iostream>
 
 using namespace argos;
@@ -34,8 +33,8 @@ int main(int n_argc, char **ppch_argv)
             CARGoSCommandLineArgParser cACLAP;
 
             // argument -f - results filename
-            std::string s_datafile = "results.dat";
-            cACLAP.AddArgument<std::string>('f', "--file", "Specify the file to write results", s_datafile);
+            // std::string s_datafile = "results.dat";
+            // cACLAP.AddArgument<std::string>('f', "--file", "Specify the file to write results", s_datafile);
 
             // argument -r - number of runs to exectue
             UInt32 un_num_runs = 0;
@@ -60,13 +59,12 @@ int main(int n_argc, char **ppch_argv)
                   ////////////////////////////////////////////////////////////////////////////////
                   LOGERR << "WARNING: BATCH MODE - Use argos3 -c <config> for a full visualisation" << std::endl;
 
-                  std::ofstream of(s_datafile.c_str(), std::ios::out);
-                  CIKilobotLoopFunctions *pcKilobotRWLF = &dynamic_cast<CIKilobotLoopFunctions &>(cSimulator.GetLoopFunctions());
+                  // std::ofstream of(s_datafile.c_str(), std::ios::out);
+                  // CKilobotRWLoopFunctions *pcKilobotRWLF = &dynamic_cast<CKilobotRWLoopFunctions &>(cSimulator.GetLoopFunctions());
 
                   // start evaluation
                   for (UInt32 i = un_seed; i < un_seed + un_num_runs; ++i)
                   {
-                        // set the random seed in the simulator
                         cSimulator.SetRandomSeed(i + 1);
 
                         // resetting the experiment
@@ -75,11 +73,12 @@ int main(int n_argc, char **ppch_argv)
                         // run the simulation
                         cSimulator.Execute();
 
+                        //cSimulator = CSimulator::GetInstance();
                         // retrieve the fitness values
-                        TRWResults results = pcKilobotRWLF->GetResults();
-                        of << results << std::endl;
+                        // TRWResults results = pcKilobotRWLF->GetResults();
+                        // of << results << std::endl;
                   }
-                  of.close();
+                  // of.close();
                   break;
             }
             case CARGoSCommandLineArgParser::ACTION_SHOW_HELP:

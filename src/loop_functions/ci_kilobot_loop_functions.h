@@ -71,13 +71,13 @@ public:
   virtual ~CIKilobotLoopFunctions() {}
 
   virtual void Init(TConfigurationNode &t_tree);
-  //  virtual void Reset();
+  virtual void Reset();
   //  virtual void Destroy();
   //  virtual CColor GetFloorColor(const CVector2& c_position_on_plane);
   virtual void PostStep();
 
   virtual bool IsExperimentFinished();
-  //  virtual void SetExperiment();
+  virtual void SetExperiment();
   virtual void PostExperiment();
 
   const UInt32 GetNumRobots() const
@@ -89,10 +89,10 @@ public:
   inline const TRWResults &GetResults() const { return m_tResults; };
 
 private:
-  //  CFloorEntity* m_pcFloor;
-  //  CRandom::CRNG* m_pcRNG;
+  CFloorEntity *m_pcFloor;
+  CRandom::CRNG *m_pcRNG;
 
-  //  Real m_fArenaRadius;
+  Real m_fArenaRadius;
   UInt32 m_unNumRobots;
   //  CVector2 m_cTargetPosition;
   //  Real m_fTargetRadius;

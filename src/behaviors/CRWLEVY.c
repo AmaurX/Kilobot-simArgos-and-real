@@ -32,7 +32,7 @@ uint32_t f_p_t = 0; // first passage time
 uint32_t f_i_t = 0; // first moment when i received the information
 
 /*CRW Parameters*/
-const double CRW_exponent = 0.9;
+const double CRW_exponent = 0.7;
 
 /*LEVY Parameters*/
 const double levy_exponent = 2;
@@ -107,12 +107,14 @@ void setup()
   uint8_t seed = rand_hard();
   rand_seed(seed);
   srand(seed);
-
+  f_i_t = 0;
+  f_p_t = 0;
   /*Compute the message CRC value for the Target_id*/
   messageA.data[0] = (uint8_t)id_robot;
   /* Compute the message CRC value for the id */
   messageA.data[1] = 0; // 0 I don't have the message
   messageA.type = NORMAL;
+  memset(&(messageA.data[1]), 0, 8);
   messageA.crc = message_crc(&messageA);
 
   /* Initialise motion variables */
@@ -268,12 +270,21 @@ void kilobotinfo()
     //printf("%" PRIu32 "\n", f_i_t);
   }
 }
+
+void check_reset()
+{
+  if (kilo_ticks == 0) // NOT THE RIGHT TEST, kilo_tick doesnt reinitiate?
+  {
+    setup();
+  }
+}
+
 /*-------------------------------------------------------------------*/
 /* Main loop                                                         */
 /*-------------------------------------------------------------------*/
 void loop()
 {
-
+  check_reset();
   random_walk();
   broadcast();
   kilobotinfo();

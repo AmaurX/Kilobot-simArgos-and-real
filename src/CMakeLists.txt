@@ -21,7 +21,6 @@ set(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} ${CMAKE_SOURCE_DIR}/kilobots )
 
 set(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} /opt/local/lib)
 set(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} /usr/lib)
-set(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} /home/amaury/istc/argos3-kilobot/build/plugins/robots/kilobot)
 
 
 #
@@ -68,7 +67,9 @@ include(${CMAKE_SOURCE_DIR}/cmake/ARGoSPackaging.cmake)
 #
 # Compile stuff
 #
-add_subdirectory(plugins)
 add_subdirectory(behaviors behaviors_simulation)
 add_subdirectory(kilobots)
+add_subdirectory(plugins)
 add_subdirectory(loop_functions)
+
+add_subdirectory(main)

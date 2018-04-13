@@ -2,8 +2,6 @@
 # kilobot headers
 #
 # argos3/plugins/robots/kilobot/control_interface
-
-
 set(ARGOS3_HEADERS_PLUGINS_ROBOTS_KILOBOT_CONTROLINTERFACE
   control_interface/ci_kilobot_communication_actuator.h
   control_interface/ci_kilobot_communication_sensor.h

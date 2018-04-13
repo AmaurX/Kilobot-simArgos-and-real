@@ -5,11 +5,12 @@
 #ifndef KILOBOT_COMMUNICATION_ENTITY_H
 #define KILOBOT_COMMUNICATION_ENTITY_H
 
-namespace argos {
-   class CKilobotCommunicationEntity;
-   class CKilobotCommunicationMedium;
-   class CEmbodiedEntity;
-   struct SAnchor;
+namespace argos
+{
+class CKilobotCommunicationEntity;
+class CKilobotCommunicationMedium;
+class CEmbodiedEntity;
+struct SAnchor;
 }
 
 #include <argos3/core/utility/datatypes/byte_array.h>
@@ -20,157 +21,161 @@ namespace argos {
 #include <argos3/core/simulator/space/positional_indices/grid.h>
 #include <argos3/plugins/robots/kilobot/control_interface/kilolib.h>
 
-namespace argos {
+namespace argos
+{
 
-   class CKilobotCommunicationEntity : public CPositionalEntity {
+class CKilobotCommunicationEntity : public CPositionalEntity
+{
 
-   public:
+  public:
+    ENABLE_VTABLE();
 
-      ENABLE_VTABLE();
+    typedef std::vector<CKilobotCommunicationEntity *> TVector;
+    typedef CSet<CKilobotCommunicationEntity *> TSet;
 
-      typedef std::vector<CKilobotCommunicationEntity*> TVector;
-      typedef CSet<CKilobotCommunicationEntity*> TSet;
+    enum ETxStatus
+    {
+        TX_NONE,
+        TX_ATTEMPT,
+        TX_SUCCESS
+    };
 
-      enum ETxStatus {
-         TX_NONE,
-         TX_ATTEMPT,
-         TX_SUCCESS
-      };
+  public:
+    CKilobotCommunicationEntity(CComposableEntity *pc_parent,
+                                const std::string &str_id,
+                                size_t un_msg_size,
+                                Real f_range,
+                                SAnchor &s_anchor,
+                                CEmbodiedEntity &c_entity_body);
 
-   public:
+    virtual ~CKilobotCommunicationEntity() {}
 
-      CKilobotCommunicationEntity(CComposableEntity* pc_parent,
-                                  const std::string& str_id,
-                                  size_t un_msg_size,
-                                  Real f_range,
-                                  SAnchor& s_anchor,
-                                  CEmbodiedEntity& c_entity_body);
+    virtual void Reset();
 
-      virtual ~CKilobotCommunicationEntity() {}
+    virtual void Update();
 
-      virtual void Reset();
+    virtual void SetEnabled(bool b_enabled);
 
-      virtual void Update();
+    inline CEmbodiedEntity &GetEntityBody()
+    {
+        return *m_pcEntityBody;
+    }
 
-      virtual void SetEnabled(bool b_enabled);
+    inline Real GetTxRange() const
+    {
+        return m_fTxRange;
+    }
 
-      inline CEmbodiedEntity& GetEntityBody() {
-         return *m_pcEntityBody;
-      }
+    inline void SetTxRange(Real f_range)
+    {
+        m_fTxRange = f_range;
+    }
 
-      inline Real GetTxRange() const {
-         return m_fTxRange;
-      }
+    inline ETxStatus GetTxStatus() const
+    {
+        return m_eTxStatus;
+    }
 
-      inline void SetTxRange(Real f_range) {
-         m_fTxRange = f_range;
-      }
+    inline void SetTxStatus(ETxStatus e_tx_status)
+    {
+        m_eTxStatus = e_tx_status;
+    }
 
-      inline ETxStatus GetTxStatus() const {
-         return m_eTxStatus;
-      }
+    inline const message_t *GetTxMessage() const
+    {
+        return m_ptMessage;
+    }
 
-      inline void SetTxStatus(ETxStatus e_tx_status) {
-         m_eTxStatus = e_tx_status;
-      }
+    inline void SetTxMessage(message_t *pt_msg)
+    {
+        m_ptMessage = pt_msg;
+    }
 
-      inline const message_t* GetTxMessage() const {
-         return m_ptMessage;
-      }
+    inline const SAnchor &GetAnchor() const
+    {
+        return *m_psAnchor;
+    }
 
-      inline void SetTxMessage(message_t* pt_msg) {
-         m_ptMessage = pt_msg;
-      }
+    bool HasMedium() const;
 
-      inline const SAnchor& GetAnchor() const {
-         return *m_psAnchor;
-      }
+    CKilobotCommunicationMedium &GetMedium();
 
-      bool HasMedium() const;
+    void SetMedium(CKilobotCommunicationMedium &c_medium);
 
-      CKilobotCommunicationMedium& GetMedium();
+    virtual std::string GetTypeDescription() const
+    {
+        return "kilocomm";
+    }
 
-      void SetMedium(CKilobotCommunicationMedium& c_medium);
+  protected:
+    /** Body anchor this entity is attached to */
+    SAnchor *m_psAnchor;
 
-      virtual std::string GetTypeDescription() const {
-         return "kilocomm";
-      }
+    /** Transmission range */
+    Real m_fTxRange;
 
-   protected:
+    /** Robot body */
+    CEmbodiedEntity *m_pcEntityBody;
 
-      /** Body anchor this entity is attached to */
-      SAnchor* m_psAnchor;
+    /** Current message transmission status */
+    ETxStatus m_eTxStatus;
 
-      /** Transmission range */
-      Real m_fTxRange;
+    /** The message to send */
+    message_t *m_ptMessage;
 
-      /** Robot body */
-      CEmbodiedEntity* m_pcEntityBody;
+    /** The communication medium associated to this entity */
+    CKilobotCommunicationMedium *m_pcMedium;
+};
 
-      /** Current message transmission status */
-      ETxStatus m_eTxStatus;
+/****************************************/
+/****************************************/
 
-      /** The message to send */
-      message_t* m_ptMessage;
+class CKilobotCommunicationEntitySpaceHashUpdater : public CSpaceHashUpdater<CKilobotCommunicationEntity>
+{
 
-      /** The communication medium associated to this entity */
-      CKilobotCommunicationMedium* m_pcMedium;
-   };
+  public:
+    virtual void operator()(CAbstractSpaceHash<CKilobotCommunicationEntity> &c_space_hash,
+                            CKilobotCommunicationEntity &c_element);
 
-   /****************************************/
-   /****************************************/
+  private:
+    SInt32 m_nCenterI, m_nCenterJ, m_nCenterK;
+};
 
-   class CKilobotCommunicationEntitySpaceHashUpdater : public CSpaceHashUpdater<CKilobotCommunicationEntity> {
+/****************************************/
+/****************************************/
 
-   public:
+class CKilobotCommunicationEntityGridCellUpdater : public CGrid<CKilobotCommunicationEntity>::CCellOperation
+{
 
-      virtual void operator()(CAbstractSpaceHash<CKilobotCommunicationEntity>& c_space_hash,
-                              CKilobotCommunicationEntity& c_element);
+  public:
+    CKilobotCommunicationEntityGridCellUpdater(CGrid<CKilobotCommunicationEntity> &c_grid);
 
-   private:
+    virtual bool operator()(SInt32 n_i,
+                            SInt32 n_j,
+                            SInt32 n_k,
+                            CGrid<CKilobotCommunicationEntity>::SCell &s_cell);
 
-      SInt32 m_nCenterI, m_nCenterJ, m_nCenterK;
+    void SetEntity(CKilobotCommunicationEntity &c_entity);
 
-   };
+  private:
+    CGrid<CKilobotCommunicationEntity> &m_cGrid;
+    CKilobotCommunicationEntity *m_pcEntity;
+};
 
-   /****************************************/
-   /****************************************/
+class CKilobotCommunicationEntityGridEntityUpdater : public CGrid<CKilobotCommunicationEntity>::COperation
+{
 
-   class CKilobotCommunicationEntityGridCellUpdater : public CGrid<CKilobotCommunicationEntity>::CCellOperation {
+  public:
+    CKilobotCommunicationEntityGridEntityUpdater(CGrid<CKilobotCommunicationEntity> &c_grid);
+    virtual bool operator()(CKilobotCommunicationEntity &c_entity);
 
-   public:
+  private:
+    CGrid<CKilobotCommunicationEntity> &m_cGrid;
+    CKilobotCommunicationEntityGridCellUpdater m_cCellUpdater;
+};
 
-      CKilobotCommunicationEntityGridCellUpdater(CGrid<CKilobotCommunicationEntity>& c_grid);
-
-      virtual bool operator()(SInt32 n_i,
-                              SInt32 n_j,
-                              SInt32 n_k,
-                              CGrid<CKilobotCommunicationEntity>::SCell& s_cell);
-
-      void SetEntity(CKilobotCommunicationEntity& c_entity);
-
-   private:
-
-      CGrid<CKilobotCommunicationEntity>& m_cGrid;
-      CKilobotCommunicationEntity* m_pcEntity;
-   };
-
-   class CKilobotCommunicationEntityGridEntityUpdater : public CGrid<CKilobotCommunicationEntity>::COperation {
-
-   public:
-
-      CKilobotCommunicationEntityGridEntityUpdater(CGrid<CKilobotCommunicationEntity>& c_grid);
-      virtual bool operator()(CKilobotCommunicationEntity& c_entity);
-
-   private:
-
-      CGrid<CKilobotCommunicationEntity>& m_cGrid;
-      CKilobotCommunicationEntityGridCellUpdater m_cCellUpdater;
-   };
-
-   /****************************************/
-   /****************************************/
-
+/****************************************/
+/****************************************/
 }
 
 #endif
