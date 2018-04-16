@@ -10,34 +10,31 @@
 #include <argos3/core/wrappers/lua/lua_utility.h>
 #endif
 
-namespace argos
-{
+namespace argos {
 
-/****************************************/
-/****************************************/
+   /****************************************/
+   /****************************************/
 
-CCI_KilobotCommunicationActuator::CCI_KilobotCommunicationActuator()
-{
-}
+   CCI_KilobotCommunicationActuator::CCI_KilobotCommunicationActuator() {
+   }
 
-/****************************************/
-/****************************************/
+   /****************************************/
+   /****************************************/
 
-void CCI_KilobotCommunicationActuator::SetMessage(message_t *pt_msg)
-{
-    m_ptMessage = pt_msg;
-}
+   void CCI_KilobotCommunicationActuator::SetMessage(message_t* pt_msg) {
+      m_ptMessage = pt_msg;
+   }
 
-    /****************************************/
-    /****************************************/
+   /****************************************/
+   /****************************************/
 
 #ifdef ARGOS_WITH_LUA
-void CCI_KilobotCommunicationActuator::CreateLuaState(lua_State *pt_lua_state)
-{
-    // TODO
-}
+   void CCI_KilobotCommunicationActuator::CreateLuaState(lua_State* pt_lua_state) {
+      // TODO
+   }
 #endif
 
-/****************************************/
-/****************************************/
+   /****************************************/
+   /****************************************/
+
 }

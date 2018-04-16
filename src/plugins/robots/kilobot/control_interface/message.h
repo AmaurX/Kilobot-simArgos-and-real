@@ -22,11 +22,10 @@ typedef enum {
  * @see message_crc, kilo_message_rx, kilo_message_tx,
  * kilo_message_tx_success
  */
-typedef struct
-{
+typedef struct {
     uint8_t data[9]; ///< message payload.
-    uint8_t type;    ///< message type.
+    uint8_t type;    ///< message type. 
     uint16_t crc;    ///< message crc.
 } message_t;
 
-#endif //__MESSAGES_H__
+#endif//__MESSAGES_H__

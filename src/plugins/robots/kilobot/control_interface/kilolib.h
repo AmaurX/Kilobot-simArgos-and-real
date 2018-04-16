@@ -35,10 +35,10 @@
 #include "message.h"
 #include "message_crc.h"
 
-#define RGB(r, g, b) (r & 3) | (((g & 3) << 2)) | ((b & 3) << 4)
-#define RED(c) ((c)&3)
-#define GREEN(c) ((c >> 2) & 3)
-#define BLUE(c) ((c >> 4) & 3)
+#define RGB(r,g,b) (r&3)|(((g&3)<<2))|((b&3)<<4)
+#define RED(c)     ((c     ) & 3)
+#define GREEN(c)   ((c >> 2) & 3)
+#define BLUE(c)    ((c >> 4) & 3)
 #define TICKS_PER_SEC 31
 
 /**
@@ -59,8 +59,7 @@
  * of the sender.
  */
 
-typedef struct
-{
+typedef struct {
     int16_t low_gain;  ///< Low gain 10-bit signal-strength measurement.
     int16_t high_gain; ///< High gain 10-bit signal-strength measurement.
 } distance_measurement_t;
@@ -102,6 +101,7 @@ typedef void (*message_tx_success_t)(void);
  * @endcode
  */
 
+extern char* kilo_str_id; // kilobot id as string
 extern uint32_t kilo_ticks;
 extern uint16_t kilo_tx_period;
 /**
@@ -540,6 +540,7 @@ void kilo_init();
  */
 void kilo_start(void (*setup)(void), void (*loop)(void));
 
+
 /**
  * Maximum number of messages received by a Kilobot in a timestep
  */
@@ -553,23 +554,22 @@ void kilo_start(void (*setup)(void), void (*loop)(void));
  *
  * Do not use this in your own programs.
  */
-typedef struct
-{
-    message_t tx_message;                               // the message to send
-    uint8_t tx_state;                                   // 0 = none, 1 = sending, 2 = sent
-    message_t rx_message[KILOBOT_MAX_RX];               // the received messages
-    distance_measurement_t rx_distance[KILOBOT_MAX_RX]; // distance of message sources
-    uint8_t rx_state;                                   // 0 = none, >0 # of received messages
-    int16_t ambientlight;                               // used by get_ambientlight()
-    int16_t voltage;                                    // used by get_voltage()
-    int16_t temperature;                                // used by get_temperature()
-    uint8_t left_motor;                                 // used by set_motors()
-    uint8_t right_motor;                                // used by set_motors()
-    uint8_t color;                                      // used by set_color()
+typedef struct {
+   message_t              tx_message;     // the message to send
+   uint8_t                tx_state;       // 0 = none, 1 = sending, 2 = sent
+   message_t              rx_message[KILOBOT_MAX_RX];  // the received messages
+   distance_measurement_t rx_distance[KILOBOT_MAX_RX]; // distance of message sources
+   uint8_t                rx_state;       // 0 = none, >0 # of received messages
+   int16_t                ambientlight;   // used by get_ambientlight()
+   int16_t                voltage;        // used by get_voltage()
+   int16_t                temperature;    // used by get_temperature()
+   uint8_t                left_motor;     // used by set_motors()
+   uint8_t                right_motor;    // used by set_motors()
+   uint8_t                color;          // used by set_color()
 } kilobot_state_t;
 
 #ifdef __cplusplus /* If this is a C++ compiler, use C linkage */
 }
 #endif
 
-#endif //__KILOLIB_H__
+#endif//__KILOLIB_H__

@@ -11,10 +11,9 @@
 #include <string>
 #include <map>
 
-namespace argos
-{
-class CKilobotLightRotZOnlySensor;
-class CLightSensorEquippedEntity;
+namespace argos {
+   class CKilobotLightRotZOnlySensor;
+   class CLightSensorEquippedEntity;
 }
 
 #include <argos3/plugins/robots/kilobot/control_interface/ci_kilobot_light_sensor.h>
@@ -23,51 +22,52 @@ class CLightSensorEquippedEntity;
 #include <argos3/core/simulator/space/space.h>
 #include <argos3/core/simulator/sensor.h>
 
-namespace argos
-{
+namespace argos {
 
-class CKilobotLightRotZOnlySensor : public CSimulatedSensor,
-                                    public CCI_KilobotLightSensor
-{
+   class CKilobotLightRotZOnlySensor : public CSimulatedSensor,
+                                       public CCI_KilobotLightSensor {
 
-  public:
-    CKilobotLightRotZOnlySensor();
+   public:
 
-    virtual ~CKilobotLightRotZOnlySensor() {}
+      CKilobotLightRotZOnlySensor();
 
-    virtual void SetRobot(CComposableEntity &c_entity);
+      virtual ~CKilobotLightRotZOnlySensor() {}
 
-    virtual void Init(TConfigurationNode &t_tree);
+      virtual void SetRobot(CComposableEntity& c_entity);
 
-    virtual void Update();
+      virtual void Init(TConfigurationNode& t_tree);
 
-    virtual void Reset();
+      virtual void Update();
 
-  protected:
-    /** Reference to embodied entity associated to this sensor */
-    CEmbodiedEntity *m_pcEmbodiedEntity;
+      virtual void Reset();
 
-    /** Reference to light sensor equipped entity associated to this sensor */
-    CLightSensorEquippedEntity *m_pcLightEntity;
+   protected:
 
-    /** Reference to controllable entity associated to this sensor */
-    CControllableEntity *m_pcControllableEntity;
+      /** Reference to embodied entity associated to this sensor */
+      CEmbodiedEntity* m_pcEmbodiedEntity;
 
-    /** Flag to show rays in the simulator */
-    bool m_bShowRays;
+      /** Reference to light sensor equipped entity associated to this sensor */
+      CLightSensorEquippedEntity* m_pcLightEntity;
 
-    /** Random number generator */
-    CRandom::CRNG *m_pcRNG;
+      /** Reference to controllable entity associated to this sensor */
+      CControllableEntity* m_pcControllableEntity;
 
-    /** Whether to add noise or not */
-    bool m_bAddNoise;
+      /** Flag to show rays in the simulator */
+      bool m_bShowRays;
 
-    /** Noise range */
-    CRange<Real> m_cNoiseRange;
+      /** Random number generator */
+      CRandom::CRNG* m_pcRNG;
 
-    /** Reference to the space */
-    CSpace &m_cSpace;
-};
+      /** Whether to add noise or not */
+      bool m_bAddNoise;
+
+      /** Noise range */
+      CRange<Real> m_cNoiseRange;
+
+      /** Reference to the space */
+      CSpace& m_cSpace;
+   };
+
 }
 
 #endif

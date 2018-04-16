@@ -11,12 +11,11 @@
 #ifndef KILOBOT_COMMUNICATION_DEFAULT_SENSOR_H
 #define KILOBOT_COMMUNICATION_DEFAULT_SENSOR_H
 
-namespace argos
-{
-class CKilobotCommunicationDefaultSensor;
-class CKilobotCommunicationEntity;
-class CKilobotCommunicationMedium;
-class CControllableEntity;
+namespace argos {
+   class CKilobotCommunicationDefaultSensor;
+   class CKilobotCommunicationEntity;
+   class CKilobotCommunicationMedium;
+   class CControllableEntity;
 }
 
 #include <argos3/core/simulator/sensor.h>
@@ -24,32 +23,33 @@ class CControllableEntity;
 #include <argos3/core/simulator/space/space.h>
 #include <argos3/plugins/robots/kilobot/control_interface/ci_kilobot_communication_sensor.h>
 
-namespace argos
-{
+namespace argos {
 
-class CKilobotCommunicationDefaultSensor : public CCI_KilobotCommunicationSensor,
-                                           public CSimulatedSensor
-{
+   class CKilobotCommunicationDefaultSensor : public CCI_KilobotCommunicationSensor,
+                                              public CSimulatedSensor {
 
-  public:
-    CKilobotCommunicationDefaultSensor();
-    virtual ~CKilobotCommunicationDefaultSensor() {}
+   public:
 
-    virtual void SetRobot(CComposableEntity &c_entity);
-    virtual void Init(TConfigurationNode &t_tree);
-    virtual void Update();
-    virtual void Reset();
-    virtual void Destroy();
+      CKilobotCommunicationDefaultSensor();
+      virtual ~CKilobotCommunicationDefaultSensor() {}
 
-  private:
-    CKilobotCommunicationEntity *m_pcCommEntity;
-    CKilobotCommunicationMedium *m_pcMedium;
-    CControllableEntity *m_pcControllableEntity;
-    Real m_fDistanceNoiseStdDev;
-    CRandom::CRNG *m_pcRNG;
-    CSpace &m_cSpace;
-    bool m_bShowRays;
-};
+      virtual void SetRobot(CComposableEntity& c_entity);
+      virtual void Init(TConfigurationNode& t_tree);
+      virtual void Update();
+      virtual void Reset();
+      virtual void Destroy();
+
+   private:
+
+      CKilobotCommunicationEntity* m_pcCommEntity;
+      CKilobotCommunicationMedium* m_pcMedium;
+      CControllableEntity*         m_pcControllableEntity;
+      Real                         m_fDistanceNoiseStdDev;
+      CRandom::CRNG*               m_pcRNG;
+      CSpace&                      m_cSpace;
+      bool                         m_bShowRays;
+   };
+
 }
 
 #endif

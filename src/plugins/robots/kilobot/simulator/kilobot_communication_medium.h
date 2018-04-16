@@ -1,10 +1,9 @@
 #ifndef KILOBOT_COMMUNICATION_MEDIUM_H
 #define KILOBOT_COMMUNICATION_MEDIUM_H
 
-namespace argos
-{
-class CKilobotCommunicationMedium;
-class CKilobotCommunicationEntity;
+namespace argos {
+   class CKilobotCommunicationMedium;
+   class CKilobotCommunicationEntity;
 }
 
 #include <argos3/core/utility/math/rng.h>
@@ -12,84 +11,86 @@ class CKilobotCommunicationEntity;
 #include <argos3/core/simulator/space/positional_indices/positional_index.h>
 #include <argos3/plugins/robots/kilobot/simulator/kilobot_communication_entity.h>
 
-namespace argos
-{
+namespace argos {
 
-class CKilobotCommunicationMedium : public CMedium
-{
+   class CKilobotCommunicationMedium : public CMedium {
 
-  public:
-    /** Defines the adjacency matrix */
-    typedef unordered_map<ssize_t, CSet<CKilobotCommunicationEntity *, SEntityComparator>> TAdjacencyMatrix;
+   public:
 
-  public:
-    /**
+      /** Defines the adjacency matrix */
+      typedef unordered_map<ssize_t, CSet<CKilobotCommunicationEntity*,SEntityComparator> > TAdjacencyMatrix;
+
+   public:
+
+      /**
        * Class constructor.
        */
-    CKilobotCommunicationMedium();
+      CKilobotCommunicationMedium();
 
-    /**
+      /**
        * Class destructor.
        */
-    virtual ~CKilobotCommunicationMedium();
+      virtual ~CKilobotCommunicationMedium();
 
-    virtual void Init(TConfigurationNode &t_tree);
-    virtual void PostSpaceInit();
-    virtual void Reset();
-    virtual void Destroy();
-    virtual void Update();
+      virtual void Init(TConfigurationNode& t_tree);
+      virtual void PostSpaceInit();
+      virtual void Reset();
+      virtual void Destroy();
+      virtual void Update();
 
-    /**
+      /**
        * Adds the specified entity to the list of managed entities.
        * @param c_entity The entity to add.
        */
-    void AddEntity(CKilobotCommunicationEntity &c_entity);
-
-    /**
+      void AddEntity(CKilobotCommunicationEntity& c_entity);
+      
+      /**
        * Removes the specified entity from the list of managed entities.
        * @param c_entity The entity to remove.
        */
-    void RemoveEntity(CKilobotCommunicationEntity &c_entity);
+      void RemoveEntity(CKilobotCommunicationEntity& c_entity);
 
-    /**
+      /**
        * Returns an immutable vector of entities that can communicate with the given entity.
        * @param c_entity The wanted entity.
        * @return An immutable vector of entities that can communicate with the given entity.       
        * @throws CARGoSException If the passed entity is not managed by this medium.
        */
-    const CSet<CKilobotCommunicationEntity *, SEntityComparator> &GetKilobotsCommunicatingWith(CKilobotCommunicationEntity &c_entity) const;
+      const CSet<CKilobotCommunicationEntity*,SEntityComparator>& GetKilobotsCommunicatingWith(CKilobotCommunicationEntity& c_entity) const;
 
-    /**
+      /**
        * Returns a reference to the adjacency matrix.
        * @return A reference to the adjacency matrix.
        */
-    TAdjacencyMatrix &GetCommMatrix()
-    {
-        return m_tCommMatrix;
-    }
+      TAdjacencyMatrix& GetCommMatrix(){
+          return m_tCommMatrix;
+      }
 
-  private:
-    /** The adjacency matrix, that associates each entity with the entities that communicate with it */
-    TAdjacencyMatrix m_tCommMatrix;
+   private:
 
-    /** The adjacency matrix of neighbors of a transmitting robot who are also transmitting */
-    TAdjacencyMatrix m_tTxNeighbors;
+      /** The adjacency matrix, that associates each entity with the entities that communicate with it */
+      TAdjacencyMatrix m_tCommMatrix;
 
-    /** A positional index for the kilobot communication entities */
-    CPositionalIndex<CKilobotCommunicationEntity> *m_pcKilobotIndex;
+      /** The adjacency matrix of neighbors of a transmitting robot who are also transmitting */
+      TAdjacencyMatrix m_tTxNeighbors;
 
-    /** The update operation for the grid positional index */
-    CKilobotCommunicationEntityGridEntityUpdater *m_pcGridUpdateOperation;
+      /** A positional index for the kilobot communication entities */
+      CPositionalIndex<CKilobotCommunicationEntity>* m_pcKilobotIndex;
 
-    /** Random number generator */
-    CRandom::CRNG *m_pcRNG;
+      /** The update operation for the grid positional index */
+      CKilobotCommunicationEntityGridEntityUpdater* m_pcGridUpdateOperation;
 
-    /** Probability of receiving a message */
-    Real m_fRxProb;
+      /** Random number generator */
+      CRandom::CRNG* m_pcRNG;
 
-    /** Whether to ignore communication conflicts due to channel congestion */
-    bool m_bIgnoreConflicts;
-};
+      /** Probability of receiving a message */
+      Real m_fRxProb;
+
+      /** Whether to ignore communication conflicts due to channel congestion */
+      bool m_bIgnoreConflicts;
+
+   };
+
 }
 
 #endif

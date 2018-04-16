@@ -8,10 +8,9 @@
 #ifndef QTOPENGL_KILOBOT_H
 #define QTOPENGL_KILOBOT_H
 
-namespace argos
-{
-class CQTOpenGLKilobot;
-class CKilobotEntity;
+namespace argos {
+   class CQTOpenGLKilobot;
+   class CKilobotEntity;
 }
 
 #ifdef __APPLE__
@@ -20,60 +19,63 @@ class CKilobotEntity;
 #include <GL/gl.h>
 #endif
 
-namespace argos
-{
+namespace argos {
 
-class CQTOpenGLKilobot
-{
+   class CQTOpenGLKilobot {
 
-  public:
-    CQTOpenGLKilobot();
+   public:
 
-    virtual ~CQTOpenGLKilobot();
+      CQTOpenGLKilobot();
 
-    virtual void Draw(CKilobotEntity &c_entity);
+      virtual ~CQTOpenGLKilobot();
 
-  protected:
-    /** Renders a materialless wheel
+      virtual void Draw(CKilobotEntity& c_entity);
+
+   protected:
+
+      /** Renders a materialless wheel
           - centered in 0,0,0
           - rotation axis: Y
        */
-    void MakeWheel();
+      void MakeWheel();
 
-    /** Sets a white plastic material */
-    void SetWhitePlasticMaterial();
-    /** Sets a black tire material */
-    void SetBlackTireMaterial();
-    /** Sets a circuit board material */
-    void SetCircuitBoardMaterial();
-    /** Sets a colored LED material */
-    void SetLEDMaterial(GLfloat f_red, GLfloat f_green, GLfloat f_blue);
+      /** Sets a white plastic material */
+      void SetWhitePlasticMaterial();
+      /** Sets a black tire material */
+      void SetBlackTireMaterial();
+      /** Sets a circuit board material */
+      void SetCircuitBoardMaterial();
+      /** Sets a colored LED material */
+      void SetLEDMaterial(GLfloat f_red, GLfloat f_green, GLfloat f_blue);
 
-    /** Renders the wheels */
-    void RenderWheel();
-    /** Renders the base (apart from the wheels) */
-    void RenderBase();
-    /** Renders the LED */
-    void RenderLED();
+      /** Renders the wheels */
+      void RenderWheel();
+      /** Renders the base (apart from the wheels) */
+      void RenderBase();
+      /** Renders the LED */
+      void RenderLED();
 
-  private:
-    /** Start of the display list index */
-    GLuint m_unLists;
+   private:
 
-    /** List corresponding to the materialless wheel */
-    GLuint m_unBasicWheelList;
+      /** Start of the display list index */
+      GLuint m_unLists;
 
-    /** kilobot wheel */
-    GLuint m_unWheelList;
-    /** kilobot base module */
-    GLuint m_unBaseList;
-    /** kilobot LED */
-    GLuint m_unLEDList;
+      /** List corresponding to the materialless wheel */
+      GLuint m_unBasicWheelList;
 
-    /** Number of vertices to display the round parts
+      /** kilobot wheel */
+      GLuint m_unWheelList;
+      /** kilobot base module */
+      GLuint m_unBaseList;
+      /** kilobot LED */
+      GLuint m_unLEDList;
+
+      /** Number of vertices to display the round parts
           (chassis, etc.) */
-    GLuint m_unVertices;
-};
+      GLuint m_unVertices;
+
+   };
+
 }
 
 #endif

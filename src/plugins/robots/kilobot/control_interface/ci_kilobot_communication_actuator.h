@@ -11,9 +11,8 @@
 #ifndef CCI_KILOBOT_COMMUNICATION_ACTUATOR_H
 #define CCI_KILOBOT_COMMUNICATION_ACTUATOR_H
 
-namespace argos
-{
-class CCI_KilobotCommunicationActuator;
+namespace argos {
+   class CCI_KilobotCommunicationActuator;
 }
 
 #include <argos3/core/control_interface/ci_actuator.h>
@@ -21,25 +20,27 @@ class CCI_KilobotCommunicationActuator;
 #include <argos3/core/utility/datatypes/datatypes.h>
 #include <vector>
 
-namespace argos
-{
+namespace argos {
 
-class CCI_KilobotCommunicationActuator : public CCI_Actuator
-{
+   class CCI_KilobotCommunicationActuator : public CCI_Actuator {
 
-    public:
+   public:
+
       CCI_KilobotCommunicationActuator();
       virtual ~CCI_KilobotCommunicationActuator() {}
 
-      virtual void SetMessage(message_t *pt_msg);
+      virtual void SetMessage(message_t* pt_msg);
 
 #ifdef ARGOS_WITH_LUA
-      virtual void CreateLuaState(lua_State *pt_lua_state);
+      virtual void CreateLuaState(lua_State* pt_lua_state);
 #endif
 
-    protected:
-      message_t *m_ptMessage;
-};
+   protected:
+
+      message_t* m_ptMessage;
+
+   };
+
 }
 
 #endif
