@@ -88,7 +88,7 @@ def main():
 
     plt.xlabel("Time in ARGoS ticks")
     plt.ylabel("MSD in m^2")
-    plt.title("Arena size: " + arena_size + "m " +
+    plt.title("Arena diameter: " + arena_size + "m " +
               str(number_of_robots) + " kilobots per run, " + str(w_displacement_run_count) + " runs")
     plt.legend()
     plt.savefig(folder + "/Window_MSD_"+arena_size + "m*" + arena_size +
