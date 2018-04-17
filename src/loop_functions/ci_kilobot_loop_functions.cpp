@@ -282,7 +282,7 @@ const std::string currentDateTime()
       struct tm tstruct;
       char buf[80];
       tstruct = *localtime(&now);
-      strftime(buf, sizeof(buf), "%Y%m%d-%X", &tstruct);
+      strftime(buf, sizeof(buf), "%Y%m%d-%X-%M", &tstruct);
 
       return buf;
 }
@@ -312,9 +312,12 @@ void CIKilobotLoopFunctions::PostExperiment()
                   exit(1);
             }
       }
-      std::string displacement_file = folder + "/" + dateTime + "_displacement.tsv";
-      std::string position_file = folder + "/" + dateTime + "_position.tsv";
-      std::string time_results_file = folder + "/" + dateTime + "_time_results.tsv";
+      char randomStr[3];
+      int randomInt = m_pcRNG->Uniform(CRange<int>((int)0, (int)999));
+      sprintf(randomStr, "%d",randomInt);
+      std::string displacement_file = folder + "/" + dateTime + "_" + randomStr + "_displacement.tsv";
+      std::string position_file = folder + "/" + dateTime + "_" + randomStr + "_position.tsv";
+      std::string time_results_file = folder + "/" + dateTime + "_" + randomStr + "_time_results.tsv";
 
       std::ofstream of(time_results_file, std::ios::out);
 

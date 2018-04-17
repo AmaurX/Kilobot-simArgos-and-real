@@ -52,8 +52,8 @@ def main():
 
     plt.xlabel("Time in ARGoS ticks")
     plt.ylabel("MSD in m^2")
-    plt.title("Arena size: " + arena_size + "m*" +
-              arena_size + "m, " + str(number_of_robots) + " kilobots per run, " + str(displacement_run_count) + " runs")
+    plt.title("Arena diameter: " + arena_size + "m "
+              + str(number_of_robots) + " kilobots per run, " + str(displacement_run_count) + " runs")
     plt.legend()
     plt.savefig(folder + "/MSD_"+arena_size + "m*" + arena_size +
                 "m_" + str(number_of_robots) + "kilobots_" + str(displacement_run_count) + " runs.png", bbox_inches='tight', dpi=200, orientation="landscape")
@@ -88,8 +88,8 @@ def main():
 
     plt.xlabel("Time in ARGoS ticks")
     plt.ylabel("MSD in m^2")
-    plt.title("Arena size: " + arena_size + "m*" +
-              arena_size + "m, " + str(number_of_robots) + " kilobots per run, " + str(w_displacement_run_count) + " runs")
+    plt.title("Arena size: " + arena_size + "m " +
+              str(number_of_robots) + " kilobots per run, " + str(w_displacement_run_count) + " runs")
     plt.legend()
     plt.savefig(folder + "/Window_MSD_"+arena_size + "m*" + arena_size +
                 "m_" + str(number_of_robots) + "kilobots_" + str(w_displacement_run_count) + " runs.png", bbox_inches='tight', dpi=200, orientation="landscape")

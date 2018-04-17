@@ -1,6 +1,6 @@
 /*@authors vtrianni and cdimidov*/
 
-#include "kilolib.h"
+#include <kilolib.h>
 #define DEBUG
 #if REAL
 #define DEBUG

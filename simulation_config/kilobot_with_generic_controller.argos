@@ -9,7 +9,7 @@
 
   <framework>
     <system threads="0" />
-    <experiment length="1000"
+    <experiment length="120"
                 ticks_per_second="30"
                  />
   </framework>
