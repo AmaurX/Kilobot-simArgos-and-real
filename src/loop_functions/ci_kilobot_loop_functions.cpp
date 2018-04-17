@@ -302,7 +302,9 @@ void CIKilobotLoopFunctions::PostExperiment()
 {
       std::string dateTime = currentDateTime();
       std::string date = currentDate();
-      std::string folder = "experiments/" + date + "_experiments";
+      char numRobotStr[10];
+      sprintf(numRobotStr, "%d", m_unNumRobots);
+      std::string folder = "experiments/" + date + "_" + numRobotStr + "robots" + "_experiments";
       if (opendir(folder.c_str()) == NULL)
       {
             const int dir_err = mkdir(folder.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
@@ -314,7 +316,7 @@ void CIKilobotLoopFunctions::PostExperiment()
       }
       char randomStr[3];
       int randomInt = m_pcRNG->Uniform(CRange<int>((int)0, (int)999));
-      sprintf(randomStr, "%d",randomInt);
+      sprintf(randomStr, "%d", randomInt);
       std::string displacement_file = folder + "/" + dateTime + "_" + randomStr + "_displacement.tsv";
       std::string position_file = folder + "/" + dateTime + "_" + randomStr + "_position.tsv";
       std::string time_results_file = folder + "/" + dateTime + "_" + randomStr + "_time_results.tsv";

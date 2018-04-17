@@ -57,7 +57,7 @@ def main():
     plt.legend()
     plt.savefig(folder + "/MSD_"+arena_size + "m*" + arena_size +
                 "m_" + str(number_of_robots) + "kilobots_" + str(displacement_run_count) + " runs.png", bbox_inches='tight', dpi=200, orientation="landscape")
-    plt.show(block=False)
+    # plt.show(block=False)
     plt.close()
 
     current_sum_w_displacement = []
@@ -93,7 +93,8 @@ def main():
     plt.legend()
     plt.savefig(folder + "/Window_MSD_"+arena_size + "m*" + arena_size +
                 "m_" + str(number_of_robots) + "kilobots_" + str(w_displacement_run_count) + " runs.png", bbox_inches='tight', dpi=200, orientation="landscape")
-    plt.show()
+    # plt.show(block=False)
+    plt.close()
 
 
 def displacement(folder, filename, current_sum_displacement, total_number_of_robots, num_robots):
