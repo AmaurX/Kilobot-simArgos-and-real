@@ -107,7 +107,7 @@ void CIKilobotLoopFunctions::Init(TConfigurationNode &t_node)
 
 void CIKilobotLoopFunctions::Reset()
 {
-      LOG << "Reset!" << std::endl;
+      // LOG << "Reset!" << std::endl;
       SetExperiment();
 }
 
@@ -124,7 +124,7 @@ void CIKilobotLoopFunctions::Reset()
 void CIKilobotLoopFunctions::SetExperiment()
 {
       // // initialise/reset the internal variables
-      LOG << "Set Experiment!" << std::endl;
+      // LOG << "Set Experiment!" << std::endl;
       m_tResults.Reset();
 
       for (CSpace::TMapPerType::iterator it = m_cKilobots.begin(); it != m_cKilobots.end(); ++it)
@@ -172,6 +172,11 @@ void CIKilobotLoopFunctions::SetExperiment()
             std::vector<Real> displacement_init;
             displacement_init.push_back((Real)0.0);
             m_cKilobotDisplacements.push_back(displacement_init);
+
+            std::vector<int> times_init;
+            times_init.push_back(0);
+            times_init.push_back(0);
+            m_cKilobotDiscoveryInformationTime.push_back(times_init);
       }
 }
 
@@ -236,10 +241,12 @@ void CIKilobotLoopFunctions::PostStep()
             if (message.data[0] == 1 && first_passage_time != 0)
             {
                   num_robots_with_discovery += 1;
+                  m_cKilobotDiscoveryInformationTime[un_robot_index][0] = first_passage_time;
             }
             if (message.data[0] == 1 && first_info_time != 0)
             {
                   num_robots_with_info += 1;
+                  m_cKilobotDiscoveryInformationTime[un_robot_index][1] = first_info_time;
             }
 
             munmap(robotState, sizeof(kilobot_state_t));
@@ -322,42 +329,51 @@ void CIKilobotLoopFunctions::PostExperiment()
       std::string position_file = folder + "/" + dateTime + "_" + randomStr + "_position.tsv";
       std::string time_results_file = folder + "/" + dateTime + "_" + randomStr + "_time_results.tsv";
 
-      std::ofstream of(time_results_file, std::ios::out);
-
-      TRWResults results = GetResults();
-      of << results << std::endl;
-      LOG << results << std::endl;
-
+      std::ofstream of_1(time_results_file, std::ios::out);
       std::ofstream of_2(displacement_file, std::ios::out);
       std::ofstream of_3(position_file, std::ios::out);
 
-      of_2 << "Robot id\t";
-      of_3 << "Robot id\t";
+      TRWResults results = GetResults();
+      // of << results << std::endl;
+      LOG << results << std::endl;
+
+      of_1 << "Robot id\tFirst discovery time\tFirst information time" << std::endl;
+      of_2 << "Robot id";
+      of_3 << "Robot id";
+
       for (uint j = 0; j < m_cKilobotDisplacements[0].size(); j++)
       {
-            of_2 << "t = " << j * m_samplingPeriod << '\t';
+            of_2 << "\tt = " << j * m_samplingPeriod;
       }
       of_2 << std::endl;
 
       for (uint j = 0; j < m_cKilobotPositions[0].size(); j++)
       {
-            of_3 << "t = " << j * m_samplingPeriod << '\t';
+            of_3 << "\tt = " << j * m_samplingPeriod;
       }
       of_3 << std::endl;
 
       for (uint i = 0; i < m_unNumRobots; i++)
       {
-            of_2 << i + 1 << "\t";
-            of_3 << i + 1 << "\t";
+            of_1 << i + 1;
+            of_2 << i + 1;
+            of_3 << i + 1;
+
+            for (uint j = 0; j < m_cKilobotDiscoveryInformationTime[i].size(); j++)
+            {
+                  of_1 << '\t' << std::setprecision(4) << (m_cKilobotDiscoveryInformationTime[i])[j];
+            }
+            of_1 << std::endl;
 
             for (uint j = 0; j < m_cKilobotDisplacements[i].size(); j++)
             {
-                  of_2 << std::setprecision(4) << (m_cKilobotDisplacements[i])[j] << '\t';
+                  of_2 << '\t' << std::setprecision(4) << (m_cKilobotDisplacements[i])[j];
             }
             of_2 << std::endl;
+
             for (uint j = 0; j < m_cKilobotPositions[i].size(); j++)
             {
-                  of_3 << std::setprecision(4) << (m_cKilobotPositions[i])[j] << '\t';
+                  of_3 << '\t' << std::setprecision(4) << (m_cKilobotPositions[i])[j];
             }
             of_3 << std::endl;
       }

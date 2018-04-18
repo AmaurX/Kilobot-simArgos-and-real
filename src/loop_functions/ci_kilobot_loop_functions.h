@@ -101,7 +101,7 @@ private:
   std::vector<CVector2> m_cKilobotOriginalPositions;
   std::vector<std::vector<Real>> m_cKilobotDisplacements;
   std::vector<std::vector<CVector2>> m_cKilobotPositions;
-
+  std::vector<std::vector<int>> m_cKilobotDiscoveryInformationTime;
   TRWResults m_tResults;
   int m_samplingPeriod;
   int internal_counter;

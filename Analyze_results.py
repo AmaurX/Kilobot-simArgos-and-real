@@ -108,9 +108,10 @@ def displacement(folder, filename, current_sum_displacement, total_number_of_rob
 
     for row in tsvin:
         if(row[0] == "Robot id"):
-            average_displacement = np.zeros(len(row) - 2)
             expe_length = len(row) - 2
-            time_list = np.zeros(len(row) - 2)
+
+            average_displacement = np.zeros(expe_length)
+            time_list = np.zeros(expe_length)
             for i in range(1, len(row) - 1):
                 timestep = row[i].strip("t = ")
                 timestep = timestep.strip('\t\n')
