@@ -10,4 +10,5 @@ target_link_libraries(loop_functions
   argos3plugin_simulator_media
   argos3plugin_simulator_kilobot
   argos3plugin_simulator_kilolib
+  rt
 )
