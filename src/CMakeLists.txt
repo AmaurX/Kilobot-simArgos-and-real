@@ -7,7 +7,7 @@ cmake_minimum_required(VERSION 3.0.2)
 # Deactivate RPATH for MacOSX
 #
 set(CMAKE_MACOSX_RPATH 0)
-
+add_compile_options(-std=c++11)
 
 #
 # Set the path additional cmake files must be searched for
