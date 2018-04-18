@@ -10,7 +10,7 @@
   <framework>
     <system threads="0" />
     <experiment length="1000"
-                ticks_per_second="30"
+                ticks_per_second="10"
                  />
   </framework>
 
@@ -66,7 +66,7 @@
   <loop_functions library = "build/loop_functions/libloop_functions"
       label="ci_kilobot_loop_functions"
       num_robots="20"
-      sampling_period_in_ticks="100"
+      sampling_period_in_ticks="50"
       arena_radius = "0.475">
   </loop_functions>
 

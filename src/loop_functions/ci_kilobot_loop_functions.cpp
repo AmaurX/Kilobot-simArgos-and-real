@@ -60,7 +60,7 @@ void CIKilobotLoopFunctions::Init(TConfigurationNode &t_node)
       Real wall_height = 0.05;
 
       std::ostringstream entity_id;
-      Real m_unNumArenaWalls = 100; // TODO: this can be mande a configurable parameter
+      Real m_unNumArenaWalls = 50; // TODO: this can be mande a configurable parameter
       CRadians wall_angle = CRadians::TWO_PI / m_unNumArenaWalls;
       CVector3 wall_size(wall_width, 2.0 * m_fArenaRadius * Tan(CRadians::PI / m_unNumArenaWalls), wall_height);
       for (UInt32 i = 0; i < m_unNumArenaWalls; i++)
@@ -126,8 +126,9 @@ void CIKilobotLoopFunctions::SetExperiment()
       // // initialise/reset the internal variables
       // LOG << "Set Experiment!" << std::endl;
       m_tResults.Reset();
-
-      for (CSpace::TMapPerType::iterator it = m_cKilobots.begin(); it != m_cKilobots.end(); ++it)
+      CVector3 target_postion;
+      uint robot_num = 0;
+      for (CSpace::TMapPerType::iterator it = m_cKilobots.begin(); it != m_cKilobots.end(); ++it, robot_num++)
       {
             /* Get handle to kilobot entity and controller */
             CKilobotEntity &cKilobot = *any_cast<CKilobotEntity *>(it->second);
@@ -146,6 +147,10 @@ void CIKilobotLoopFunctions::SetExperiment()
                   Real rho = m_pcRNG->Uniform(CRange<Real>(0, m_fArenaRadius));
                   Real theta = m_pcRNG->Uniform(CRange<Real>(-CRadians::PI.GetValue(), CRadians::PI.GetValue()));
                   CVector3 random_position(rho * cos(theta), rho * sin(theta), 0);
+                  if ((robot_num == m_cKilobots.size() - 1))
+                  {
+                        target_postion = random_position;
+                  }
                   CVector3 kilobot_displacement(-KILOBOT_ECCENTRICITY, 0, 0);
                   distant_enough = MoveEntity(cKilobot.GetEmbodiedEntity(), random_position + kilobot_displacement.RotateZ(random_rotation_angle), random_rotation, false);
                   if (un_init_trials > m_unMaxInitTrials)
@@ -154,6 +159,28 @@ void CIKilobotLoopFunctions::SetExperiment()
                         LOGERR.Flush();
                   }
             }
+            ////////////////////////
+      }
+
+      Real wall_width = 0.01;
+      Real wall_height = 0.05;
+      Real blockRadius = 0.016;
+      std::ostringstream entity_id;
+      Real numBlockWall = 50; // TODO: this can be mande a configurable parameter
+      CRadians wall_angle = CRadians::TWO_PI / numBlockWall;
+      CVector3 wall_size(wall_width, 2.0 * blockRadius * Tan(CRadians::PI / numBlockWall), wall_height);
+      for (UInt32 i = 0; i < numBlockWall; i++)
+      {
+            entity_id.str("");
+            entity_id << "wall_" << i + 100;
+
+            CRadians wall_rotation = wall_angle * i;
+            CVector3 wall_position(blockRadius * Cos(wall_rotation) + target_postion[0], blockRadius * Sin(wall_rotation) + target_postion[1], 0);
+            CQuaternion wall_orientation;
+            wall_orientation.FromEulerAngles(wall_rotation, CRadians::ZERO, CRadians::ZERO);
+
+            CBoxEntity *wall = new CBoxEntity(entity_id.str(), wall_position, wall_orientation, false, wall_size);
+            AddEntity(*wall);
       }
 
       UInt32 un_robot_index = 0;
