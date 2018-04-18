@@ -105,6 +105,9 @@ private:
   TRWResults m_tResults;
   int m_samplingPeriod;
   int internal_counter;
+  Real m_alpha;
+  Real m_rho;
+
   Real fractionDiscovery_;
   Real fractionInformation_;
 };

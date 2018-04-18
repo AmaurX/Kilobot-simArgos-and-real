@@ -32,7 +32,7 @@ uint32_t f_p_t = 0; // first passage time
 uint32_t f_i_t = 0; // first moment when i received the information
 
 /*CRW Parameters*/
-const double CRW_exponent = 0.9;
+const double CRW_exponent = 0.7;
 
 /*LEVY Parameters*/
 const double levy_exponent = 2;

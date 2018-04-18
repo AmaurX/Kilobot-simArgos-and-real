@@ -20,6 +20,9 @@
 const std::string CONFIGURATION_KILOBOT_RW_ARENA_RADIUS = "arena_radius";
 const std::string CONFIGURATION_KILOBOT_RW_NUM_ROBOTS = "num_robots";
 const std::string CONFIGURATION_KILOBOT_RW_SAMPLING_PERIOD = "sampling_period_in_ticks";
+const std::string CONFIGURATION_KILOBOT_RW_ALPHA = "alpha";
+const std::string CONFIGURATION_KILOBOT_RW_RHO = "rho";
+
 // const std::string CONFIGURATION_KILOBOT_RW_TARGET_RADIUS = "target_radius";
 
 /****************************************/
@@ -33,7 +36,9 @@ CIKilobotLoopFunctions::CIKilobotLoopFunctions() : m_pcFloor(NULL),
                                                    m_samplingPeriod(1),
                                                    fractionDiscovery_(0),
                                                    fractionInformation_(0),
-                                                   internal_counter(0)
+                                                   internal_counter(0),
+                                                   m_alpha(2.0),
+                                                   m_rho(0.9)
 {
 }
 
@@ -51,6 +56,9 @@ void CIKilobotLoopFunctions::Init(TConfigurationNode &t_node)
       GetNodeAttributeOrDefault(t_node, CONFIGURATION_KILOBOT_RW_ARENA_RADIUS, m_fArenaRadius, m_fArenaRadius);
       GetNodeAttributeOrDefault(t_node, CONFIGURATION_KILOBOT_RW_NUM_ROBOTS, m_unNumRobots, m_unNumRobots);
       GetNodeAttributeOrDefault(t_node, CONFIGURATION_KILOBOT_RW_SAMPLING_PERIOD, m_samplingPeriod, m_samplingPeriod);
+      GetNodeAttributeOrDefault(t_node, CONFIGURATION_KILOBOT_RW_ALPHA, m_alpha, m_alpha);
+      GetNodeAttributeOrDefault(t_node, CONFIGURATION_KILOBOT_RW_RHO, m_rho, m_rho);
+
       // GetNodeAttributeOrDefault(t_node, CONFIGURATION_KILOBOT_RW_TARGET_RADIUS, m_fTargetRadius, m_fTargetRadius);
 
       ////////////////////////////////////////////////////////////////////////////////
@@ -339,7 +347,11 @@ void CIKilobotLoopFunctions::PostExperiment()
       std::string date = currentDate();
       char numRobotStr[10];
       sprintf(numRobotStr, "%d", m_unNumRobots);
-      std::string folder = "experiments/" + date + "_" + numRobotStr + "robots" + "_experiments";
+      char alpha[10];
+      sprintf(alpha, "%.1f", m_alpha);
+      char rho[10];
+      sprintf(rho, "%.1f", m_rho);
+      std::string folder = "experiments/" + date + "_robots=" + numRobotStr + "_alpha=" + alpha + "_rho=" + rho + "_experiments";
       if (opendir(folder.c_str()) == NULL)
       {
             const int dir_err = mkdir(folder.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
