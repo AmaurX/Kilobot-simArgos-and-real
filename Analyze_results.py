@@ -116,12 +116,41 @@ def main():
         values.append(cummulate)
 
     plt.plot(times, values, linewidth=3, color='b')
-    plt.xlabel("Time in ARGoS ticks")
+    plt.xlabel("Time in kilobot ticks")
     plt.ylabel("proportion of discovery")
     plt.title("Arena diameter: " + arena_size + "m " +
               str(number_of_robots) + " kilobots per run, " + str(w_displacement_run_count) + " runs")
     plt.legend()
     plt.savefig(folder + "/DiscoveryProportion_"+arena_size + "m*" + arena_size +
+                "m_" + str(number_of_robots) + "kilobots_" + str(w_displacement_run_count) + " runs.png", bbox_inches='tight', dpi=200, orientation="landscape")
+    # plt.show(block=False)
+    plt.close()
+
+    total_num_robot = 0
+    complete_time_dict = {}
+    for element in os.listdir(folder):
+        if element.endswith('time_results.tsv'):
+            complete_time_dict, total_num_robot = first_information(
+                folder, element, number_of_robots, total_num_robot, complete_time_dict)
+        else:
+            continue
+
+    times = complete_time_dict.keys()
+    times.append(0)
+    times = sorted(times)
+    values = [0]
+    cummulate = 0
+    for key in times[1:]:
+        cummulate += complete_time_dict[key]/total_num_robot
+        values.append(cummulate)
+
+    plt.plot(times, values, linewidth=3, color='b')
+    plt.xlabel("Time in kilobot ticks")
+    plt.ylabel("proportion of information")
+    plt.title("Arena diameter: " + arena_size + "m " +
+              str(number_of_robots) + " kilobots per run, " + str(w_displacement_run_count) + " runs")
+    plt.legend()
+    plt.savefig(folder + "/informationProportion"+arena_size + "m*" + arena_size +
                 "m_" + str(number_of_robots) + "kilobots_" + str(w_displacement_run_count) + " runs.png", bbox_inches='tight', dpi=200, orientation="landscape")
     plt.show(block=False)
     # plt.close()
@@ -270,6 +299,43 @@ def first_discovery(folder, time_filename, num_robots, total_number_of_robots, c
     cummulate = 0
     for key in times[1:]:
         cummulate += discovery_times[key]
+        values.append(cummulate)
+
+    plt.plot(times, values, linewidth=0.5, linestyle='dashed')
+    total_number_of_robots += num_robots
+
+    return (complete_time_dict, total_number_of_robots)
+
+
+def first_information(folder, time_filename, num_robots, total_number_of_robots, complete_time_dict):
+    complete_filename = folder + "/" + time_filename
+    time_file = open(complete_filename, mode='rb')
+    tsvin = csv.reader(time_file, delimiter='\t')
+
+    info_times = {}
+    for row in tsvin:
+        if(row[0] == "Robot id"):
+            continue
+        else:
+            discovery = int(row[2])
+            if(discovery != 0):
+                if(not discovery in info_times):
+                    info_times[discovery] = 1.0/num_robots
+                else:
+                    info_times[discovery] += 1.0/num_robots
+
+                if(not discovery in complete_time_dict):
+                    complete_time_dict[discovery] = 1.0
+                else:
+                    complete_time_dict[discovery] += 1.0
+
+    times = info_times.keys()
+    times.append(0)
+    times = sorted(times)
+    values = [0]
+    cummulate = 0
+    for key in times[1:]:
+        cummulate += info_times[key]
         values.append(cummulate)
 
     plt.plot(times, values, linewidth=0.5, linestyle='dashed')
