@@ -94,6 +94,7 @@ void CIKilobotLoopFunctions::Init(TConfigurationNode &t_node)
       kilobot_id << "target";
       CKilobotEntity *kilobot = new CKilobotEntity(kilobot_id.str(), "kbc_target", kilobot_position, CQuaternion());
       AddEntity(*kilobot);
+      // kilobot->set_movable(false);
 
       m_cKilobots = GetSpace().GetEntitiesByType("kilobot");
 
