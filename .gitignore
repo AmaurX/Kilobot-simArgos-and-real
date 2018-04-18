@@ -79,6 +79,8 @@ startBatch423176_6.out
 startBatch423176_7.out
 startBatch423176_8.out
 startBatch423176_9.out
+startBatch.sh
+src/loop_functions/.ci_kilobot_loop_functions.cpp.swp
 startBatch423186_0.out
 startBatch423186_10.out
 startBatch423186_11.out
@@ -210,4 +212,3 @@ startBatch423309_4.out
 startBatch423309_5.out
 startBatch423309_6.out
 startBatch423316_0.out
-startBatch.sh

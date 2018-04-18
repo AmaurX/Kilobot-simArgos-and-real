@@ -283,7 +283,7 @@ const std::string currentDateTime()
       struct tm tstruct;
       char buf[80];
       tstruct = *localtime(&now);
-      strftime(buf, sizeof(buf), "%Y%m%d-%X", &tstruct);
+      strftime(buf, sizeof(buf), "%Y%m%d-%X-%M", &tstruct);
 
       return buf;
 }
@@ -303,7 +303,9 @@ void CIKilobotLoopFunctions::PostExperiment()
 {
       std::string dateTime = currentDateTime();
       std::string date = currentDate();
-      std::string folder = "experiments/" + date + "_experiments";
+      char numRobotStr[10];
+      sprintf(numRobotStr, "%d", m_unNumRobots);
+      std::string folder = "experiments/" + date + "_" + numRobotStr + "robots" + "_experiments";
       if (opendir(folder.c_str()) == NULL)
       {
             const int dir_err = mkdir(folder.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
@@ -313,9 +315,12 @@ void CIKilobotLoopFunctions::PostExperiment()
                   exit(1);
             }
       }
-      std::string displacement_file = folder + "/" + dateTime + "_displacement.tsv";
-      std::string position_file = folder + "/" + dateTime + "_position.tsv";
-      std::string time_results_file = folder + "/" + dateTime + "_time_results.tsv";
+      char randomStr[3];
+      int randomInt = m_pcRNG->Uniform(CRange<int>((int)0, (int)999));
+      sprintf(randomStr, "%d", randomInt);
+      std::string displacement_file = folder + "/" + dateTime + "_" + randomStr + "_displacement.tsv";
+      std::string position_file = folder + "/" + dateTime + "_" + randomStr + "_position.tsv";
+      std::string time_results_file = folder + "/" + dateTime + "_" + randomStr + "_time_results.tsv";
 
       std::ofstream of(time_results_file, std::ios::out);
 
@@ -347,12 +352,12 @@ void CIKilobotLoopFunctions::PostExperiment()
 
             for (uint j = 0; j < m_cKilobotDisplacements[i].size(); j++)
             {
-                  of_2 << (m_cKilobotDisplacements[i])[j] << '\t';
+                  of_2 << std::setprecision(4) << (m_cKilobotDisplacements[i])[j] << '\t';
             }
             of_2 << std::endl;
             for (uint j = 0; j < m_cKilobotPositions[i].size(); j++)
             {
-                  of_3 << (m_cKilobotPositions[i])[j] << '\t';
+                  of_3 << std::setprecision(4) << (m_cKilobotPositions[i])[j] << '\t';
             }
             of_3 << std::endl;
       }
