@@ -351,12 +351,12 @@ void CIKilobotLoopFunctions::PostExperiment()
 
             for (uint j = 0; j < m_cKilobotDisplacements[i].size(); j++)
             {
-                  of_2 << "%4f" (m_cKilobotDisplacements[i])[j] << '\t';
+                  of_2 << std::setprecision(4) << (m_cKilobotDisplacements[i])[j] << '\t';
             }
             of_2 << std::endl;
             for (uint j = 0; j < m_cKilobotPositions[i].size(); j++)
             {
-                  of_3 << (m_cKilobotPositions[i])[j] << '\t';
+                  of_3 << std::setprecision(4) << (m_cKilobotPositions[i])[j] << '\t';
             }
             of_3 << std::endl;
       }
