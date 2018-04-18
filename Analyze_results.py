@@ -8,6 +8,7 @@ from scipy import stats
 number_of_args = len(sys.argv)
 plt.figure(num=1, figsize=(12, 6), dpi=160, facecolor='w', edgecolor='k')
 plt.figure(num=2, figsize=(12, 6), dpi=160, facecolor='w', edgecolor='k')
+plt.figure(num=3, figsize=(12, 6), dpi=160, facecolor='w', edgecolor='k')
 
 
 def print_help():
@@ -95,6 +96,35 @@ def main():
                 "m_" + str(number_of_robots) + "kilobots_" + str(w_displacement_run_count) + " runs.png", bbox_inches='tight', dpi=200, orientation="landscape")
     # plt.show(block=False)
     plt.close()
+
+    total_num_robot = 0
+    complete_time_dict = {}
+    for element in os.listdir(folder):
+        if element.endswith('time_results.tsv'):
+            complete_time_dict, total_num_robot = first_discovery(
+                folder, element, number_of_robots, total_num_robot, complete_time_dict)
+        else:
+            continue
+
+    times = complete_time_dict.keys()
+    times.append(0)
+    times = sorted(times)
+    values = [0]
+    cummulate = 0
+    for key in times[1:]:
+        cummulate += complete_time_dict[key]/total_num_robot
+        values.append(cummulate)
+
+    plt.plot(times, values, linewidth=3, color='b')
+    plt.xlabel("Time in ARGoS ticks")
+    plt.ylabel("proportion of discovery")
+    plt.title("Arena diameter: " + arena_size + "m " +
+              str(number_of_robots) + " kilobots per run, " + str(w_displacement_run_count) + " runs")
+    plt.legend()
+    plt.savefig(folder + "/DiscoveryProportion_"+arena_size + "m*" + arena_size +
+                "m_" + str(number_of_robots) + "kilobots_" + str(w_displacement_run_count) + " runs.png", bbox_inches='tight', dpi=200, orientation="landscape")
+    plt.show(block=False)
+    # plt.close()
 
 
 def displacement(folder, filename, current_sum_displacement, total_number_of_robots, num_robots):
@@ -209,6 +239,43 @@ def window_displacement(folder, position_filename, current_sum_w_displacement, t
              linewidth=0.5, linestyle='dashed')
 
     return (current_sum_w_displacement, total_number_of_robots, time_list, time_period)
+
+
+def first_discovery(folder, time_filename, num_robots, total_number_of_robots, complete_time_dict):
+    complete_filename = folder + "/" + time_filename
+    time_file = open(complete_filename, mode='rb')
+    tsvin = csv.reader(time_file, delimiter='\t')
+
+    discovery_times = {}
+    for row in tsvin:
+        if(row[0] == "Robot id"):
+            continue
+        else:
+            discovery = int(row[1])
+            if(discovery != 0):
+                if(not discovery in discovery_times):
+                    discovery_times[discovery] = 1.0/num_robots
+                else:
+                    discovery_times[discovery] += 1.0/num_robots
+
+                if(not discovery in complete_time_dict):
+                    complete_time_dict[discovery] = 1.0
+                else:
+                    complete_time_dict[discovery] += 1.0
+
+    times = discovery_times.keys()
+    times.append(0)
+    times = sorted(times)
+    values = [0]
+    cummulate = 0
+    for key in times[1:]:
+        cummulate += discovery_times[key]
+        values.append(cummulate)
+
+    plt.plot(times, values, linewidth=0.5, linestyle='dashed')
+    total_number_of_robots += num_robots
+
+    return (complete_time_dict, total_number_of_robots)
 
 
 main()
