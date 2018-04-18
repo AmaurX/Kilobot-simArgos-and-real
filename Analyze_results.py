@@ -10,13 +10,16 @@ plt.figure(num=1, figsize=(12, 6), dpi=160, facecolor='w', edgecolor='k')
 plt.figure(num=2, figsize=(12, 6), dpi=160, facecolor='w', edgecolor='k')
 plt.figure(num=3, figsize=(12, 6), dpi=160, facecolor='w', edgecolor='k')
 
+# default value
+kilobot_ticks_per_second = 31
+
 
 def print_help():
-    print("usage : folder_path, number of robot per run, size of the arena, window size (for windowed_MSD)")
+    print("usage : folder_path, number of robot per run, size of the arena, window size (for windowed_MSD), argos ticks per second")
 
 
 def main():
-    if (number_of_args < 5):
+    if (number_of_args < 6):
         print_help()
         exit(-1)
 
@@ -24,7 +27,7 @@ def main():
     number_of_robots = int(sys.argv[2])
     arena_size = sys.argv[3]
     window_size = int(sys.argv[4])
-
+    argos_ticks_per_second = int(sys.argv[5])
     current_sum_displacement = []
     total_number_of_robots = 0
     displacement_run_count = 0
@@ -33,7 +36,7 @@ def main():
         if element.endswith('displacement.tsv'):
             displacement_run_count += 1
             (current_sum_displacement, total_number_of_robots, time_list) = displacement(folder, element, current_sum_displacement,
-                                                                                         total_number_of_robots, number_of_robots)
+                                                                                         total_number_of_robots, number_of_robots, argos_ticks_per_second)
         else:
             continue
     for i in range(len(current_sum_displacement)):
@@ -44,14 +47,14 @@ def main():
     slope, intercept, r_value, p_value, std_err = stats.linregress(
         time_list, current_sum_displacement)
 
-    linear_approx = slope * time_list + intercept
+    linear_approx = [slope * i + intercept for i in time_list]
 
     plt.plot(time_list, linear_approx, color='r', linewidth=2, linestyle=":",
              label="slope : " + "%.4e" % slope + " r^2 = " + "%.4f" % (r_value**2))
     plt.plot(time_list, current_sum_displacement, color='b', linewidth=3,
              label="MSD overtime on " + str(total_number_of_robots) + " robots")
 
-    plt.xlabel("Time in ARGoS ticks")
+    plt.xlabel("Time in seconds")
     plt.ylabel("MSD in m^2")
     plt.title("Arena diameter: " + arena_size + "m "
               + str(number_of_robots) + " kilobots per run, " + str(displacement_run_count) + " runs")
@@ -69,7 +72,7 @@ def main():
         if element.endswith('position.tsv'):
             w_displacement_run_count += 1
             (current_sum_w_displacement, w_total_number_of_robots, time_list, time_period) = window_displacement(folder, element, current_sum_w_displacement,
-                                                                                                                 w_total_number_of_robots, number_of_robots, window_size)
+                                                                                                                 w_total_number_of_robots, number_of_robots, window_size, argos_ticks_per_second)
         else:
             continue
 
@@ -81,13 +84,13 @@ def main():
     slope, intercept, r_value, p_value, std_err = stats.linregress(
         time_list, current_sum_w_displacement)
 
-    linear_approx = slope * time_list + intercept
+    linear_approx = [slope * i + intercept for i in time_list]
     plt.plot(time_list, linear_approx, color='r', linewidth=2, linestyle=":",
              label="slope : " + "%.4e" % slope + " r^2 = " + "%.4f" % (r_value**2))
     plt.plot(time_list, current_sum_w_displacement, color='b', linewidth=3,
-             label="Window MSD (window = " + str(time_period * window_size) + " ticks) overtime on " + str(w_total_number_of_robots) + " robots")
+             label="Window MSD (window = " + str(time_period * window_size / argos_ticks_per_second) + " seconds) overtime on " + str(w_total_number_of_robots) + " robots")
 
-    plt.xlabel("Time in ARGoS ticks")
+    plt.xlabel("Time in seconds")
     plt.ylabel("MSD in m^2")
     plt.title("Arena diameter: " + arena_size + "m " +
               str(number_of_robots) + " kilobots per run, " + str(w_displacement_run_count) + " runs")
@@ -114,9 +117,10 @@ def main():
     for key in times[1:]:
         cummulate += complete_time_dict[key]/total_num_robot
         values.append(cummulate)
+    times = [float(i)/kilobot_ticks_per_second for i in times]
 
     plt.plot(times, values, linewidth=3, color='b')
-    plt.xlabel("Time in kilobot ticks")
+    plt.xlabel("Time in seconds")
     plt.ylabel("proportion of discovery")
     plt.title("Arena diameter: " + arena_size + "m " +
               str(number_of_robots) + " kilobots per run, " + str(w_displacement_run_count) + " runs")
@@ -143,9 +147,10 @@ def main():
     for key in times[1:]:
         cummulate += complete_time_dict[key]/total_num_robot
         values.append(cummulate)
+    times = [float(i)/kilobot_ticks_per_second for i in times]
 
     plt.plot(times, values, linewidth=3, color='b')
-    plt.xlabel("Time in kilobot ticks")
+    plt.xlabel("Time in seconds")
     plt.ylabel("proportion of information")
     plt.title("Arena diameter: " + arena_size + "m " +
               str(number_of_robots) + " kilobots per run, " + str(w_displacement_run_count) + " runs")
@@ -156,7 +161,7 @@ def main():
     # plt.close()
 
 
-def displacement(folder, filename, current_sum_displacement, total_number_of_robots, num_robots):
+def displacement(folder, filename, current_sum_displacement, total_number_of_robots, num_robots, argos_ticks_per_second):
     complete_filename = folder + "/" + filename
     displacement_file = open(complete_filename, mode='rb')
     tsvin = csv.reader(displacement_file, delimiter='\t')
@@ -194,14 +199,14 @@ def displacement(folder, filename, current_sum_displacement, total_number_of_rob
     for i in range(expe_length):
         current_sum_displacement[i] += float(num_robots) * \
             average_displacement[i]
-
+    time_list = [float(i)/argos_ticks_per_second for i in time_list]
     plt.plot(time_list, average_displacement,
              linewidth=0.5, linestyle='dashed')
 
     return (current_sum_displacement, total_number_of_robots, time_list)
 
 
-def window_displacement(folder, position_filename, current_sum_w_displacement, total_number_of_robots, num_robots, window_size):
+def window_displacement(folder, position_filename, current_sum_w_displacement, total_number_of_robots, num_robots, window_size, argos_ticks_per_second):
     complete_filename = folder + "/" + position_filename
     displacement_file = open(complete_filename, mode='rb')
     tsvin = csv.reader(displacement_file, delimiter='\t')
@@ -263,6 +268,7 @@ def window_displacement(folder, position_filename, current_sum_w_displacement, t
     for i in range(expe_length):
         current_sum_w_displacement[i] += float(num_robots) * \
             average_w_displacement[i]
+    time_list = [float(i)/argos_ticks_per_second for i in time_list]
 
     plt.plot(time_list, average_w_displacement,
              linewidth=0.5, linestyle='dashed')
@@ -280,6 +286,8 @@ def first_discovery(folder, time_filename, num_robots, total_number_of_robots, c
         if(row[0] == "Robot id"):
             continue
         else:
+            if(len(row) < 3):
+                print(complete_filename)
             discovery = int(row[1])
             if(discovery != 0):
                 if(not discovery in discovery_times):
@@ -300,7 +308,7 @@ def first_discovery(folder, time_filename, num_robots, total_number_of_robots, c
     for key in times[1:]:
         cummulate += discovery_times[key]
         values.append(cummulate)
-
+    times = [float(i)/kilobot_ticks_per_second for i in times]
     plt.plot(times, values, linewidth=0.5, linestyle='dashed')
     total_number_of_robots += num_robots
 
@@ -337,6 +345,7 @@ def first_information(folder, time_filename, num_robots, total_number_of_robots,
     for key in times[1:]:
         cummulate += info_times[key]
         values.append(cummulate)
+    times = [float(i)/kilobot_ticks_per_second for i in times]
 
     plt.plot(times, values, linewidth=0.5, linestyle='dashed')
     total_number_of_robots += num_robots

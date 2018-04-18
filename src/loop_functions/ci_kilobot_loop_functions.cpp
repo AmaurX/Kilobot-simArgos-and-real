@@ -349,8 +349,8 @@ void CIKilobotLoopFunctions::PostExperiment()
                   exit(1);
             }
       }
-      char randomStr[3];
-      int randomInt = m_pcRNG->Uniform(CRange<int>((int)0, (int)999));
+      char randomStr[5];
+      int randomInt = m_pcRNG->Uniform(CRange<int>((int)0, (int)99999));
       sprintf(randomStr, "%d", randomInt);
       std::string displacement_file = folder + "/" + dateTime + "_" + randomStr + "_displacement.tsv";
       std::string position_file = folder + "/" + dateTime + "_" + randomStr + "_position.tsv";
