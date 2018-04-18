@@ -27,7 +27,7 @@
       </actuators>
       <sensors>
         <kilobot_communication implementation="default" medium="kilocomm" />
-        <kilobot_light implementation="rot_z_only" />
+        <!-- <kilobot_light implementation="rot_z_only" /> -->
       </sensors>
       <params behavior="build/behaviors_simulation/CRWLEVY" />
     </kilobot_controller>
@@ -40,7 +40,7 @@
       </actuators>
       <sensors>
         <kilobot_communication implementation="default" medium="kilocomm" />
-        <kilobot_light implementation="rot_z_only" />
+        <!-- <kilobot_light implementation="rot_z_only" /> -->
       </sensors>
       <params behavior="build/behaviors_simulation/Target" />
     </kilobot_controller>
@@ -51,12 +51,12 @@
   <!-- * Arena configuration * -->
   <!-- *********************** -->
   <arena size="2, 2, 1" center="0,0,0.5">
-    <light id="l0"
+    <!-- <light id="l0"
            position="0,0,0.95"
            orientation="0,0,0"
            color="yellow"
            intensity="1.0"
-          medium="leds"/>
+          medium="leds"/> -->
     <floor id="floor" source="loop_functions" pixels_per_meter="200" />
   </arena>
 
