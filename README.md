@@ -9,12 +9,18 @@ This is an attempt to create a self sufficient and clean repository for kilobots
 - For real robots
 - For simulation on ARGoS
 
-**TODO** verify dependancies (kilobot libs, argos3 libs etc...) --> may require installations in /usr/include and /usr/lib.
-
 ## src folder
 It contains all the code. See internal README for more information  
 
 ## Build and use
+
+### Dependancies
+Prior to using this work, you should have installed:
+
+- Argos3 (from sources : https://github.com/ilpincy/argos3 , installed in usr/local)
+- Argos3 kilobot plugin (from sources : https://github.com/ilpincy/argos3-kilobot , installed in usr/local)
+
+The current state of this works allows me to make it work on ubuntu 16.04 and 14.04, though I don't know for mac OS.
 
 ### Building
 At the root folder (same level as src):  
@@ -22,7 +28,6 @@ At the root folder (same level as src):
 `cd build`   
 `cmake ../src`   
 `make`   
-`sudo -H make install` To install the kilobot argos3 libs and headers    
 
 It should compile everything.     
 - The binary files needed for simulations in ARGoS are in build/behaviors_simulation
