@@ -23,7 +23,9 @@ def main():
     numberofrobots = int(sys.argv[2])
     alpha = float(sys.argv[3])
     rho = float(sys.argv[4])
+
     generated_configs_folder = folder + "/generated_configs"
+    
     if not os.path.exists(generated_configs_folder):
         os.makedirs(generated_configs_folder)
 

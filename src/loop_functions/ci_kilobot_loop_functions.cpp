@@ -350,7 +350,7 @@ void CIKilobotLoopFunctions::PostExperiment()
       char alpha[10];
       sprintf(alpha, "%.1f", m_alpha);
       char rho[10];
-      sprintf(rho, "%.1f", m_rho);
+      sprintf(rho, "%.2f", m_rho);
       std::string folder = "experiments/" + date + "_robots=" + numRobotStr + "_alpha=" + alpha + "_rho=" + rho + "_experiments";
       if (opendir(folder.c_str()) == NULL)
       {
