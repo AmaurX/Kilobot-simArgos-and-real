@@ -1,0 +1,49 @@
+# import xml.etree.ElementTree as ET
+from xml.etree.ElementTree import Element
+import sys
+from lxml import etree
+import os
+
+
+def print_help():
+    print("usage : config_folder_path, numberOfRobots, alpha, rho")
+
+
+number_of_args = len(sys.argv)
+parser = etree.XMLParser(remove_comments=False)
+etree.set_default_parser(parser)
+
+
+def main():
+    if (number_of_args < 5):
+        print_help()
+        exit(-1)
+
+    folder = sys.argv[1]
+    numberofrobots = int(sys.argv[2])
+    alpha = float(sys.argv[3])
+    rho = float(sys.argv[4])
+    generated_configs_folder = folder + "/generated_configs"
+    if not os.path.exists(generated_configs_folder):
+        os.makedirs(generated_configs_folder)
+
+    tree = etree.parse(folder+"/kilobot_generic_controller.argos")
+    root = tree.getroot()
+
+    for params in root.iter('params'):
+        # print(params.attrib)
+        if(params.get("behavior") == "build/behaviors_simulation/CRWLEVY"):
+            params.set("behavior", "build/behaviors_simulation/CRWLEVY_" +
+                       "%.1f_" % alpha + "%.2f" % rho)
+
+    for loop_functions in root.iter('loop_functions'):
+        # print(loop_functions.attrib)
+        loop_functions.set("alpha", "%.1f" % alpha)
+        loop_functions.set("rho", "%.2f" % rho)
+        loop_functions.set("num_robots", "%d" % numberofrobots)
+
+    tree.write(generated_configs_folder + "/kilobot_sim_%d_%.1f_%.2f.argos" %
+               (numberofrobots, alpha, rho), xml_declaration=True)
+
+
+main()

@@ -20,3 +20,4 @@ build
 20180412_experiments_5*5_10robots
 experiments/
 startBatches
+simulation_config/generated_configs
