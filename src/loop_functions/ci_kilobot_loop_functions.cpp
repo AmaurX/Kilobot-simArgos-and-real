@@ -38,7 +38,10 @@ CIKilobotLoopFunctions::CIKilobotLoopFunctions() : m_pcFloor(NULL),
                                                    fractionInformation_(0),
                                                    internal_counter(0),
                                                    m_alpha(2.0),
-                                                   m_rho(0.9)
+                                                   m_rho(0.9),
+                                                   m_argos_tick_per_seconds(0),
+                                                   m_argos_max_time(0),
+                                                   m_random_seed(0)
 {
 }
 
@@ -51,6 +54,15 @@ void CIKilobotLoopFunctions::Init(TConfigurationNode &t_node)
       m_pcFloor = &GetSpace().GetFloorEntity();
 
       m_pcRNG = CRandom::CreateRNG("argos");
+
+      CSimulator &simulator = GetSimulator();
+      TConfigurationNode &root = simulator.GetConfigurationRoot();
+      TConfigurationNode &framework = GetNode(root, "framework");
+      TConfigurationNode &experiment = GetNode(framework, "experiment");
+
+      m_random_seed = simulator.GetRandomSeed();
+      GetNodeAttributeOrDefault(experiment, "ticks_per_second", m_argos_tick_per_seconds, m_argos_tick_per_seconds);
+      GetNodeAttributeOrDefault(experiment, "length", m_argos_max_time, m_argos_max_time);
 
       // /* Read parameters from configuration file */
       GetNodeAttributeOrDefault(t_node, CONFIGURATION_KILOBOT_RW_ARENA_RADIUS, m_fArenaRadius, m_fArenaRadius);
@@ -364,13 +376,17 @@ void CIKilobotLoopFunctions::PostExperiment()
       char randomStr[5];
       int randomInt = m_pcRNG->Uniform(CRange<int>((int)0, (int)99999));
       sprintf(randomStr, "%d", randomInt);
-      std::string displacement_file = folder + "/" + dateTime + "_" + randomStr + "_displacement.tsv";
-      std::string position_file = folder + "/" + dateTime + "_" + randomStr + "_position.tsv";
-      std::string time_results_file = folder + "/" + dateTime + "_" + randomStr + "_time_results.tsv";
+      std::string prefix = folder + "/" + dateTime + "_" + randomStr + "_";
+
+      std::string displacement_file = prefix + "displacement.tsv";
+      std::string position_file = prefix + "position.tsv";
+      std::string time_results_file = prefix + "time_results.tsv";
+      std::string config_file = prefix + "config.tsv";
 
       std::ofstream of_1(time_results_file, std::ios::out);
       std::ofstream of_2(displacement_file, std::ios::out);
       std::ofstream of_3(position_file, std::ios::out);
+      std::ofstream of_4(config_file, std::ios::out);
 
       TRWResults results = GetResults();
       // of << results << std::endl;
@@ -416,6 +432,10 @@ void CIKilobotLoopFunctions::PostExperiment()
             }
             of_3 << std::endl;
       }
+
+      of_4 << "Argos ticks per second\t" << m_argos_tick_per_seconds << std::endl;
+      of_4 << "Argos max time in seconds\t" << m_argos_max_time << std::endl;
+      of_4 << "Argos used seed\t" << m_random_seed << std::endl;
       LOG.Flush();
 }
 

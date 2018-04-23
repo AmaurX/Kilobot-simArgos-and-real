@@ -91,12 +91,12 @@
   <!-- ****************** -->
   <!-- * Visualization * -->
   <!-- ****************** -->
-  <!-- <visualization>
+  <visualization>
     <qt-opengl>
       <camera>
         <placement idx="0" position="-0.0718156,0,0.109999" look_at="0.642327,0,-0.590002" lens_focal_length="20" />
       </camera>
     </qt-opengl>
-  </visualization> -->
+  </visualization>
 
 </argos-configuration>

@@ -105,8 +105,11 @@ private:
   TRWResults m_tResults;
   int m_samplingPeriod;
   int internal_counter;
+  uint m_random_seed;
   Real m_alpha;
   Real m_rho;
+  Real m_argos_tick_per_seconds;
+  Real m_argos_max_time;
 
   Real fractionDiscovery_;
   Real fractionInformation_;
