@@ -29,7 +29,7 @@
         <kilobot_communication implementation="default" medium="kilocomm" />
         <!-- <kilobot_light implementation="rot_z_only" /> -->
       </sensors>
-      <params behavior="build/behaviors_simulation/CRWLEVY" />
+      <params behavior="build/behaviors_simulation/CRWLEVY_2.0_0.90" />
     </kilobot_controller>
 
     <kilobot_controller id="kbc_target">
@@ -69,7 +69,7 @@
       sampling_period_in_ticks="100"
       arena_radius = "0.475"
       alpha = "2.0"
-      rho = "0.7">
+      rho = "0.9">
   </loop_functions>
 
 
