@@ -12,7 +12,7 @@ include_directories(/usr/local/include/argos3/plugins/robots/kilobot/control_int
               target_link_libraries(CRWLEVY_${levy}_${crw} argos3plugin_simulator_kilolib rt m)
               target_compile_definitions(CRWLEVY_${levy}_${crw} PRIVATE -DLEVY_EXPONENT=${levy} -DCRW_EXPONENT=${crw})
               
-              foreach(numRobots 30)
+              foreach(numRobots 10 20 30)
                    add_custom_target(config_file_${numRobots}_${levy}_${crw}
                     ALL
                    COMMAND python generate_configs.py simulation_config ${numRobots} ${levy} ${crw}

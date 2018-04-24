@@ -25,7 +25,7 @@ def main():
     rho = float(sys.argv[4])
 
     generated_configs_folder = folder + "/generated_configs"
-    
+
     if not os.path.exists(generated_configs_folder):
         os.makedirs(generated_configs_folder)
 
@@ -34,7 +34,7 @@ def main():
 
     for params in root.iter('params'):
         # print(params.attrib)
-        if(params.get("behavior") == "build/behaviors_simulation/CRWLEVY"):
+        if(params.get("behavior") == "build/behaviors_simulation/CRWLEVY_2.0_0.90"):
             params.set("behavior", "build/behaviors_simulation/CRWLEVY_" +
                        "%.1f_" % alpha + "%.2f" % rho)
 

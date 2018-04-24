@@ -9,8 +9,8 @@
 
   <framework>
     <system threads="0" />
-    <experiment length="1000"
-                ticks_per_second="31"
+    <experiment length="5000"
+                ticks_per_second="10"
                  />
   </framework>
 
@@ -66,7 +66,7 @@
   <loop_functions library = "build/loop_functions/libloop_functions"
       label="ci_kilobot_loop_functions"
       num_robots="30"
-      sampling_period_in_ticks="100"
+      sampling_period_in_ticks="50"
       arena_radius = "0.475"
       alpha = "2.0"
       rho = "0.9">
@@ -91,12 +91,12 @@
   <!-- ****************** -->
   <!-- * Visualization * -->
   <!-- ****************** -->
-  <visualization>
+  <!-- <visualization>
     <qt-opengl>
       <camera>
         <placement idx="0" position="-0.0718156,0,0.109999" look_at="0.642327,0,-0.590002" lens_focal_length="20" />
       </camera>
     </qt-opengl>
-  </visualization>
+  </visualization> -->
 
 </argos-configuration>
