@@ -21,8 +21,9 @@
 
     <kilobot_controller id="kbc_agent">
       <actuators>
+        <kilobot_led implementation="default" />
         <differential_steering implementation="default" />
-        <leds implementation="default" medium="leds" />
+        <!-- <leds implementation="default" medium="leds" /> -->
         <kilobot_communication implementation="default" />
       </actuators>
       <sensors>
@@ -35,7 +36,9 @@
     <kilobot_controller id="kbc_target">
       <actuators>
         <differential_steering implementation="default" />
-        <leds implementation="default" medium="leds" />
+        <kilobot_led implementation="default" />
+
+        <!-- <leds implementation="default" medium="leds" /> -->
         <kilobot_communication implementation="default" />
       </actuators>
       <sensors>
@@ -85,7 +88,7 @@
   <!-- ********* -->
   <media>
     <kilobot_communication id="kilocomm" />
-    <led id="leds" />
+    <!-- <led id="leds" />  -->
   </media>
 
   <!-- ****************** -->
