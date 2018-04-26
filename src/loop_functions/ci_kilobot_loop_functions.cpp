@@ -34,9 +34,9 @@ CIKilobotLoopFunctions::CIKilobotLoopFunctions() : m_pcFloor(NULL),
                                                    m_tResults(),
                                                    m_fArenaRadius(1),
                                                    m_samplingPeriod(1),
-                                                   fractionDiscovery_(0),
-                                                   fractionInformation_(0),
-                                                   internal_counter(0),
+                                                   m_fractionDiscovery(0),
+                                                   m_fractionInformation(0),
+                                                   m_internal_counter(0),
                                                    m_alpha(2.0),
                                                    m_rho(0.9),
                                                    m_argos_tick_per_seconds(0),
@@ -209,7 +209,6 @@ void CIKilobotLoopFunctions::SetExperiment()
             /* Get handle to kilobot entity and controller */
             CKilobotEntity &c_kilobot = *any_cast<CKilobotEntity *>(it->second);
             CVector2 c_kilobot_xy_position(c_kilobot.GetEmbodiedEntity().GetOriginAnchor().Position.GetX(), c_kilobot.GetEmbodiedEntity().GetOriginAnchor().Position.GetY());
-            CCI_KilobotController &c_controller = dynamic_cast<CCI_KilobotController &>(c_kilobot.GetControllableEntity().GetController());
             m_cKilobotOriginalPositions.push_back(c_kilobot_xy_position);
             std::vector<CVector2> positions_init;
 
@@ -237,13 +236,13 @@ void CIKilobotLoopFunctions::PostStep()
       UInt32 un_robot_index = 0;
       UInt32 num_robots_with_discovery = 0;
       UInt32 num_robots_with_info = 0;
-      internal_counter += 1;
+      m_internal_counter += 1;
       for (CSpace::TMapPerType::iterator it = m_cKilobots.begin(); it != m_cKilobots.end(); ++it, ++un_robot_index)
       {
             /* Get handle to kilobot entity and controller */
             CKilobotEntity &c_kilobot = *any_cast<CKilobotEntity *>(it->second);
 
-            if (internal_counter == m_samplingPeriod)
+            if (m_internal_counter == m_samplingPeriod)
             {
                   CVector2 c_kilobot_xy_position(c_kilobot.GetEmbodiedEntity().GetOriginAnchor().Position.GetX(), c_kilobot.GetEmbodiedEntity().GetOriginAnchor().Position.GetY());
 
@@ -298,25 +297,25 @@ void CIKilobotLoopFunctions::PostStep()
 
             munmap(robotState, sizeof(kilobot_state_t));
       }
-      if (internal_counter == m_samplingPeriod)
+      if (m_internal_counter == m_samplingPeriod)
       {
-            internal_counter = 0;
+            m_internal_counter = 0;
       }
 
       // Check results
       m_tResults.m_fFractionWithDiscovery = ((Real)num_robots_with_discovery) / ((Real)m_unNumRobots);
       m_tResults.m_fFractionWithInformation = ((Real)num_robots_with_info) / ((Real)m_unNumRobots);
 
-      if (m_tResults.m_fFractionWithDiscovery != fractionDiscovery_)
+      if (m_tResults.m_fFractionWithDiscovery != m_fractionDiscovery)
       {
-            fractionDiscovery_ = m_tResults.m_fFractionWithDiscovery;
+            m_fractionDiscovery = m_tResults.m_fFractionWithDiscovery;
             LOG << "Fraction discovery is " << m_tResults.m_fFractionWithDiscovery << std::endl;
             LOG.Flush();
       }
 
-      if (m_tResults.m_fFractionWithInformation != fractionInformation_)
+      if (m_tResults.m_fFractionWithInformation != m_fractionInformation)
       {
-            fractionInformation_ = m_tResults.m_fFractionWithInformation;
+            m_fractionInformation = m_tResults.m_fFractionWithInformation;
             LOG << "Fraction information is " << m_tResults.m_fFractionWithInformation << std::endl;
             LOG.Flush();
       }

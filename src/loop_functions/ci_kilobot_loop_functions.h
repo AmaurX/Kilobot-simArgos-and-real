@@ -91,28 +91,30 @@ public:
 private:
   CFloorEntity *m_pcFloor;
   CRandom::CRNG *m_pcRNG;
+  UInt32 m_unNumRobots;
+  TRWResults m_tResults;
 
   Real m_fArenaRadius;
-  UInt32 m_unNumRobots;
   //  CVector2 m_cTargetPosition;
   //  Real m_fTargetRadius;
+  int m_samplingPeriod;
+
+  Real m_fractionDiscovery;
+  Real m_fractionInformation;
+  int m_internal_counter;
+  Real m_alpha;
+  Real m_rho;
+
+  Real m_argos_tick_per_seconds;
+  Real m_argos_max_time;
+
+  uint m_random_seed;
 
   CSpace::TMapPerType m_cKilobots;
   std::vector<CVector2> m_cKilobotOriginalPositions;
   std::vector<std::vector<Real>> m_cKilobotDisplacements;
   std::vector<std::vector<CVector2>> m_cKilobotPositions;
   std::vector<std::vector<int>> m_cKilobotDiscoveryInformationTime;
-  TRWResults m_tResults;
-  int m_samplingPeriod;
-  int internal_counter;
-  uint m_random_seed;
-  Real m_alpha;
-  Real m_rho;
-  Real m_argos_tick_per_seconds;
-  Real m_argos_max_time;
-
-  Real fractionDiscovery_;
-  Real fractionInformation_;
 };
 
 #endif

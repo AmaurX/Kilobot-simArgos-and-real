@@ -3,7 +3,9 @@
 ## Behaviors folder
 The behaviors (native kilobot code) should work the same exact way for
 both real and simulation.   
-In the folder is also a **CMakeLists.txt** that is only to compile the behaviors for **ARGoS**. It should be, if possible, move somewhere named explicitely with simulation.   
+In the folder is also a **CMakeLists.txt** that compiles the behaviors for **ARGoS** and generates argos config files.  
+It is in this cmakelists.txt that you can specify the range for alpha, rho and the number of robots.   
+It should be, if possible, move somewhere named explicitely with simulation.   
 The goal of this folder is to contain the behaviors and only the behaviors.
 
 ## cmake folder
