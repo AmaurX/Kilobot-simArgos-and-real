@@ -30,7 +30,9 @@ At the root folder (same level as src):
 `make`   
 
 It should compile everything.     
-- The binary files needed for simulations in ARGoS are in build/behaviors_simulation
+- Thanks to the cmakelists.txt in behaviors, with its for loops, you can specify the whole range of parameters for which you want to run experiments. Is should generate:  
+     - The binary behavior files in build/behaviors_simulation
+     - The config files in simulation_config/generated_configs
 - The .hex files needed for real kilobots are in build/behaviors_real
 
 **TODO** : install step : create a install folder, that would only contain dynamic libs and the above files.
