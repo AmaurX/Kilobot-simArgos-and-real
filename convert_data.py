@@ -34,10 +34,12 @@ def main():
         elif(element.startswith("rho=")):
             rho = float(element.split("=")[1])
 
-    new_filename = "experiments/results/result_bias0.0_levy%.2f_crw%.2f_pop0%d.dat" % (
+    if not os.path.exists("experiments/results/"):
+        os.mkdir("experiments/results/")
+    new_filename = "experiments/results/result_bias0.0_levy%.2f_crw%.2f_pop0%04d.dat" % (
         alpha, rho, num_robots)
 
-    with open(new_filename, 'w') as tsvfile:
+    with open(new_filename, 'a') as tsvfile:
         writer = csv.writer(tsvfile, delimiter=' ')
         for element in os.listdir(folder):
             if element.endswith('time_results.tsv'):
