@@ -66,7 +66,6 @@ include(${CMAKE_SOURCE_DIR}/cmake/ARGoSPackaging.cmake)
 # Compile stuff
 #
 add_subdirectory(behaviors behaviors_simulation)
-#add_subdirectory(kilobots)
 add_subdirectory(kilobots)
 add_subdirectory(loop_functions)
 

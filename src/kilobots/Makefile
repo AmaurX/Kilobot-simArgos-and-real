@@ -1,6 +1,6 @@
-all: bootldr CRWLEVY Target  ohc ohc-arduino-8mhz ohc-arduino-16mhz 
+all: bootldr CRWLEVY Target  ohc ohc-arduino-8mhz ohc-arduino-16mhz test-for
 
-.PHONY: docs bootldr CRWLEVY Target ProvaStampa ohc ohc-arduino-8mhz ohc-arduino-16mhz
+.PHONY: docs bootldr CRWLEVY Target ProvaStampa ohc ohc-arduino-8mhz ohc-arduino-16mhz test-for
 KILOLIB = build_local/kilolib.a
 
 INC = -I. #As the behaiors are in the behavior folder and not this one, we have to include this folder to the include path
@@ -9,7 +9,7 @@ BEHAVIOR_BUILD_FOLDER = ../../build/behaviors_real
 REAL = 1 # To include debug in real experiment 
 
 bootldr: build_local/bootldr.elf build_local/bootldr.hex build_local/bootldr.lss
-CRWLEVY: $(BEHAVIOR_BUILD_FOLDER)/CRWLEVY.elf $(BEHAVIOR_BUILD_FOLDER)/CRWLEVY.hex $(BEHAVIOR_BUILD_FOLDER)/CRWLEVY.lss
+# CRWLEVY: $(BEHAVIOR_BUILD_FOLDER)/CRWLEVY.elf $(BEHAVIOR_BUILD_FOLDER)/CRWLEVY.hex $(BEHAVIOR_BUILD_FOLDER)/CRWLEVY.lss
 Target: $(BEHAVIOR_BUILD_FOLDER)/Target.elf $(BEHAVIOR_BUILD_FOLDER)/Target.hex $(BEHAVIOR_BUILD_FOLDER)/Target.lss
 
 #ProvaStampa: build/ProvaStampa.elf build/ProvaStampa.hex build/ProvaStampa.lss
@@ -20,10 +20,12 @@ AVRAR = avr-ar
 AVROC = avr-objcopy
 AVROD = avr-objdump
 AVRUP = avrdude
+# C_DEFINES = -DCRW_EXPONENT=0.30 -DLEVY_EXPONENT=1.0 -DREAL=1
 
 PFLAGS = -P usb -c avrispmkII # user to reprogram OHC
 CFLAGS = -mmcu=atmega328p -Wall -gdwarf-2 -O3 -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums 
 CFLAGS += -DF_CPU=8000000
+# CFLAGS += $(C_DEFINES)
 ASFLAGS = $(CFLAGS)
 BOOTLDR_FLAGS = -Wl,-section-start=.text=0x7000 -DBOOTLOADER
 FLASH = -R .eeprom -R .fuse -R .lock -R .signature
@@ -54,8 +56,8 @@ $(KILOLIB): kilolib.o message_crc.o message_send.o | build_local
 build_local/bootldr.elf: bootldr.c kilolib.c message_crc.c | build_local
 	$(CC) $(CFLAGS) $(BOOTLDR_FLAGS) -o $@ bootldr.c kilolib.c message_crc.c
 
-$(BEHAVIOR_BUILD_FOLDER)/CRWLEVY.elf: $(BEHAVIOR_SOURCE_FOLDER)/CRWLEVY.c $(KILOLIB) | build_real
-	$(CC) $(INC) $(CFLAGS) -o $@ $< $(KILOLIB) 
+# $(BEHAVIOR_BUILD_FOLDER)/CRWLEVY.elf: $(BEHAVIOR_SOURCE_FOLDER)/CRWLEVY.c $(KILOLIB) | build_real
+# 	$(CC) $(INC) $(CFLAGS) $(C_DEFINES) -o $@ $< $(KILOLIB) 
 
 $(BEHAVIOR_BUILD_FOLDER)/Target.elf: $(BEHAVIOR_SOURCE_FOLDER)/Target.c $(KILOLIB) | build_real
 	$(CC) $(INC) $(CFLAGS)  -o $@ $< $(KILOLIB) 
@@ -84,3 +86,15 @@ docs:
 
 clean:
 	rm -fR build
+
+
+test-for: $(BEHAVIOR_SOURCE_FOLDER)/CRWLEVY.c $(KILOLIB) | build_real
+	for alpha in 1.0 1.2 1.4 1.6 1.8 2.0 ; do \
+		for rho in 0.00 0.15 0.30 0.45 0.60 0.75 0.90 ; do \
+			export C_DEFINES_CUSTOM="-DCRW_EXPONENT=$$rho -DLEVY_EXPONENT=$$alpha -DREAL=1"; \
+			echo $$C_DEFINES_CUSTOM; \
+			$(CC) $(INC) $(CFLAGS) $$C_DEFINES_CUSTOM -o $(BEHAVIOR_BUILD_FOLDER)/CRWLEVY_$${alpha}_$${rho}.elf $< $(KILOLIB); \
+			$(AVROC) -O ihex $(FLASH) $(BEHAVIOR_BUILD_FOLDER)/CRWLEVY_$${alpha}_$${rho}.elf $(BEHAVIOR_BUILD_FOLDER)/CRWLEVY_$${alpha}_$${rho}.hex; \
+			$(AVROD) -d -S $(BEHAVIOR_BUILD_FOLDER)/CRWLEVY_$${alpha}_$${rho}.elf > $(BEHAVIOR_BUILD_FOLDER)/CRWLEVY_$${alpha}_$${rho}.lss;\
+		done \
+	done

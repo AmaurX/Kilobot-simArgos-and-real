@@ -24,6 +24,10 @@ def main():
     alpha = 0.0
     rho = 0.0
     folder = sys.argv[1]
+    if folder == "results":
+        print("folder = result")
+        return 0
+
     filename = folder.split("/")[-1]
     filename = filename.split("_")
     for element in filename:

@@ -11,6 +11,7 @@
 
 #if REAL
 #define DEBUG
+#include <stdarg.h>
 #include "debug.h"
 #include <avr/eeprom.h>
 #else
@@ -65,6 +66,17 @@ const uint8_t max_broadcast_ticks = 2 * 16; /* n_s*0.5*32 */
 uint32_t last_broadcast_ticks = 0;
 const uint16_t max_info_ticks = 7 * 16;
 uint32_t last_info_ticks = 0;
+
+void my_printf(const char *fmt, ...)
+{
+#if REAL
+  va_list args;
+  va_start(args, fmt);
+  vprintf(fmt, args);
+
+  va_end(args);
+#endif
+}
 
 /*-------------------------------------------------------------------*/
 /* Function for setting the motor speed                              */
@@ -151,7 +163,9 @@ void message_rx(message_t *msg, distance_measurement_t *d)
     return;
   }
   uint8_t agent_type = msg->data[0] & 0x01;
-  //printf("%u" "\n",agent_type);
+  // my_printf("%u"
+  // "\n",
+  // agent_type);
   //if the message received is 0 so the id of the target set color red
   if (agent_type == id_target)
   {
@@ -161,8 +175,8 @@ void message_rx(message_t *msg, distance_measurement_t *d)
       memcpy(((void *)(&(messageA.data[5]))), &f_p_t, sizeof(int32_t));
       messageA.crc = message_crc(&messageA);
 
-      //printf("The kilobot is on target for the first time\n");
-      //printf("%" PRIu32 "\n", f_p_t);
+      // my_printf("The kilobot is on target for the first time\n");
+      // my_printf("%" PRIu32 "\n", f_p_t);
       information_target_id = true;
       set_color(RGB(1, 0, 1));
     }
@@ -172,21 +186,23 @@ void message_rx(message_t *msg, distance_measurement_t *d)
       memcpy(((void *)(&(messageA.data[1]))), &f_i_t, sizeof(int32_t));
       messageA.crc = message_crc(&messageA);
 
-      //printf("The kilobot has the information but cross the target for the first time \n");
-      //printf("%" PRIu32 "\n", f_i_t);
+      // my_printf("The kilobot has the information but cross the target for the first time \n");
+      // my_printf("%" PRIu32 "\n", f_i_t);
     }
   }
   //if the message received is 1 so the id of the target set color green
   else if (agent_type == id_robot)
   {
-    //printf("%u" "\n",agent_type);
+    // my_printf("%u"
+    // "\n",
+    // agent_type);
     if (f_i_t == 0)
     {
       f_i_t = kilo_ticks;
       memcpy(((void *)(&(messageA.data[1]))), &f_i_t, sizeof(int32_t));
       messageA.crc = message_crc(&messageA);
-      //printf("The kilobot receive information from the other robot\n");
-      //printf("%" PRIu32 "\n", f_i_t);
+      // my_printf("The kilobot receive information from the other robot\n");
+      // my_printf("%" PRIu32 "\n", f_i_t);
       information_target_id = true;
       set_color(RGB(0, 1, 0));
     }
@@ -239,8 +255,8 @@ void random_walk()
       {
 
         angle = (uniform_distribution(0, (M_PI)));
-        //printf("%" PRIu32 "\n", turning_ticks);
-        // //printf("%u" "\n", rand());
+        // my_printf("%" PRIu32 "\n", turning_ticks);
+        // my_printf("%u" "\n", rand());
       }
       else
       {
@@ -248,7 +264,7 @@ void random_walk()
       }
       turning_ticks = (uint32_t)((angle / M_PI) * max_turning_ticks);
       straight_ticks = (uint32_t)(fabs(levy(std_motion_steps, levy_exponent)));
-      // //printf("%u" "\n", straight_ticks);
+      // my_printf("%u" "\n", straight_ticks);
     }
     break;
 
@@ -263,11 +279,10 @@ void kilobotinfo()
   if (kilo_ticks > last_info_ticks + max_info_ticks)
   {
     last_info_ticks = kilo_ticks;
-    //printf("FPT:");
-
-    //printf("%" PRIu32 "\n", f_p_t);
-    //printf("Interaction Time:");
-    //printf("%" PRIu32 "\n", f_i_t);
+    my_printf("FPT:");
+    my_printf("%" PRIu32 "\n", f_p_t);
+    my_printf("Interaction Time:");
+    my_printf("%" PRIu32 "\n", f_i_t);
   }
 }
 
