@@ -21,7 +21,8 @@
 //#define PI 3.141593
 
 /* Enum for different motion types */
-typedef enum {
+typedef enum
+{
   STOP = 0,
   FORWARD,
   TURN_LEFT,
@@ -178,7 +179,7 @@ void message_rx(message_t *msg, distance_measurement_t *d)
       // my_printf("The kilobot is on target for the first time\n");
       // my_printf("%" PRIu32 "\n", f_p_t);
       information_target_id = true;
-      set_color(RGB(1, 0, 1));
+      set_color(RGB(3, 0, 3));
     }
     if (f_i_t == 0)
     {
@@ -204,7 +205,7 @@ void message_rx(message_t *msg, distance_measurement_t *d)
       // my_printf("The kilobot receive information from the other robot\n");
       // my_printf("%" PRIu32 "\n", f_i_t);
       information_target_id = true;
-      set_color(RGB(0, 1, 0));
+      set_color(RGB(0, 3, 0));
     }
   }
 }
