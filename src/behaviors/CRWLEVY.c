@@ -39,6 +39,9 @@ const double CRW_exponent = CRW_EXPONENT;
 /*LEVY Parameters*/
 const double levy_exponent = LEVY_EXPONENT;
 
+/*Max number of ticks*/
+const double max_time = MAX_TIME;
+
 /*STD*/
 const double std_motion_steps = 5 * 16;
 
@@ -84,27 +87,34 @@ void my_printf(const char *fmt, ...)
 /*-------------------------------------------------------------------*/
 void set_motion(motion_t new_motion_type)
 {
-  if (current_motion_type != new_motion_type)
+  if (kilo_ticks < max_time)
   {
-    switch (new_motion_type)
+    if (current_motion_type != new_motion_type)
     {
-    case FORWARD:
-      spinup_motors();
-      set_motors(kilo_straight_left, kilo_straight_right);
-      break;
-    case TURN_LEFT:
-      spinup_motors();
-      set_motors(kilo_turn_left, 0);
-      break;
-    case TURN_RIGHT:
-      spinup_motors();
-      set_motors(0, kilo_turn_right);
-      break;
-    case STOP:
-    default:
-      set_motors(0, 0);
+      switch (new_motion_type)
+      {
+      case FORWARD:
+        spinup_motors();
+        set_motors(kilo_straight_left, kilo_straight_right);
+        break;
+      case TURN_LEFT:
+        spinup_motors();
+        set_motors(kilo_turn_left, 0);
+        break;
+      case TURN_RIGHT:
+        spinup_motors();
+        set_motors(0, kilo_turn_right);
+        break;
+      case STOP:
+      default:
+        set_motors(0, 0);
+      }
+      current_motion_type = new_motion_type;
     }
-    current_motion_type = new_motion_type;
+  }
+  else
+  {
+    set_motors(0, 0);
   }
 }
 
@@ -227,50 +237,57 @@ void broadcast()
 /*----------------------------------------------------------------------*/
 void random_walk()
 {
-  switch (current_motion_type)
+  if (kilo_ticks < max_time)
   {
-  case TURN_LEFT:
-  case TURN_RIGHT:
-    if (kilo_ticks > last_motion_ticks + turning_ticks)
+    switch (current_motion_type)
     {
-      /* start moving forward */
-      last_motion_ticks = kilo_ticks;
-      set_motion(FORWARD);
-    }
-    break;
-  case FORWARD:
-    if (kilo_ticks > last_motion_ticks + straight_ticks)
-    {
-      /* perform a random turn */
-      last_motion_ticks = kilo_ticks;
-      if (rand_soft() % 2)
+    case TURN_LEFT:
+    case TURN_RIGHT:
+      if (kilo_ticks > last_motion_ticks + turning_ticks)
       {
-        set_motion(TURN_LEFT);
+        /* start moving forward */
+        last_motion_ticks = kilo_ticks;
+        set_motion(FORWARD);
       }
-      else
+      break;
+    case FORWARD:
+      if (kilo_ticks > last_motion_ticks + straight_ticks)
       {
-        set_motion(TURN_RIGHT);
-      }
-      double angle = 0;
-      if (CRW_exponent == 0)
-      {
+        /* perform a random turn */
+        last_motion_ticks = kilo_ticks;
+        if (rand_soft() % 2)
+        {
+          set_motion(TURN_LEFT);
+        }
+        else
+        {
+          set_motion(TURN_RIGHT);
+        }
+        double angle = 0;
+        if (CRW_exponent == 0)
+        {
 
-        angle = (uniform_distribution(0, (M_PI)));
-        // my_printf("%" PRIu32 "\n", turning_ticks);
-        // my_printf("%u" "\n", rand());
+          angle = (uniform_distribution(0, (M_PI)));
+          // my_printf("%" PRIu32 "\n", turning_ticks);
+          // my_printf("%u" "\n", rand());
+        }
+        else
+        {
+          angle = fabs(wrapped_cauchy_ppf(CRW_exponent));
+        }
+        turning_ticks = (uint32_t)((angle / M_PI) * max_turning_ticks);
+        straight_ticks = (uint32_t)(fabs(levy(std_motion_steps, levy_exponent)));
+        // my_printf("%u" "\n", straight_ticks);
       }
-      else
-      {
-        angle = fabs(wrapped_cauchy_ppf(CRW_exponent));
-      }
-      turning_ticks = (uint32_t)((angle / M_PI) * max_turning_ticks);
-      straight_ticks = (uint32_t)(fabs(levy(std_motion_steps, levy_exponent)));
-      // my_printf("%u" "\n", straight_ticks);
-    }
-    break;
+      break;
 
-  case STOP:
-  default:
+    case STOP:
+    default:
+      set_motion(STOP);
+    }
+  }
+  else
+  {
     set_motion(STOP);
   }
 }
