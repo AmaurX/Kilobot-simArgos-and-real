@@ -27,7 +27,7 @@
         <kilobot_communication implementation="default" />
       </actuators>
       <sensors>
-        <kilobot_communication implementation="default" medium="kilocomm" noise_std_dev="30" />
+        <kilobot_communication implementation="default" medium="kilocomm" noise_std_dev="20" />
         <!-- <kilobot_light implementation="rot_z_only" /> -->
       </sensors>
       <params behavior="build/behaviors_simulation/CRWLEVY_2.0_0.90" />
@@ -42,7 +42,7 @@
         <kilobot_communication implementation="default" />
       </actuators>
       <sensors>
-        <kilobot_communication implementation="default" medium="kilocomm" noise_std_dev="30" />
+        <kilobot_communication implementation="default" medium="kilocomm" noise_std_dev="20" />
         <!-- <kilobot_light implementation="rot_z_only" /> -->
       </sensors>
       <params behavior="build/behaviors_simulation/Target" />
