@@ -438,14 +438,17 @@ void CIKilobotLoopFunctions::PostExperiment()
             if (m_cKilobotDiscoveryInformationTime[i][0] > 0)
             {
                   int discoveryTime = float(m_cKilobotDiscoveryInformationTime[i][0]) * float(m_argos_tick_per_seconds) / (float(m_samplingPeriod) * 31.0);
-                  CVector2 comm_position = m_cKilobotPositions[i][discoveryTime];
-                  Real distance = (comm_position - target_pos).Length();
-                  if (!first)
+                  if (discoveryTime > 3)
                   {
-                        of_5 << "\t";
+                        CVector2 comm_position = m_cKilobotPositions[i][discoveryTime];
+                        Real distance = (comm_position - target_pos).Length();
+                        if (!first)
+                        {
+                              of_5 << "\t";
+                        }
+                        first = false;
+                        of_5 << std::setprecision(4) << distance;
                   }
-                  first = false;
-                  of_5 << std::setprecision(4) << distance;
             }
       }
 
