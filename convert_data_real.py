@@ -38,19 +38,22 @@ def main():
         elif(element.startswith("rho=")):
             rho = float(element.split("=")[1])
 
-    if not os.path.exists("experiments/results/"):
-        os.mkdir("experiments/results/")
-    new_filename = "experiments/results/result_bias0.0_levy%.2f_crw%.2f_pop0%04d.dat" % (
+    if not os.path.exists("experiments_real/results/"):
+        os.mkdir("experiments_real/results/")
+    new_filename = "experiments_real/results/result_bias0.0_levy%.2f_crw%.2f_pop0%04d.dat" % (
         alpha, rho, num_robots)
 
     with open(new_filename, 'a') as tsvfile:
         writer = csv.writer(tsvfile, delimiter=' ')
-        for element in os.listdir(folder):
-            if element.endswith('time_results.tsv'):
-                line = time_synthesis(folder, element)
-                writer.writerow(line)
-            else:
-                continue
+        for subdir, dirs, files in os.walk(folder):
+            for file_name in files:
+                #print os.path.join(subdir, file)
+                filepath = subdir + os.sep + file_name
+                if filepath.endswith('time_results.tsv'):
+                    line = time_synthesis(".", filepath)
+                    writer.writerow(line)
+                else:
+                    continue
 
 
 def time_synthesis(folder, filename):
@@ -64,6 +67,7 @@ def time_synthesis(folder, filename):
     number_of_discovery = 0.0
     convergence_time = 0.0
     line = []
+    convert_time = 31.0/2.0
     for row in tsvin:
         if(len(row) < 3):
             print("weird dude")
@@ -74,6 +78,9 @@ def time_synthesis(folder, filename):
             else:
                 row = [int(i) for i in row]
                 number_of_robots += 1
+                row[1] = int(round(float(row[1])*convert_time))
+                row[2] = int(round(float(row[2])*convert_time))
+
                 if(row[1] > 0):
                     line.append(row[1])
                     number_of_discovery += 1

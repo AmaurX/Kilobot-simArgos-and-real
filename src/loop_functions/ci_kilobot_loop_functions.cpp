@@ -41,7 +41,8 @@ CIKilobotLoopFunctions::CIKilobotLoopFunctions() : m_pcFloor(NULL),
                                                    m_rho(0.9),
                                                    m_argos_tick_per_seconds(0),
                                                    m_argos_max_time(0),
-                                                   m_random_seed(0)
+                                                   m_random_seed(0),
+                                                   m_target_position(0., 0., 0.)
 {
 }
 
@@ -146,7 +147,6 @@ void CIKilobotLoopFunctions::SetExperiment()
       // // initialise/reset the internal variables
       // LOG << "Set Experiment!" << std::endl;
       m_tResults.Reset();
-      CVector3 target_postion;
       uint robot_num = 0;
       for (CSpace::TMapPerType::iterator it = m_cKilobots.begin(); it != m_cKilobots.end(); ++it, robot_num++)
       {
@@ -169,7 +169,7 @@ void CIKilobotLoopFunctions::SetExperiment()
                   CVector3 random_position(rho * cos(theta), rho * sin(theta), 0);
                   if ((robot_num == m_cKilobots.size() - 1))
                   {
-                        target_postion = random_position;
+                        m_target_position = random_position;
                   }
                   CVector3 kilobot_displacement(-KILOBOT_ECCENTRICITY, 0, 0);
                   distant_enough = MoveEntity(cKilobot.GetEmbodiedEntity(), random_position + kilobot_displacement.RotateZ(random_rotation_angle), random_rotation, false);
@@ -195,7 +195,7 @@ void CIKilobotLoopFunctions::SetExperiment()
             entity_id << "wall_" << i + 100;
 
             CRadians wall_rotation = wall_angle * i;
-            CVector3 wall_position(blockRadius * Cos(wall_rotation) + target_postion[0], blockRadius * Sin(wall_rotation) + target_postion[1], 0);
+            CVector3 wall_position(blockRadius * Cos(wall_rotation) + m_target_position[0], blockRadius * Sin(wall_rotation) + m_target_position[1], 0);
             CQuaternion wall_orientation;
             wall_orientation.FromEulerAngles(wall_rotation, CRadians::ZERO, CRadians::ZERO);
 
@@ -381,11 +381,13 @@ void CIKilobotLoopFunctions::PostExperiment()
       std::string position_file = prefix + "position.tsv";
       std::string time_results_file = prefix + "time_results.tsv";
       std::string config_file = prefix + "config.tsv";
+      std::string comm_range_file = prefix + "comm_range.tsv";
 
       std::ofstream of_1(time_results_file, std::ios::out);
       std::ofstream of_2(displacement_file, std::ios::out);
       std::ofstream of_3(position_file, std::ios::out);
       std::ofstream of_4(config_file, std::ios::out);
+      std::ofstream of_5(comm_range_file, std::ios::out);
 
       TRWResults results = GetResults();
       // of << results << std::endl;
@@ -407,6 +409,8 @@ void CIKilobotLoopFunctions::PostExperiment()
       }
       of_3 << std::endl;
 
+      bool first = true;
+      CVector2 target_pos = CVector2(m_target_position.GetX(), m_target_position.GetY());
       for (uint i = 0; i < m_unNumRobots; i++)
       {
             of_1 << i + 1;
@@ -430,11 +434,25 @@ void CIKilobotLoopFunctions::PostExperiment()
                   of_3 << '\t' << std::setprecision(4) << (m_cKilobotPositions[i])[j];
             }
             of_3 << std::endl;
+
+            if (m_cKilobotDiscoveryInformationTime[i][0] > 0)
+            {
+                  int discoveryTime = float(m_cKilobotDiscoveryInformationTime[i][0]) * float(m_argos_tick_per_seconds) / (float(m_samplingPeriod) * 31.0);
+                  CVector2 comm_position = m_cKilobotPositions[i][discoveryTime];
+                  Real distance = (comm_position - target_pos).Length();
+                  if (!first)
+                  {
+                        of_5 << "\t";
+                  }
+                  first = false;
+                  of_5 << std::setprecision(4) << distance;
+            }
       }
 
       of_4 << "Argos ticks per second\t" << m_argos_tick_per_seconds << std::endl;
       of_4 << "Argos max time in seconds\t" << m_argos_max_time << std::endl;
       of_4 << "Argos used seed\t" << m_random_seed << std::endl;
+
       LOG.Flush();
 }
 

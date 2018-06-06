@@ -21,3 +21,7 @@ build
 experiments/
 startBatches
 simulation_config/generated_configs
+experiments
+experiments_real
+experiments_real_2
+experiments_real_3

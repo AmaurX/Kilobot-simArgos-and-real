@@ -27,7 +27,7 @@
         <kilobot_communication implementation="default" />
       </actuators>
       <sensors>
-        <kilobot_communication implementation="default" medium="kilocomm" />
+        <kilobot_communication implementation="default" medium="kilocomm" noise_std_dev="10" />
         <!-- <kilobot_light implementation="rot_z_only" /> -->
       </sensors>
       <params behavior="build/behaviors_simulation/CRWLEVY_2.0_0.90" />
@@ -42,7 +42,7 @@
         <kilobot_communication implementation="default" />
       </actuators>
       <sensors>
-        <kilobot_communication implementation="default" medium="kilocomm" />
+        <kilobot_communication implementation="default" medium="kilocomm" noise_std_dev="10" />
         <!-- <kilobot_light implementation="rot_z_only" /> -->
       </sensors>
       <params behavior="build/behaviors_simulation/Target" />
@@ -69,7 +69,7 @@
   <loop_functions library = "build/loop_functions/libloop_functions"
       label="ci_kilobot_loop_functions"
       num_robots="30"
-      sampling_period_in_ticks="50"
+      sampling_period_in_ticks="5"
       arena_radius = "0.475"
       alpha = "2.0"
       rho = "0.9">

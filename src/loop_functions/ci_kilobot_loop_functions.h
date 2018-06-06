@@ -110,6 +110,8 @@ private:
 
   uint m_random_seed;
 
+  CVector3 m_target_position;
+
   CSpace::TMapPerType m_cKilobots;
   std::vector<CVector2> m_cKilobotOriginalPositions;
   std::vector<std::vector<Real>> m_cKilobotDisplacements;

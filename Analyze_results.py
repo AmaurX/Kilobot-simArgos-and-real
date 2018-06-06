@@ -289,7 +289,7 @@ def first_discovery(folder, time_filename, num_robots, total_number_of_robots, c
             if(len(row) < 3):
                 print(complete_filename)
             discovery = int(row[1])
-            if(discovery != 0):
+            if(discovery > 0):
                 if(not discovery in discovery_times):
                     discovery_times[discovery] = 1.0/num_robots
                 else:
@@ -326,7 +326,7 @@ def first_information(folder, time_filename, num_robots, total_number_of_robots,
             continue
         else:
             discovery = int(row[2])
-            if(discovery != 0):
+            if(discovery > 0):
                 if(not discovery in info_times):
                     info_times[discovery] = 1.0/num_robots
                 else:
