@@ -27,7 +27,7 @@
         <kilobot_communication implementation="default" />
       </actuators>
       <sensors>
-        <kilobot_communication implementation="default" medium="kilocomm" noise_std_dev="18" />
+        <kilobot_communication implementation="default" medium="kilocomm" noise_std_dev="18" distance_bias_mean="1.2" distance_bias_std_dev="0.1" />
         <!-- <kilobot_light implementation="rot_z_only" /> -->
       </sensors>
       <params behavior="build/behaviors_simulation/CRWLEVY_2.0_0.90" />
@@ -42,7 +42,7 @@
         <kilobot_communication implementation="default" />
       </actuators>
       <sensors>
-        <kilobot_communication implementation="default" medium="kilocomm" noise_std_dev="18" />
+        <kilobot_communication implementation="default" medium="kilocomm" noise_std_dev="18" distance_bias_mean="1.2" distance_bias_std_dev="0.1"/>
         <!-- <kilobot_light implementation="rot_z_only" /> -->
       </sensors>
       <params behavior="build/behaviors_simulation/Target" />
@@ -94,12 +94,12 @@
   <!-- ****************** -->
   <!-- * Visualization * -->
   <!-- ****************** -->
-  <!-- <visualization>
+  <visualization>
     <qt-opengl>
       <camera>
         <placement idx="0" position="-0.0718156,0,0.109999" look_at="0.642327,0,-0.590002" lens_focal_length="20" />
       </camera>
     </qt-opengl>
-  </visualization> -->
+  </visualization>
 
 </argos-configuration>

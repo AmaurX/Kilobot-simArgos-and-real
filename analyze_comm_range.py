@@ -35,6 +35,7 @@ def main():
                     total_list.extend(row)
                     number_of_experiment += 1
 
+    plt.figure(figsize=(10, 10))
     total_list = map(float, total_list)
     total_list = filter(is_smaller_than_025, total_list)
     print(number_of_experiment)
@@ -52,6 +53,10 @@ def main():
     centers = (0.5*(bins[1:]+bins[:-1]))
     pars, cov = curve_fit(lambda total_list, mu, sig: norm.pdf(
         total_list, loc=mu, scale=sig), centers, n2, p0=[0, 1])
+
+    axes = plt.gca()
+    axes.set_xlim([0.0, 0.22])
+    # axes.set_ylim([0, 40])
 
     plt.plot(centers, norm.pdf(centers, *pars),
              'k--', linewidth=2, label='optimized fit')
