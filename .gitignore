@@ -2,3 +2,11 @@
 simulation_config/generated_configs/
 build/
 experiments/
+tracking/real_experiments/
+tracking/results_saved/
+tracking/videos/
+tracking/templates/new_kilobot_templates/
+tracking/templates/old_kilobot_templates/
+tracking/templates/green_kilobot_templates/
+tracking/templates/calibration_old/
+tracking/templates/snapshots/
