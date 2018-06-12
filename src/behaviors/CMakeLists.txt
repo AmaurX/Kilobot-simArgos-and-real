@@ -14,7 +14,7 @@ include_directories(/usr/local/include/argos3/plugins/robots/kilobot/control_int
               foreach(numRobots 5 10 20 30 50 100)
                    add_custom_target(config_file_${numRobots}_${levy}_${crw}
                     ALL
-                   COMMAND python generate_configs.py simulation_config ${numRobots} ${levy} ${crw}
+                   COMMAND python src/generate_configs.py simulation_config ${numRobots} ${levy} ${crw}
                    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/..)
               endforeach(numRobots)
           endforeach(levy)

@@ -9,12 +9,11 @@ def print_help():
     print("usage : config_folder_path, numberOfRobots, alpha, rho")
 
 
-number_of_args = len(sys.argv)
-parser = etree.XMLParser(remove_comments=False)
-etree.set_default_parser(parser)
-
-
 def main():
+    number_of_args = len(sys.argv)
+    parser = etree.XMLParser(remove_comments=False)
+    etree.set_default_parser(parser)
+
     if (number_of_args < 5):
         print_help()
         exit(-1)
@@ -48,4 +47,5 @@ def main():
                (numberofrobots, alpha, rho), xml_declaration=True)
 
 
-main()
+if __name__ == '__main__':
+    main()
