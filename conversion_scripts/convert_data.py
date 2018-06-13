@@ -27,7 +27,7 @@ def main():
     if folder.endswith("results"):
         print("folder = result")
         return 0
-
+    print(folder)
     filename = folder.split("/")[-1]
     filename_pieces = filename.split("_")
     for element in filename_pieces:
@@ -37,11 +37,15 @@ def main():
             alpha = float(element.split("=")[-1])
         elif(element.startswith("rho=")):
             rho = float(element.split("=")[1])
+    print(filename)
+    print(folder)
 
-    result_folder = folder.strip(filename) + "results"
+    result_folder = folder[:-len(filename)] + "results"
+    print(result_folder)
+
     if not os.path.exists(result_folder):
         os.mkdir(result_folder)
-    new_filename = result_folder + "/result_bias0.0_levy % .2f_crw % .2f_pop0 % 04d.dat" % (
+    new_filename = result_folder + "/result_bias0.0_levy%.2f_crw%.2f_pop%05d.dat" % (
         alpha, rho, num_robots)
 
     with open(new_filename, 'a') as tsvfile:
@@ -51,14 +55,14 @@ def main():
                 #print os.path.join(subdir, file)
                 filepath = subdir + os.sep + file_name
                 if filepath.endswith('time_results.tsv'):
-                    line = time_synthesis(folder, element)
+                    line = time_synthesis(filepath)
                     writer.writerow(line)
                 else:
                     continue
 
 
-def time_synthesis(folder, filename):
-    complete_filename = folder + "/" + filename
+def time_synthesis(filename):
+    complete_filename = filename
     time_file = open(complete_filename, mode='rt')
     tsvin = csv.reader(time_file, delimiter='\t')
 
