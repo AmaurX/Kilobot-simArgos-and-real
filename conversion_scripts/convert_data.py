@@ -29,8 +29,8 @@ def main():
         return 0
 
     filename = folder.split("/")[-1]
-    filename = filename.split("_")
-    for element in filename:
+    filename_pieces = filename.split("_")
+    for element in filename_pieces:
         if(element.startswith("robots=")):
             num_robots = int(element.split("=")[-1])
         elif(element.startswith("alpha=")):
@@ -38,19 +38,23 @@ def main():
         elif(element.startswith("rho=")):
             rho = float(element.split("=")[1])
 
-    if not os.path.exists("experiments/experiments/results/"):
-        os.mkdir("experiments/experiments/results/")
-    new_filename = "experiments/experiments/results/result_bias0.0_levy%.2f_crw%.2f_pop0%04d.dat" % (
+    result_folder = folder.strip(filename) + "results"
+    if not os.path.exists(result_folder):
+        os.mkdir(result_folder)
+    new_filename = result_folder + "/result_bias0.0_levy % .2f_crw % .2f_pop0 % 04d.dat" % (
         alpha, rho, num_robots)
 
     with open(new_filename, 'a') as tsvfile:
         writer = csv.writer(tsvfile, delimiter=' ')
-        for element in os.listdir(folder):
-            if element.endswith('time_results.tsv'):
-                line = time_synthesis(folder, element)
-                writer.writerow(line)
-            else:
-                continue
+        for subdir, _, files in os.walk(folder):
+            for file_name in files:
+                #print os.path.join(subdir, file)
+                filepath = subdir + os.sep + file_name
+                if filepath.endswith('time_results.tsv'):
+                    line = time_synthesis(folder, element)
+                    writer.writerow(line)
+                else:
+                    continue
 
 
 def time_synthesis(folder, filename):
@@ -100,4 +104,5 @@ def time_synthesis(folder, filename):
     return line
 
 
-main()
+if __name__ == '__main__':
+    main()

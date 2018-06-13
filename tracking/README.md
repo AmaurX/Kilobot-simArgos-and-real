@@ -1,8 +1,8 @@
 # Kilobot tracking repository
-Created by Amaury Camus (may 2018)   
+Created by Amaury Camus (may 2018)
 
+## Description
 
-## Description
 This is a custom kilobot tracking algorithm that adapts to a overhead camera on our circular arena.
 
 The currently functionning script is kilobot_tracking.py

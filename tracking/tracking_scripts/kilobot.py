@@ -576,7 +576,7 @@ class Kilobot(object):
         with open(position_file_name, 'wb') as positions:
             writer = csv.writer(positions, delimiter='\t',
                                 quotechar='|', quoting=csv.QUOTE_NONE)
-            first_line = ["Robot id"] + ["T = %d" %
+            first_line = ["Robot id"] + ["t = %d" %
                                          i for i in range(0, Kilobot.frame_number - Kilobot.starting_frame - 1)]
             writer.writerow(first_line)
             i = 1
@@ -603,7 +603,7 @@ class Kilobot(object):
             writer = csv.writer(displacement, delimiter='\t',
                                 quotechar='|', quoting=csv.QUOTE_NONE)
 
-            first_line = ["Robot id"] + ["T = %d" %
+            first_line = ["Robot id"] + ["t = %d" %
                                          i for i in range(0, Kilobot.frame_number - Kilobot.starting_frame - 1)]
             writer.writerow(first_line)
             j = 1

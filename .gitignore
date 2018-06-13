@@ -10,3 +10,5 @@ tracking/templates/old_kilobot_templates/
 tracking/templates/green_kilobot_templates/
 tracking/templates/calibration_old/
 tracking/templates/snapshots/
+real_experiments/
+simulation_experiments/

@@ -108,11 +108,15 @@ def main():
     Y1 += y_offset
     Y2 += y_offset
     arena_radius += r_offset
-    out = cv2.VideoWriter("results/" + args["video"].split('/')[-1].split('.')[0] + "_out.avi", cv2.VideoWriter_fourcc(
+    result_video_folder = args["video"].split(
+        '/')[0] + "/treated_videos/" + args["video"].split('/')[2] + "/"
+    if not os.path.exists(result_video_folder):
+        os.mkdir(result_video_folder)
+    out = cv2.VideoWriter(result_video_folder + args["video"].split('/')[-1].split('.')[0] + "_out.avi", cv2.VideoWriter_fourcc(
         'M', 'J', 'P', 'G'), 10.0, (X2-X1, Y2-Y1))
     # Set parameters for the kilobot class and the arena
 
-    ten_cm_template = "templates/10cm_templates/10cm.png"
+    ten_cm_template = "tracking/templates/10cm_templates/10cm.png"
     template = cv2.imread(ten_cm_template, 0)
     w, h = template.shape[::-1]
     pixel_per_m = float(w) / 0.10
@@ -167,7 +171,7 @@ def main():
         frame_copy = frame.copy()
         # Do a multiple template matching to find the target
         if(is_first_frame):
-            folder = "templates/target_templates/"
+            folder = "tracking/templates/target_templates/"
             for template_name in os.listdir(folder):
                 template = cv2.imread(folder + template_name, 0)
                 w, h = template.shape[::-1]
@@ -191,7 +195,7 @@ def main():
                                kilo.current_position[1]), communication_radius, colors[2], 1)
 
         # Do a multiple template matching, to take the rotation and angle of view into account
-        folder = "templates/kilobot_templates/"
+        folder = "tracking/templates/kilobot_templates/"
         for template_name in os.listdir(folder):
             template = cv2.imread(folder + template_name, 0)
             w, h = template.shape[::-1]
@@ -266,7 +270,7 @@ def main():
             Kilobot.associate_temp_to_kilobots()
 
         # Do a multiple template matching, to take the rotation and angle of view into account
-        folder = "templates/led_templates/"
+        folder = "tracking/templates/led_templates/"
         for template_name in os.listdir(folder):
             template = cv2.imread(folder + template_name, 0)
             w, h = template.shape[::-1]
