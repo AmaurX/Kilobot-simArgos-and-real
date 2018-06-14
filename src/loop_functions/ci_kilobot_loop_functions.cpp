@@ -437,7 +437,7 @@ void CIKilobotLoopFunctions::PostExperiment()
 
             if (m_cKilobotDiscoveryInformationTime[i][0] > 0)
             {
-                  int discoveryTime = float(m_cKilobotDiscoveryInformationTime[i][0]) * float(m_argos_tick_per_seconds) / (float(m_samplingPeriod) * 31.0);
+                  int discoveryTime = int(std::round(float(m_cKilobotDiscoveryInformationTime[i][0]) * float(m_argos_tick_per_seconds) / (float(m_samplingPeriod) * 31.0)));
                   if (discoveryTime > 3)
                   {
                         CVector2 comm_position = m_cKilobotPositions[i][discoveryTime];
