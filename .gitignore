@@ -12,3 +12,5 @@ tracking/templates/calibration_old/
 tracking/templates/snapshots/
 real_experiments/
 simulation_experiments/
+src/kilobots/build_local
+startBatches/
