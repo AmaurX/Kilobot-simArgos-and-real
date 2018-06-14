@@ -184,7 +184,7 @@ def main():
     plt.close()
 
     ##########################################################
-    n = 2
+    n = 1
     n_sec_distance_list = []
     total_number_of_robots = 0
     w_displacement_run_count = 0
