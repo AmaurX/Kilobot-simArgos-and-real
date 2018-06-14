@@ -7,6 +7,8 @@ import math
 from scipy.optimize import curve_fit
 import numpy as np
 
+image_folder = "images_comm_range/"
+
 
 def is_smaller_than_025(f):
     if(f < 0.22):
@@ -38,13 +40,10 @@ def main():
     plt.figure(figsize=(10, 10))
     total_list = map(float, total_list)
     total_list = filter(is_smaller_than_025, total_list)
-    print(number_of_experiment)
     n = len(total_list)
-    print(n)
     # print(bins)
     # bins = 3 * int(round(pow(n, 1.0/3.0)))
     n2, bins, _ = plt.hist(total_list, bins='auto',  density=1)
-    print(len(bins))
 
     # (mu, sigma) = norm.fit(total_list)
     # y = norm.pdf(bins, mu, sigma)
@@ -68,7 +67,13 @@ def main():
     # plt.title((
     #     r'$\mathrm{Histogram\ of\ communication\ distance:}\ \mu=%.3f,\ \sigma=%.3f$' % (mu, sigma)) + "\n" + (
     #     r'$\mathrm{number\ of\ values:}\ \ %.d$' % (n)))
-    plt.show()
+    # plt.show()
+    folder = folder.strip("/")
+    result_folder = image_folder + folder[:-len(folder.split("/")[-1])]
+    if not os.path.exists(result_folder):
+        os.mkdir(result_folder)
+
+    plt.savefig(image_folder + folder.strip("/") + ".png")
 
 
 if __name__ == '__main__':

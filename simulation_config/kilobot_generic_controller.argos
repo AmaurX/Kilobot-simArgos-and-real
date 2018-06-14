@@ -23,8 +23,8 @@
       <actuators>
         <kilobot_led implementation="default" />
         <differential_steering implementation="default"
-                                bias_avg="-0.0"
-                                bias_stddev="0.0"
+                                bias_avg="-0.00075"
+                                bias_stddev="0.00196"
                                 factor_avg="1"
                                 factor_stddev="0.00" />
         <!-- <leds implementation="default" medium="leds" /> -->
@@ -34,7 +34,7 @@
         <kilobot_communication implementation="default" medium="kilocomm" noise_std_dev="5" distance_bias_mean="1.2" distance_bias_std_dev="0.17" />
         <!-- <kilobot_light implementation="rot_z_only" /> -->
       </sensors>
-      <params behavior="build/behaviors_simulation/CRWLEVY_2.0_0.90" linearvelocity="2" angularvelocity="45" />
+      <params behavior="build/behaviors_simulation/CRWLEVY_2.0_0.90" linearvelocity="1.2" angularvelocity="45" />
     </kilobot_controller>
 
     <kilobot_controller id="kbc_target">
