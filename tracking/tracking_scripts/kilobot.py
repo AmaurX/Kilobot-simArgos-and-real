@@ -572,7 +572,8 @@ class Kilobot(object):
             sub_sub_directory, date_time)
         communication_range_file_name = "%s/%s_comm_range.tsv" % (
             sub_sub_directory, date_time)
-
+        initial_distance_file_name = "%s/%s_initial_distances.tsv" % (
+            sub_sub_directory, date_time)
         with open(position_file_name, 'wb') as positions:
             writer = csv.writer(positions, delimiter='\t',
                                 quotechar='|', quoting=csv.QUOTE_NONE)
@@ -628,3 +629,19 @@ class Kilobot(object):
                     distance = Kilobot.to_meter_disp(distance)
                     line.append(distance)
             writer.writerow(line)
+
+        with open(initial_distance_file_name, 'wb') as initial_distance:
+            writer = csv.writer(initial_distance, delimiter='\t',
+                                quotechar='|', quoting=csv.QUOTE_NONE)
+            for kilo in Kilobot.kilobot_list:
+                line = []
+                kilo.current_position = kilo.positions[0]
+                distance = kilo.distance(Kilobot.target_coordinates)
+                distance = Kilobot.to_meter_disp(distance)
+                line.append(distance)
+                for other_kilo in Kilobot.kilobot_list:
+                    if(other_kilo != kilo):
+                        distance = kilo.distance(other_kilo.positions[0])
+                        distance = Kilobot.to_meter_disp(distance)
+                        line.append(distance)
+                writer.writerow(line)

@@ -374,20 +374,22 @@ void CIKilobotLoopFunctions::PostExperiment()
       }
       char randomStr[5];
       int randomInt = m_pcRNG->Uniform(CRange<int>((int)0, (int)99999));
-      sprintf(randomStr, "%d", randomInt);
-      std::string prefix = folder + "/" + dateTime + "_" + randomStr + "_";
+      sprintf(randomStr, "_%05d_%d_", randomInt, m_random_seed);
+      std::string prefix = folder + "/" + dateTime + randomStr;
 
       std::string displacement_file = prefix + "displacement.tsv";
       std::string position_file = prefix + "position.tsv";
       std::string time_results_file = prefix + "time_results.tsv";
       std::string config_file = prefix + "config.tsv";
       std::string comm_range_file = prefix + "comm_range.tsv";
+      std::string initial_distances_file = prefix + "initial_distances.tsv";
 
       std::ofstream of_1(time_results_file, std::ios::out);
       std::ofstream of_2(displacement_file, std::ios::out);
       std::ofstream of_3(position_file, std::ios::out);
       std::ofstream of_4(config_file, std::ios::out);
       std::ofstream of_5(comm_range_file, std::ios::out);
+      std::ofstream of_6(initial_distances_file, std::ios::out);
 
       TRWResults results = GetResults();
       // of << results << std::endl;
@@ -399,14 +401,11 @@ void CIKilobotLoopFunctions::PostExperiment()
 
       for (uint j = 0; j < m_cKilobotDisplacements[0].size(); j++)
       {
-            of_2 << "\tt = " << j * m_samplingPeriod;
+            int t = j * m_samplingPeriod;
+            of_2 << "\tt = " << t;
+            of_3 << "\tt = " << t;
       }
       of_2 << std::endl;
-
-      for (uint j = 0; j < m_cKilobotPositions[0].size(); j++)
-      {
-            of_3 << "\tt = " << j * m_samplingPeriod;
-      }
       of_3 << std::endl;
 
       bool first = true;
@@ -450,6 +449,21 @@ void CIKilobotLoopFunctions::PostExperiment()
                         of_5 << std::setprecision(4) << distance;
                   }
             }
+
+            CVector2 initial_position = m_cKilobotPositions[i][0];
+            Real distance = (initial_position - target_pos).Length();
+            of_6 << std::setprecision(4) << distance;
+
+            for (uint j = 0; j < m_unNumRobots; j++)
+            {
+                  if (j != i)
+                  {
+                        CVector2 other_initial_position = m_cKilobotPositions[j][0];
+                        distance = (initial_position - other_initial_position).Length();
+                        of_6 << '\t' << std::setprecision(4) << distance;
+                  }
+            }
+            of_6 << std::endl;
       }
 
       of_4 << "Argos ticks per second\t" << m_argos_tick_per_seconds << std::endl;
