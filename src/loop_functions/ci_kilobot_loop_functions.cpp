@@ -103,18 +103,19 @@ void CIKilobotLoopFunctions::Init(TConfigurationNode &t_node)
       ////////////////////////////////////////////////////////////////////////////////
       std::ostringstream kilobot_id;
       CVector3 kilobot_position = CVector3(m_fArenaRadius, m_fArenaRadius, 0); // init position must be out of the arena
+      kilobot_id.str("");
+      kilobot_id << "0_target";
+      CKilobotEntity *kilobot = new CKilobotEntity(kilobot_id.str(), "kbc_target", kilobot_position, CQuaternion());
+      AddEntity(*kilobot);
+
       for (UInt32 i = 0; i < m_unNumRobots; i++)
       {
             kilobot_id.str("");
-            kilobot_id << i;
+            kilobot_id << i + 1;
             CKilobotEntity *kilobot = new CKilobotEntity(kilobot_id.str(), "kbc_agent", kilobot_position, CQuaternion());
             AddEntity(*kilobot);
       }
 
-      kilobot_id.str("");
-      kilobot_id << "target";
-      CKilobotEntity *kilobot = new CKilobotEntity(kilobot_id.str(), "kbc_target", kilobot_position, CQuaternion());
-      AddEntity(*kilobot);
       // kilobot->set_movable(false);
 
       m_cKilobots = GetSpace().GetEntitiesByType("kilobot");
@@ -148,6 +149,16 @@ void CIKilobotLoopFunctions::SetExperiment()
       // LOG << "Set Experiment!" << std::endl;
       m_tResults.Reset();
       uint robot_num = 0;
+      // CQuaternion target_random_rotation;
+
+      CVector3 kilobot_displacement(-KILOBOT_ECCENTRICITY, 0, 0);
+      // CRadians target_random_rotation_angle(m_pcRNG->Uniform(CRange<Real>(-CRadians::PI.GetValue(), CRadians::PI.GetValue())));
+      // target_random_rotation.FromEulerAngles(target_random_rotation_angle, CRadians::ZERO, CRadians::ZERO);
+      // Real target_rho = m_pcRNG->Uniform(CRange<Real>(0, m_fArenaRadius));
+      // Real target_theta = m_pcRNG->Uniform(CRange<Real>(-CRadians::PI.GetValue(), CRadians::PI.GetValue()));
+      // CVector3 target_random_position(target_rho * cos(target_theta), target_rho * sin(target_theta), 0);
+      // target_random_position += kilobot_displacement.RotateZ(target_random_rotation_angle);
+
       for (CSpace::TMapPerType::iterator it = m_cKilobots.begin(); it != m_cKilobots.end(); ++it, robot_num++)
       {
             /* Get handle to kilobot entity and controller */
@@ -162,18 +173,45 @@ void CIKilobotLoopFunctions::SetExperiment()
             bool distant_enough = false;
             UInt32 m_unMaxInitTrials = 1000;
             UInt32 un_init_trials = 0;
+
+            Real min_distance = 0.2f;
+
             while (!distant_enough && (++un_init_trials < m_unMaxInitTrials))
             {
                   Real rho = m_pcRNG->Uniform(CRange<Real>(0, m_fArenaRadius));
                   Real theta = m_pcRNG->Uniform(CRange<Real>(-CRadians::PI.GetValue(), CRadians::PI.GetValue()));
                   CVector3 random_position(rho * cos(theta), rho * sin(theta), 0);
-                  if ((robot_num == m_cKilobots.size() - 1))
+                  if ((robot_num == 0))
                   {
                         m_target_position = random_position;
                   }
-                  CVector3 kilobot_displacement(-KILOBOT_ECCENTRICITY, 0, 0);
+
                   distant_enough = MoveEntity(cKilobot.GetEmbodiedEntity(), random_position + kilobot_displacement.RotateZ(random_rotation_angle), random_rotation, false);
-                  if (un_init_trials > m_unMaxInitTrials)
+
+                  if (distant_enough)
+                  {
+                        CVector2 this_kilobot_xy_position(cKilobot.GetEmbodiedEntity().GetOriginAnchor().Position.GetX(), cKilobot.GetEmbodiedEntity().GetOriginAnchor().Position.GetY());
+                        uint other_robot_num = 0;
+                        Real closest_distance = 10000000.0f;
+                        for (CSpace::TMapPerType::iterator it_other = m_cKilobots.begin(); it_other != m_cKilobots.end() && other_robot_num < robot_num; ++it_other, other_robot_num++)
+                        {
+                              CKilobotEntity &other_kilobot = *any_cast<CKilobotEntity *>(it_other->second);
+                              CVector2 other_kilobot_xy_position(other_kilobot.GetEmbodiedEntity().GetOriginAnchor().Position.GetX(), other_kilobot.GetEmbodiedEntity().GetOriginAnchor().Position.GetY());
+                              Real distance = (other_kilobot_xy_position - this_kilobot_xy_position).Length();
+                              if (distance < closest_distance)
+                              {
+                                    closest_distance = distance;
+                              }
+                        }
+                        Real random_refusal = m_pcRNG->Uniform(CRange<Real>(0.06, min_distance));
+                        if (closest_distance < random_refusal)
+                        {
+                              distant_enough = false;
+                              printf("clostest distance = %f for robot %d try %d\n", closest_distance, robot_num, un_init_trials);
+                        }
+                  }
+
+                  if (un_init_trials + 1 > m_unMaxInitTrials)
                   {
                         LOGERR << "Failed to move entity " << cKilobot.GetId() << " for  " << m_unMaxInitTrials << " trials" << std::endl;
                         LOGERR.Flush();
@@ -208,6 +246,7 @@ void CIKilobotLoopFunctions::SetExperiment()
       {
             /* Get handle to kilobot entity and controller */
             CKilobotEntity &c_kilobot = *any_cast<CKilobotEntity *>(it->second);
+            printf("%s\n", c_kilobot.GetId().c_str());
             CVector2 c_kilobot_xy_position(c_kilobot.GetEmbodiedEntity().GetOriginAnchor().Position.GetX(), c_kilobot.GetEmbodiedEntity().GetOriginAnchor().Position.GetY());
             m_cKilobotOriginalPositions.push_back(c_kilobot_xy_position);
             std::vector<CVector2> positions_init;
@@ -399,7 +438,7 @@ void CIKilobotLoopFunctions::PostExperiment()
       of_2 << "Robot id";
       of_3 << "Robot id";
 
-      for (uint j = 0; j < m_cKilobotDisplacements[0].size(); j++)
+      for (uint j = 0; j < m_cKilobotDisplacements[1].size(); j++)
       {
             int t = j * m_samplingPeriod;
             of_2 << "\tt = " << t;
@@ -410,11 +449,11 @@ void CIKilobotLoopFunctions::PostExperiment()
 
       bool first = true;
       CVector2 target_pos = CVector2(m_target_position.GetX(), m_target_position.GetY());
-      for (uint i = 0; i < m_unNumRobots; i++)
+      for (uint i = 1; i <= m_unNumRobots; i++)
       {
-            of_1 << i + 1;
-            of_2 << i + 1;
-            of_3 << i + 1;
+            of_1 << i;
+            of_2 << i;
+            of_3 << i;
 
             for (uint j = 0; j < m_cKilobotDiscoveryInformationTime[i].size(); j++)
             {
@@ -454,7 +493,7 @@ void CIKilobotLoopFunctions::PostExperiment()
             Real distance = (initial_position - target_pos).Length();
             of_6 << std::setprecision(4) << distance;
 
-            for (uint j = 0; j < m_unNumRobots; j++)
+            for (uint j = 1; j <= m_unNumRobots; j++)
             {
                   if (j != i)
                   {

@@ -51,7 +51,7 @@ def main():
 
     axes = plt.gca()
     # axes.set_xlim([0.0, 0.22])
-    # axes.set_ylim([0, 40])
+    axes.set_xlim([0, 1.0])
 
     plt.plot(centers, norm.pdf(centers, *pars),
              'k--', linewidth=2, label='optimized fit')
@@ -89,7 +89,7 @@ def main():
 
     axes = plt.gca()
     # axes.set_xlim([0.0, 0.22])
-    # axes.set_ylim([0, 40])
+    axes.set_xlim([0, 1.0])
 
     plt.plot(centers, norm.pdf(centers, *pars),
              'k--', linewidth=2, label='optimized fit')
