@@ -174,7 +174,7 @@ void CIKilobotLoopFunctions::SetExperiment()
             UInt32 m_unMaxInitTrials = 1000;
             UInt32 un_init_trials = 0;
 
-            Real min_distance = 0.2f;
+            Real min_distance = 0.25f;
 
             while (!distant_enough && (++un_init_trials < m_unMaxInitTrials))
             {
@@ -203,11 +203,11 @@ void CIKilobotLoopFunctions::SetExperiment()
                                     closest_distance = distance;
                               }
                         }
-                        Real random_refusal = m_pcRNG->Uniform(CRange<Real>(0.06, min_distance));
+                        Real random_refusal = m_pcRNG->Uniform(CRange<Real>(0.08, min_distance));
                         if (closest_distance < random_refusal)
                         {
                               distant_enough = false;
-                              printf("clostest distance = %f for robot %d try %d\n", closest_distance, robot_num, un_init_trials);
+                              printf("closest_distance = %f for robot %d try %d\n", closest_distance, robot_num, un_init_trials);
                         }
                   }
 
