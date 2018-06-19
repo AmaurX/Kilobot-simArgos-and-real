@@ -9,7 +9,7 @@
 
   <framework>
     <system threads="0" />
-    <experiment length="240"
+    <experiment length="3000"
                 ticks_per_second="10"
                  />
   </framework>
@@ -24,7 +24,7 @@
         <kilobot_led implementation="default" />
         <differential_steering implementation="default"
                                 bias_avg="0.0"
-                                bias_stddev="0.00196"
+                                bias_stddev="0.00400"
                                 factor_avg="1"
                                 factor_stddev="0.00" />
         <!-- <leds implementation="default" medium="leds" /> -->
