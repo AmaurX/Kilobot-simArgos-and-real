@@ -91,7 +91,7 @@ clean:
 test-for: $(BEHAVIOR_SOURCE_FOLDER)/CRWLEVY.c $(KILOLIB) | build_real
 	for alpha in 1.0 1.2 1.4 1.6 1.8 2.0 ; do \
 		for rho in 0.00 0.15 0.30 0.45 0.60 0.75 0.90 0.95 0.99; do \
-			export C_DEFINES_CUSTOM="-DCRW_EXPONENT=$$rho -DLEVY_EXPONENT=$$alpha -DREAL=1 -DMAX_TIME=6440"; \
+			export C_DEFINES_CUSTOM="-DCRW_EXPONENT=$$rho -DLEVY_EXPONENT=$$alpha -DREAL=1 -DMAX_TIME=7440"; \
 			$(CC) $(INC) $(CFLAGS) $$C_DEFINES_CUSTOM -o $(BEHAVIOR_BUILD_FOLDER)/CRWLEVY_$${alpha}_$${rho}.elf $< $(KILOLIB); \
 			$(AVROC) -O ihex $(FLASH) $(BEHAVIOR_BUILD_FOLDER)/CRWLEVY_$${alpha}_$${rho}.elf $(BEHAVIOR_BUILD_FOLDER)/CRWLEVY_$${alpha}_$${rho}.hex; \
 			$(AVROD) -d -S $(BEHAVIOR_BUILD_FOLDER)/CRWLEVY_$${alpha}_$${rho}.elf > $(BEHAVIOR_BUILD_FOLDER)/CRWLEVY_$${alpha}_$${rho}.lss;\

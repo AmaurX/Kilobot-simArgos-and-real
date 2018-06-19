@@ -54,8 +54,8 @@ def main():
 
     n2, bins, _ = plt.hist(n_sec_distance_list, bins='auto', density=1)
     centers = (0.5*(bins[1:]+bins[:-1]))
-    pars, cov = curve_fit(lambda total_list, mu, sig: norm.pdf(
-        total_list, loc=mu, scale=sig), centers, n2, p0=[0, 1])
+    # pars, cov = curve_fit(lambda total_list, mu, sig: norm.pdf(
+    #     total_list, loc=mu, scale=sig), centers, n2, p0=[0, 1])
     # axes = plt.gca()
     # axes.set_xlim([0.0, 0.025])
 
@@ -86,26 +86,29 @@ def main():
         print(popt)
         new_y = []
         for x in centers:
+            new_y.append(bimodal_gauss(x, *popt))
+        label = r'$\mathrm{Histogram\ of\ speed\ two\ Gaussians:}$'
+        plt.plot(centers, new_y,
+                 'r--', linewidth=2, label=label)
+        new_y = []
+        label = r'$\mu1={: .4f}\pm{: .4f}$, $\sigma1={: .4f}\pm{: .4f}$'.format(
+            popt[0], np.sqrt(pcov[0, 0]), abs(popt[1]), np.sqrt(pcov[1, 1]))
+        for x in centers:
             new_y.append(gauss(x, *popt[:3]))
         plt.plot(centers, new_y,
-                 'w--', linewidth=1)
+                 'g--', linewidth=1, label=label)
         new_y = []
+        label = r'$\mu2={: .4f}\pm{: .4f}$, $\sigma2={: .4f}\pm{: .4f}$'.format(
+            popt[3], np.sqrt(pcov[3, 3]), abs(popt[4]), np.sqrt(pcov[4, 4]))
         for x in centers:
             new_y.append(gauss(x, *popt[3:]))
         plt.plot(centers, new_y,
-                 'b--', linewidth=1)
-        new_y = []
-        for x in centers:
-            new_y.append(bimodal_gauss(x, *popt))
-        label = r'$\mathrm{Histogram\ of\ speed\ two\ Gaussians:}$' + "\n" + r'$\mu1={: .4f}\pm{: .4f}$, $\sigma1={: .4f}\pm{: .4f}$'.format(
-            popt[0], np.sqrt(pcov[0, 0]), abs(popt[1]), np.sqrt(pcov[1, 1])) + "\n" + r'$\mu2={: .4f}\pm{: .4f}$, $\sigma2={: .4f}\pm{: .4f}$'.format(popt[3], np.sqrt(pcov[3, 3]), abs(popt[4]), np.sqrt(pcov[4, 4]))
-        plt.plot(centers, new_y,
-                 'r--', linewidth=2, label=label)
+                 'b--', linewidth=1, label=label)
 
-        label = r'$\mathrm{Histogram\ of\ speed\ one\ Gaussian:}$' + "\n" + r'$\mu={: .4f}\pm{: .4f}$, $\sigma={: .4f}\pm{: .4f}$'.format(
-                pars[0], np.sqrt(cov[0, 0]), pars[1], np.sqrt(cov[1, 1])) + "\n" + r'$\mathrm{number\ of\ robots:}\ \ %.d$' % (total_number_of_robots)
-        plt.plot(centers, norm.pdf(centers, *pars),
-                 'k--', linewidth=0.1, label=label)
+        # label = r'$\mathrm{Histogram\ of\ speed\ one\ Gaussian:}$' + "\n" + r'$\mu={: .4f}\pm{: .4f}$, $\sigma={: .4f}\pm{: .4f}$'.format(
+        #     pars[0], np.sqrt(cov[0, 0]), pars[1], np.sqrt(cov[1, 1])) + "\n" + r'$\mathrm{number\ of\ robots:}\ \ %.d$' % (total_number_of_robots)
+        # plt.plot(centers, norm.pdf(centers, *pars),
+        #          'k--', linewidth=0.1, label=label)
 
     except RuntimeError:
         print("Could not find a double Gaussian fit")

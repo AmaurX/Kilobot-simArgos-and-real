@@ -22,6 +22,7 @@ const std::string CONFIGURATION_KILOBOT_RW_NUM_ROBOTS = "num_robots";
 const std::string CONFIGURATION_KILOBOT_RW_SAMPLING_PERIOD = "sampling_period_in_ticks";
 const std::string CONFIGURATION_KILOBOT_RW_ALPHA = "alpha";
 const std::string CONFIGURATION_KILOBOT_RW_RHO = "rho";
+const std::string CONFIGURATION_KILOBOT_RW_COMM_RANGE = "communication_range";
 
 // const std::string CONFIGURATION_KILOBOT_RW_TARGET_RADIUS = "target_radius";
 
@@ -42,7 +43,8 @@ CIKilobotLoopFunctions::CIKilobotLoopFunctions() : m_pcFloor(NULL),
                                                    m_argos_tick_per_seconds(0),
                                                    m_argos_max_time(0),
                                                    m_random_seed(0),
-                                                   m_target_position(0., 0., 0.)
+                                                   m_target_position(0., 0., 0.),
+                                                   m_communication_range(0.10f)
 {
 }
 
@@ -71,6 +73,7 @@ void CIKilobotLoopFunctions::Init(TConfigurationNode &t_node)
       GetNodeAttributeOrDefault(t_node, CONFIGURATION_KILOBOT_RW_SAMPLING_PERIOD, m_samplingPeriod, m_samplingPeriod);
       GetNodeAttributeOrDefault(t_node, CONFIGURATION_KILOBOT_RW_ALPHA, m_alpha, m_alpha);
       GetNodeAttributeOrDefault(t_node, CONFIGURATION_KILOBOT_RW_RHO, m_rho, m_rho);
+      GetNodeAttributeOrDefault(t_node, CONFIGURATION_KILOBOT_RW_COMM_RANGE, m_communication_range, m_communication_range);
 
       // GetNodeAttributeOrDefault(t_node, CONFIGURATION_KILOBOT_RW_TARGET_RADIUS, m_fTargetRadius, m_fTargetRadius);
 
@@ -105,14 +108,14 @@ void CIKilobotLoopFunctions::Init(TConfigurationNode &t_node)
       CVector3 kilobot_position = CVector3(m_fArenaRadius, m_fArenaRadius, 0); // init position must be out of the arena
       kilobot_id.str("");
       kilobot_id << "0_target";
-      CKilobotEntity *kilobot = new CKilobotEntity(kilobot_id.str(), "kbc_target", kilobot_position, CQuaternion());
+      CKilobotEntity *kilobot = new CKilobotEntity(kilobot_id.str(), "kbc_target", kilobot_position, CQuaternion(), m_communication_range);
       AddEntity(*kilobot);
 
       for (UInt32 i = 0; i < m_unNumRobots; i++)
       {
             kilobot_id.str("");
             kilobot_id << i + 1;
-            CKilobotEntity *kilobot = new CKilobotEntity(kilobot_id.str(), "kbc_agent", kilobot_position, CQuaternion());
+            CKilobotEntity *kilobot = new CKilobotEntity(kilobot_id.str(), "kbc_agent", kilobot_position, CQuaternion(), m_communication_range);
             AddEntity(*kilobot);
       }
 

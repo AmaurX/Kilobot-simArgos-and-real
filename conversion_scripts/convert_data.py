@@ -12,11 +12,11 @@ Kilobot_tick_per_second = 31
 
 
 def print_help():
-    print("usage : folder_path (without / at the end)")
+    print("usage : folder_path (without / at the end), sim_or_real")
 
 
 def main():
-    if (number_of_args < 1):
+    if (number_of_args < 2):
         print_help()
         exit(-1)
 
@@ -24,10 +24,15 @@ def main():
     alpha = 0.0
     rho = 0.0
     folder = sys.argv[1]
+    sim_or_real = sys.argv[2]
     if folder.endswith("results"):
         print("folder = result")
         return 0
     print(folder)
+    multiplieur = 1.0
+    if(sim_or_real == "real"):
+        multiplieur = 31.0 / 2.0
+
     filename = folder.split("/")[-1]
     filename_pieces = filename.split("_")
     for element in filename_pieces:
@@ -52,16 +57,16 @@ def main():
         writer = csv.writer(tsvfile, delimiter=' ')
         for subdir, _, files in os.walk(folder):
             for file_name in files:
-                #print os.path.join(subdir, file)
+                # print os.path.join(subdir, file)
                 filepath = subdir + os.sep + file_name
                 if filepath.endswith('time_results.tsv'):
-                    line = time_synthesis(filepath)
+                    line = time_synthesis(filepath, multiplieur)
                     writer.writerow(line)
                 else:
                     continue
 
 
-def time_synthesis(filename):
+def time_synthesis(filename, multiplieur):
     complete_filename = filename
     time_file = open(complete_filename, mode='rt')
     tsvin = csv.reader(time_file, delimiter='\t')
@@ -80,19 +85,21 @@ def time_synthesis(filename):
             if(row[0] == "Robot id"):
                 continue
             else:
-                row = [int(i) for i in row]
+                row = [float(i) for i in row]
                 number_of_robots += 1
                 if(row[1] > 0):
-                    line.append(row[1])
+                    value = int(round(row[1]*multiplieur))
+                    line.append(value)
                     number_of_discovery += 1
-                    if(row[1] < first_ever_discovery):
-                        first_ever_discovery = row[1]
+                    if(value < first_ever_discovery):
+                        first_ever_discovery = value
                 else:
                     line.append("NaN")
                 if(row[2] > 0):
+                    value = int(round(row[2]*multiplieur))
                     number_of_information += 1
-                    if(row[2] > convergence_time):
-                        convergence_time = row[2]
+                    if(value > convergence_time):
+                        convergence_time = value
     discovery_proportion = number_of_discovery / number_of_robots
     information_proportion = number_of_information / number_of_robots
     complete_information = 1

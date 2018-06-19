@@ -1,5 +1,3 @@
-# import xml.etree.ElementTree as ET
-from xml.etree.ElementTree import Element
 import sys
 from lxml import etree
 import os
@@ -45,6 +43,12 @@ def main():
 
     tree.write(generated_configs_folder + "/kilobot_sim_%d_%.1f_%.2f.argos" %
                (numberofrobots, alpha, rho), xml_declaration=True)
+
+    comments = tree.xpath('//comment()')
+
+    for c in comments:
+        p = c.getparent()
+        p.remove(c)
 
 
 if __name__ == '__main__':
