@@ -25,18 +25,14 @@ def main():
 
     tree = etree.parse(folder+"/kilobot_generic_controller.argos")
     root = tree.getroot()
+    speed = "0.0"
+    for params in root.iter('params'):
+        # print(params.attrib)
+        speed = params.get("linearvelocity", speed)
 
-    # for params in root.iter('params'):
-    #     # print(params.attrib)
-    #     if(params.get("behavior") == "build/behaviors_simulation/CRWLEVY_2.0_0.90"):
-    #         params.set("behavior", "build/behaviors_simulation/CRWLEVY_" +
-    #                    "%.1f_" % alpha + "%.2f" % rho)
-
-    # for loop_functions in root.iter('loop_functions'):
-    #     # print(loop_functions.attrib)
-    #     loop_functions.set("alpha", "%.1f" % alpha)
-    #     loop_functions.set("rho", "%.2f" % rho)
-    #     loop_functions.set("num_robots", "%d" % numberofrobots)
+    for loop_functions in root.iter('loop_functions'):
+        # print(loop_functions.attrib)
+        loop_functions.set("speed", speed)
 
     visualization = etree.SubElement(root, "visualization")
 

@@ -4,7 +4,7 @@ import os
 
 
 def print_help():
-    print("usage : config_folder_path, numberOfRobots, alpha, rho")
+    print("usage : config_folder_path, numberOfRobots, alpha, rho, speed")
 
 
 def main():
@@ -12,7 +12,7 @@ def main():
     parser = etree.XMLParser(remove_comments=False)
     etree.set_default_parser(parser)
 
-    if (number_of_args < 5):
+    if (number_of_args < 6):
         print_help()
         exit(-1)
 
@@ -20,7 +20,7 @@ def main():
     numberofrobots = int(sys.argv[2])
     alpha = float(sys.argv[3])
     rho = float(sys.argv[4])
-
+    speed = float(sys.argv[5])
     generated_configs_folder = folder + "/generated_configs"
 
     if not os.path.exists(generated_configs_folder):
@@ -34,15 +34,17 @@ def main():
         if(params.get("behavior") == "build/behaviors_simulation/CRWLEVY_2.0_0.90"):
             params.set("behavior", "build/behaviors_simulation/CRWLEVY_" +
                        "%.1f_" % alpha + "%.2f" % rho)
+        if(params.get("linearvelocity")):
+            params.set("linearvelocity", "%.2f" % speed)
 
     for loop_functions in root.iter('loop_functions'):
         # print(loop_functions.attrib)
         loop_functions.set("alpha", "%.1f" % alpha)
         loop_functions.set("rho", "%.2f" % rho)
         loop_functions.set("num_robots", "%d" % numberofrobots)
-
-    tree.write(generated_configs_folder + "/kilobot_sim_%d_%.1f_%.2f.argos" %
-               (numberofrobots, alpha, rho), xml_declaration=True)
+        loop_functions.set("speed", "%.2f" % speed)
+    tree.write(generated_configs_folder + "/kilobot_sim_%.02f_%d_%.1f_%.2f.argos" %
+               (speed, numberofrobots, alpha, rho), xml_declaration=True)
 
     comments = tree.xpath('//comment()')
 
