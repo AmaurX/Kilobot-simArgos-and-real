@@ -24,7 +24,7 @@
         <kilobot_led implementation="default" />
         <differential_steering implementation="default"
                                 bias_avg="0.0"
-                                bias_stddev="0.00196"
+                                bias_stddev="0.00"
                                 factor_avg="1"
                                 factor_stddev="0.00" />
         <!-- <leds implementation="default" medium="leds" /> -->
@@ -92,7 +92,7 @@
   <!-- * Media * -->
   <!-- ********* -->
   <media>
-    <kilobot_communication id="kilocomm" ignore_conflicts="true" />
+    <kilobot_communication id="kilocomm"/>
     <!-- <led id="leds" />  -->
   </media>
 

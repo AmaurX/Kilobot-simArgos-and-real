@@ -23,6 +23,7 @@ const std::string CONFIGURATION_KILOBOT_RW_SAMPLING_PERIOD = "sampling_period_in
 const std::string CONFIGURATION_KILOBOT_RW_ALPHA = "alpha";
 const std::string CONFIGURATION_KILOBOT_RW_RHO = "rho";
 const std::string CONFIGURATION_KILOBOT_RW_COMM_RANGE = "communication_range";
+const std::string CONFIGURATION_KILOBOT_RW_SPEED = "speed";
 
 // const std::string CONFIGURATION_KILOBOT_RW_TARGET_RADIUS = "target_radius";
 
@@ -44,7 +45,8 @@ CIKilobotLoopFunctions::CIKilobotLoopFunctions() : m_pcFloor(NULL),
                                                    m_argos_max_time(0),
                                                    m_random_seed(0),
                                                    m_target_position(0., 0., 0.),
-                                                   m_communication_range(0.10f)
+                                                   m_communication_range(0.10f),
+                                                   m_speed(1.0f)
 {
 }
 
@@ -74,6 +76,7 @@ void CIKilobotLoopFunctions::Init(TConfigurationNode &t_node)
       GetNodeAttributeOrDefault(t_node, CONFIGURATION_KILOBOT_RW_ALPHA, m_alpha, m_alpha);
       GetNodeAttributeOrDefault(t_node, CONFIGURATION_KILOBOT_RW_RHO, m_rho, m_rho);
       GetNodeAttributeOrDefault(t_node, CONFIGURATION_KILOBOT_RW_COMM_RANGE, m_communication_range, m_communication_range);
+      GetNodeAttributeOrDefault(t_node, CONFIGURATION_KILOBOT_RW_SPEED, m_speed, m_speed);
 
       // GetNodeAttributeOrDefault(t_node, CONFIGURATION_KILOBOT_RW_TARGET_RADIUS, m_fTargetRadius, m_fTargetRadius);
 
@@ -210,7 +213,7 @@ void CIKilobotLoopFunctions::SetExperiment()
                         if (closest_distance < random_refusal)
                         {
                               distant_enough = false;
-                              printf("closest_distance = %f for robot %d try %d\n", closest_distance, robot_num, un_init_trials);
+                              // printf("closest_distance = %f for robot %d try %d\n", closest_distance, robot_num, un_init_trials);
                         }
                   }
 
@@ -249,7 +252,7 @@ void CIKilobotLoopFunctions::SetExperiment()
       {
             /* Get handle to kilobot entity and controller */
             CKilobotEntity &c_kilobot = *any_cast<CKilobotEntity *>(it->second);
-            printf("%s\n", c_kilobot.GetId().c_str());
+            // printf("%s\n", c_kilobot.GetId().c_str());
             CVector2 c_kilobot_xy_position(c_kilobot.GetEmbodiedEntity().GetOriginAnchor().Position.GetX(), c_kilobot.GetEmbodiedEntity().GetOriginAnchor().Position.GetY());
             m_cKilobotOriginalPositions.push_back(c_kilobot_xy_position);
             std::vector<CVector2> positions_init;
@@ -404,7 +407,10 @@ void CIKilobotLoopFunctions::PostExperiment()
       sprintf(alpha, "%.1f", m_alpha);
       char rho[10];
       sprintf(rho, "%.2f", m_rho);
-      std::string folder = "experiments/" + date + "_robots=" + numRobotStr + "_alpha=" + alpha + "_rho=" + rho + "_experiments";
+      char speedStr[10];
+      sprintf(speedStr, "%.2f", m_speed);
+
+      std::string folder = "experiments/" + date + "_speed=" + speedStr + "_robots=" + numRobotStr + "_alpha=" + alpha + "_rho=" + rho + "_experiments";
       if (opendir(folder.c_str()) == NULL)
       {
             const int dir_err = mkdir(folder.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
