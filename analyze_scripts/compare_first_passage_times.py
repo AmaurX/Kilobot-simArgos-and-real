@@ -78,7 +78,7 @@ def main():
         plt.plot(times, values, linewidth=linewidth, label=legend)
     plt.xlabel("Time in seconds")
     axes = plt.gca()
-    axes.set_xlim([0.0, 240])
+    axes.set_xlim([0.0, 1040])
     axes.set_ylim([0.0, 0.8])
 
     plt.ylabel("proportion of discovery")

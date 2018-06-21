@@ -25,7 +25,7 @@ def main():
     rho = 0.0
     folder = sys.argv[1]
     sim_or_real = sys.argv[2]
-    if folder.endswith("results"):
+    if "results" in folder:
         print("folder = result")
         return 0
     print(folder)
@@ -45,7 +45,8 @@ def main():
     print(filename)
     print(folder)
 
-    result_folder = folder[:-len(filename)] + "results"
+    result_folder = folder[:-len(filename)] + \
+        "results_" + folder.split("/")[-2][12:]
     print(result_folder)
 
     if not os.path.exists(result_folder):
