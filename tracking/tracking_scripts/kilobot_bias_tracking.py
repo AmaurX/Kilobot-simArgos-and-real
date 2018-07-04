@@ -3,9 +3,9 @@ import argparse
 import os
 from collections import deque
 from time import gmtime, strftime
-
+import analyze_bias
 import numpy as np
-
+import math
 import cv2
 import imutils
 from kilobot import Kilobot
@@ -96,6 +96,9 @@ def main():
     r_offset = args["r_offset"]
     print(args["video"])
 
+    date = strftime("%Y%m%d", gmtime())
+    result_folder = "%s_calib" % (
+        date)
     if os.path.isfile(args["video"].split(".")[0]+".txt"):
         f = open(args["video"].split(".")[0]+".txt", 'r')
         metadata = f.readlines()
@@ -110,12 +113,14 @@ def main():
     Y1 += y_offset
     Y2 += y_offset
     arena_radius += r_offset
+    video_name = args["video"].split('/')[-1].split('.')[0]
     result_video_folder = args["video"].split(
         '/')[0] + "/treated_videos/" + args["video"].split('/')[2] + "/"
     if not os.path.exists(result_video_folder):
         os.mkdir(result_video_folder)
-    out = cv2.VideoWriter(result_video_folder + args["video"].split('/')[-1].split('.')[0] + "_out.avi", cv2.VideoWriter_fourcc(
-        'M', 'J', 'P', 'G'), 10.0, (X2-X1, Y2-Y1))
+
+    out = cv2.VideoWriter(result_video_folder + video_name +
+                          "_out.mp4", 0x00000021, 10.0, (X2-X1, Y2-Y1))
     # Set parameters for the kilobot class and the arena
 
     ten_cm_template = "tracking/templates/10cm_templates/10cm.png"
@@ -128,7 +133,7 @@ def main():
     Kilobot.set_kilobot_param(
         kilobot_speed, kilobot_radius, communication_radius)
     Kilobot.set_arena_param(arena_center, arena_radius,
-                            starting_frame, pixel_per_m, args["video"].split('/')[-1].split('.')[0])
+                            0, pixel_per_m, video_name, True, True)
 
     # if a video path was not supplied, grab the reference
     # to the webcam
@@ -143,13 +148,16 @@ def main():
     # keep looping
     is_first_frame = True
     first_bug = True
-    frame_counter = 0
+    frame_counter = -starting_frame
     missing_frame_counter = 0
-
+    Kilobot.target_coordinates = [0, 0]
+    Kilobot.potential_target_list = [0, 0]
     while True:
         # grab the current frame
         (grabbed, frame) = camera.read()
-
+        if (frame_counter < 0):
+            frame_counter += 1
+            continue
         # if we are viewing a video and we did not grab a frame,
         # then we have reached the end of the video, or there is a missing frame
 
@@ -159,11 +167,8 @@ def main():
                 continue
             else:
                 print("End of video file ?")
-                date = strftime("%Y%m%d", gmtime())
 
-                folder = "%s_robots=%d_alpha=%.1f_rho=%.2f_real_expirements" % (
-                    date, Kilobot.number_of_kilobots, 2.0, 0.90)
-                Kilobot.finish_experiment(folder)
+                Kilobot.finish_experiment(result_folder, True)
                 break
         else:
             if(first_bug == False):
@@ -175,30 +180,6 @@ def main():
         frame = frame[Y1:Y2, X1:X2]  # Y1:Y2 , X1:X2
         img_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         frame_copy = frame.copy()
-        # Do a multiple template matching to find the target
-        if(is_first_frame):
-            folder = "tracking/templates/target_templates/"
-            for template_name in os.listdir(folder):
-                template = cv2.imread(folder + template_name, 0)
-                w, h = template.shape[::-1]
-                res = cv2.matchTemplate(
-                    img_gray, template, cv2.TM_CCOEFF_NORMED)
-                threshold = target_threshold
-                loc = np.where(res >= threshold)
-                for (x, y) in zip(*loc[::-1]):
-                    Kilobot.parse_target_location([x+w/2, y+h/2])
-                    # cv2.circle(frame, (x+w/2, y+h/2), w/2, (255, 0, 255), 2)
-                    # cv2.circle(frame, (x+w/2, y+h/2), 2, (0, 0, 255), 2)
-
-            Kilobot.filter_target_list(1)
-            Kilobot.compute_target_location()
-
-        # Show the target in red
-        for kilo in Kilobot.potential_target_list:
-            # cv2.circle(frame, (kilo.current_position[0],
-            #                    kilo.current_position[1]), int(kilobot_radius * 1.60), (255, 0, 0), 2)
-            cv2.circle(frame, (kilo.current_position[0],
-                               kilo.current_position[1]), communication_radius, colors[2], 1)
 
         # Do a multiple template matching, to take the rotation and angle of view into account
         folder = "tracking/templates/kilobot_templates/"
@@ -380,11 +361,8 @@ def main():
         Kilobot.new_frame()
         # if the 'q' key is pressed, stop the loop
         if key == ord("q"):
-            date = strftime("%Y%m%d", gmtime())
-            folder = "%s_robots=%d_alpha=%.1f_rho=%.2f_real_expirements" % (
-                date, Kilobot.number_of_kilobots, 2.0, 0.90)
-            Kilobot.finish_experiment(folder)
 
+            Kilobot.finish_experiment(result_folder, True)
             break
         if key == ord("p"):
             print("INFO : paused")
@@ -398,6 +376,98 @@ def main():
     camera.release()
     out.release()
     cv2.destroyAllWindows()
+
+    # left_bias_list = []
+    # right_bias_list = []
+    # speed_list = []
+    # omega_list = []
+    # info_list = []
+    # directory = "real_experiments/"
+    # mondossier = result_folder + "/" + video_name
+    # last_name = ""
+    # for direct, dirs, files in os.walk(directory + mondossier):
+    #     for element in files:
+    #         if element.endswith('position.tsv'):
+    #             last_name = element
+    # (left_bias_list, right_bias_list, speed_list, omega_list, info_list) = analyze_bias.find_bias(directory, mondossier + "/" + last_name,
+    #                                                                                               left_bias_list, right_bias_list, speed_list, omega_list, info_list)
+    # result_video = result_video_folder + video_name + "_out.mp4"
+    # camera = cv2.VideoCapture(result_video)
+    # print(result_video)
+    # camera.set(cv2.CAP_PROP_FPS, 24)
+    # counter = -starting_frame + 1
+    # global_counter = 0
+    # print(omega_list)
+    # print(info_list)
+    # centers = []
+    # axess = []
+    # startAngles = []
+    # endAngles = []
+
+    # out = cv2.VideoWriter(result_video_folder + video_name +
+    #                       "_out_calib.mp4", 0x00000021, 10.0, (X2-X1, Y2-Y1))
+
+    # while True:
+    #     # grab the current frame
+    #     (grabbed, frame) = camera.read()
+    #     if not grabbed:
+    #         break
+
+    #     if(counter % 4 == 1):
+    #         for i in range(len(speed_list)):
+    #             if(global_counter >= len(speed_list[0])):
+    #                 break
+    #             speed = speed_list[i][global_counter]
+    #             omega = omega_list[i][global_counter] * 180.0/3.1415
+    #             if(omega != 0.0):
+    #                 kilo = Kilobot.kilobot_list[i]
+    #                 center = kilo.positions[counter]
+    #                 radius = info_list[i][global_counter][0] * pixel_per_m
+    #                 angle = info_list[i][global_counter][1]
+    #                 if(omega > 0):
+    #                     startAngle = angle * 180 / 3.1415 - math.pi/2.0
+    #                     endAngle = startAngle + omega*4.0
+
+    #                     center[0] += int(radius *
+    #                                      math.cos(math.pi/2.0 + angle))
+    #                     center[1] += int(radius *
+    #                                      math.sin(math.pi/2.0 + angle))
+    #                 else:
+    #                     startAngle = 90 + angle * 180 / 3.1415 + omega*4.0
+    #                     endAngle = startAngle - omega*4.0
+
+    #                     center[0] += int(radius *
+    #                                      math.cos(angle - math.pi/2.0))
+    #                     center[1] += int(radius *
+    #                                      math.sin(angle - math.pi/2.0))
+    #                 center = tuple(center)
+    #                 axes = (int(radius), int(radius))
+    #                 # axes = (50, 50)
+    #                 if(len(centers) <= i):
+    #                     centers.append(center)
+    #                     axess.append(axes)
+    #                     startAngles.append(startAngle)
+    #                     endAngles.append(endAngle)
+    #                 else:
+    #                     centers[i] = center
+    #                     axess[i] = axes
+    #                     startAngles[i] = startAngle
+    #                     endAngles[i] = endAngle
+    #         global_counter += 1
+    #     if(counter >= 1):
+    #         for i in range(len(speed_list)):
+    #             cv2.ellipse(frame, centers[i], axess[i], 0,
+    #                         startAngles[i], endAngles[i], (0, 255, 255), 2)
+    #     # cv2.imshow("Frame", frame)
+    #     out.write(frame)
+    #     key = cv2.waitKey(1) & 0xFF
+
+    #     if key == ord("q"):
+    #         break
+    #     counter += 1
+    # camera.release()
+    # out.release()
+    # cv2.destroyAllWindows()
 
 
 def find_enclosing_rectangle(img_gray, frame):

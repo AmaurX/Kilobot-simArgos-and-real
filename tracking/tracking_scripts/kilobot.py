@@ -26,6 +26,8 @@ class Kilobot(object):
     pixel_per_m = 0.0
     false_counter_max = 6
     video_name = ""
+    use_led_position = False
+    calib = False
 
     def __init__(self, initial_position, kilo_type="lasting"):
         if(Kilobot.speed == 0 or Kilobot.radius == 0):
@@ -52,6 +54,8 @@ class Kilobot(object):
         self.false_green_counter = 0
         self.green_validated = 0
         self.possible_next_position = []
+        self.green_led_position = [0, 0]
+        self.purple_led_position = [0, 0]
         if(kilo_type == "lasting"):
             Kilobot.kilobot_list.append(self)
         elif(kilo_type == "temp"):
@@ -120,6 +124,8 @@ class Kilobot(object):
     def _new_frame(self):
         self.updated = False
         self.time += 1
+        self.purple_led_position = [0, 0]
+        self.green_led_position = [0, 0]
 
     def is_updated(self):
         return self.updated
@@ -149,6 +155,29 @@ class Kilobot(object):
         self.false_green_counter = 0
         self.discovery_time = -1
 
+    def update_position_with_green_led(self):
+        if(not Kilobot.use_led_position):
+            return
+        if(self.green_led_position != [0, 0]):
+            distance = self.distance(self.green_led_position)
+            extradistance = distance - 0.9*Kilobot.radius
+            certainty_factor = min(1, float(self.potential_green) / 5.0)
+
+            if(extradistance >= 0.0):
+                x = self.current_position[0] + int(round(extradistance * certainty_factor * (
+                    self.green_led_position[0] - self.current_position[0])/distance))
+                y = self.current_position[1] + int(round(extradistance * certainty_factor * (
+                    self.green_led_position[1] - self.current_position[1])/distance))
+                ok = True
+                for kilo in Kilobot.kilobot_list:
+                    if(self != kilo):
+                        if(kilo.in_collision_range([x, y])):
+                            ok = False
+                            break
+                if(ok):
+                    self.current_position = [x, y]
+                    self.positions[-1] = self.current_position
+
     def pass_to_purple(self):
         if(self.in_communication_range_with_target()):
             self.status = 2
@@ -156,7 +185,30 @@ class Kilobot(object):
                 self.information_time = Kilobot.frame_number
             if(self.discovery_time == -1):
                 self.discovery_time = Kilobot.frame_number
+
             self.false_purple_counter = 0
+
+    def update_position_with_purple_led(self):
+        if(not Kilobot.use_led_position):
+            return
+        if(self.purple_led_position != [0, 0]):
+            distance = self.distance(self.purple_led_position)
+            extradistance = distance - 0.9*Kilobot.radius
+            certainty_factor = min(1, float(self.potential_purple) / 5.0)
+            if(extradistance >= 0.0):
+                x = self.current_position[0] + int(round(extradistance * certainty_factor * (
+                    self.purple_led_position[0] - self.current_position[0])/distance))
+                y = self.current_position[1] + int(round(extradistance * certainty_factor * (
+                    self.purple_led_position[1] - self.current_position[1])/distance))
+                ok = True
+                for kilo in Kilobot.kilobot_list:
+                    if(self != kilo):
+                        if(kilo.in_collision_range([x, y])):
+                            ok = False
+                            break
+                if(ok):
+                    self.current_position = [x, y]
+                    self.positions[-1] = self.current_position
 
     def pass_to_neutral(self):
         self.status = 0
@@ -168,6 +220,58 @@ class Kilobot(object):
     def on_border(self):
         if self.distance(Kilobot.arena_center) >= 0.9 * Kilobot.arena_radius:
             return True
+
+    def update_green_led(self, position):
+        if(self.potential_green != 0):
+            intra_led_distance = math.sqrt(math.pow(
+                position[0]-self.green_led_position[0], 2) + math.pow(position[1]-self.green_led_position[1], 2))
+            if(intra_led_distance >= 0.6 * Kilobot.radius):
+                led_distance = self.distance(
+                    self.green_led_position)
+                new_distance = self.distance(position)
+                if(new_distance < led_distance):
+                    self.potential_green = 0
+                else:
+                    return
+
+        self.green_led_position[0] *= float(self.potential_green)
+        self.green_led_position[1] *= float(self.potential_green)
+
+        self.potential_green += 1
+        self.green_led_position[0] += position[0]
+        self.green_led_position[1] += position[1]
+
+        self.green_led_position[0] /= float(self.potential_green)
+        self.green_led_position[1] /= float(self.potential_green)
+        self.green_led_position[0] = int(round(self.green_led_position[0]))
+        self.green_led_position[1] = int(round(self.green_led_position[1]))
+        return
+
+    def update_purple_led(self, position):
+        if(self.potential_purple != 0):
+            intra_led_distance = math.sqrt(math.pow(
+                position[0]-self.purple_led_position[0], 2) + math.pow(position[1]-self.purple_led_position[1], 2))
+            if(intra_led_distance >= 0.6 * Kilobot.radius):
+                led_distance = self.distance(
+                    self.purple_led_position)
+                new_distance = self.distance(position)
+                if(new_distance < led_distance):
+                    self.potential_purple = 0
+                else:
+                    return
+
+        self.purple_led_position[0] *= float(self.potential_purple)
+        self.purple_led_position[1] *= float(self.potential_purple)
+
+        self.potential_purple += 1
+        self.purple_led_position[0] += position[0]
+        self.purple_led_position[1] += position[1]
+
+        self.purple_led_position[0] /= float(self.potential_purple)
+        self.purple_led_position[1] /= float(self.potential_purple)
+        self.purple_led_position[0] = int(round(self.purple_led_position[0]))
+        self.purple_led_position[1] = int(round(self.purple_led_position[1]))
+        return
 
     @staticmethod
     def find_unupdated_kilobots():
@@ -287,7 +391,7 @@ class Kilobot(object):
                 possible_kilo = temp_kilo.possible_next_position[j]
                 if len(possible_kilo.possible_next_position) == 1:
                     if(possible_kilo.is_updated()):
-                        print("double catzo")
+                        print("double cazzo")
                     possible_kilo.update_position(temp_kilo.current_position)
                     for k in range(len(temp_kilo.possible_next_position)):
                         linked_kilo = temp_kilo.possible_next_position[k]
@@ -302,7 +406,7 @@ class Kilobot(object):
                         position, closest_kilo, dist)
             if(closest_kilo):
                 if(closest_kilo.is_updated()):
-                    print("double catzo")
+                    print("double cazzo")
                 closest_kilo.update_position(temp_kilo.current_position)
                 for n in range(len(temp_kilo.possible_next_position)):
                     linked_kilo = temp_kilo.possible_next_position[n]
@@ -311,7 +415,7 @@ class Kilobot(object):
                     else:
                         print(temp_kilo)
                         print(linked_kilo.possible_next_position)
-                        print("catzo")
+                        print("cazzo")
         unupdated_list = Kilobot.find_unupdated_kilobots()
         if(unupdated_list):
             print("%d unupdated robots at the end of frame %d" %
@@ -399,12 +503,14 @@ class Kilobot(object):
         Kilobot.communication_radius = comm_radius
 
     @staticmethod
-    def set_arena_param(center, radius, starting_frame, pixel_per_m, video_name):
+    def set_arena_param(center, radius, starting_frame, pixel_per_m, video_name, use_led_position=False, calib=False):
         Kilobot.arena_radius = radius
         Kilobot.arena_center = center
         Kilobot.starting_frame = starting_frame
         Kilobot.pixel_per_m = pixel_per_m
         Kilobot.video_name = video_name
+        Kilobot.use_led_position = use_led_position
+        Kilobot.calib = calib
 
     @staticmethod
     def is_in_arena(position):
@@ -449,6 +555,8 @@ class Kilobot(object):
 
     @staticmethod
     def target_collision(position):
+        if(Kilobot.calib):
+            return False
         if(Kilobot.potential_target_list):
             for target in Kilobot.potential_target_list:
                 if target.in_collision_range(position, factor=1.4):
@@ -468,16 +576,26 @@ class Kilobot(object):
         if(Kilobot.frame_number < Kilobot.starting_frame):
             pass
         elif (Kilobot.is_in_arena(position)):
-            r = 1.5 * Kilobot.radius
-            mask = [(position[0] + i, position[1] + j)
-                    for [i, j] in ([-r, -r], [-r, r], [r, r], [r, -r])]
+            closest_kilo = Kilobot.find_closest_kilo(position, factor=1.5)
+            if(closest_kilo):
+                if(color == "green"):
+                    closest_kilo.update_green_led(position)
+                    # closest_kilo.potential_green += 1
+                elif(color == "purple"):
+                    closest_kilo.update_purple_led(position)
+                    # closest_kilo.potential_purple += 1
 
-            for kilo in Kilobot.kilobot_list:
-                if(kilo.in_collision_range(position, factor=1.6)):
-                    if(color == "green"):
-                        kilo.potential_green += 1
-                    elif(color == "purple"):
-                        kilo.potential_purple += 1
+    @staticmethod
+    def find_closest_kilo(position, factor=1.5):
+        closest = None
+        distance = float("inf")
+        for kilo in Kilobot.kilobot_list:
+            if(kilo.in_collision_range(position, factor)):
+                new_distance = kilo.distance(position)
+                if(new_distance < distance):
+                    distance = new_distance
+                    closest = kilo
+        return closest
 
     @staticmethod
     def decide_led_color():
@@ -533,8 +651,15 @@ class Kilobot(object):
             #         kilo.pass_to_purple()
             #         kilo.false_purple_counter += 1
 
+        for kilo in Kilobot.kilobot_list:
+            if(kilo.status == 1):
+                kilo.update_position_with_green_led()
+            elif(kilo.status == 2):
+                kilo.update_position_with_purple_led()
             kilo.potential_green = 0
+            # kilo.green_led_position = [0, 0]
             kilo.potential_purple = 0
+            # kilo.purple_led_position = [0, 0]
         return
 
     @staticmethod
@@ -546,15 +671,15 @@ class Kilobot(object):
         return "%.5f" % (float(distance)/Kilobot.pixel_per_m)
 
     @staticmethod
-    def finish_experiment():
+    def finish_experiment(folder, only_position=False):
         date = strftime("%Y%m%d", gmtime())
         date_time = strftime("%Y%m%d-%H:%M:%S", gmtime())
         directory = "real_experiments"
         if not os.path.exists(directory):
             os.makedirs(directory)
 
-        sub_directory = "%s/%s_robots=%d_alpha=%.1f_rho=%.2f_real_expirements" % (
-            directory, date, Kilobot.number_of_kilobots, 2.0, 0.90)
+        sub_directory = "%s/%s" % (
+            directory, folder)
         if not os.path.exists(sub_directory):
             os.makedirs(sub_directory)
 
@@ -587,61 +712,62 @@ class Kilobot(object):
                                  kilo.positions[Kilobot.starting_frame:-1])
                 writer.writerow(line)
                 i += 1
-        with open(time_file_name, 'wb') as time_results:
-            writer = csv.writer(time_results, delimiter='\t',
-                                quotechar='|', quoting=csv.QUOTE_NONE)
-            writer.writerow(
-                ["Robot id", "First discovery time", "First information time"])
-            i = 1
+        if(not only_position):
+            with open(time_file_name, 'wb') as time_results:
+                writer = csv.writer(time_results, delimiter='\t',
+                                    quotechar='|', quoting=csv.QUOTE_NONE)
+                writer.writerow(
+                    ["Robot id", "First discovery time", "First information time"])
+                i = 1
 
-            for kilo in Kilobot.kilobot_list:
-                line = [i, max(0, 1 + kilo.discovery_time - Kilobot.starting_frame),
-                        max(0, 1 + kilo.information_time - Kilobot.starting_frame)]
-                writer.writerow(line)
-                i += 1
+                for kilo in Kilobot.kilobot_list:
+                    line = [i, max(0, 1 + kilo.discovery_time - Kilobot.starting_frame),
+                            max(0, 1 + kilo.information_time - Kilobot.starting_frame)]
+                    writer.writerow(line)
+                    i += 1
 
-        with open(displacement_file_name, 'wb') as displacement:
-            writer = csv.writer(displacement, delimiter='\t',
-                                quotechar='|', quoting=csv.QUOTE_NONE)
+            with open(displacement_file_name, 'wb') as displacement:
+                writer = csv.writer(displacement, delimiter='\t',
+                                    quotechar='|', quoting=csv.QUOTE_NONE)
 
-            first_line = ["Robot id"] + ["t = %d" %
-                                         i for i in range(0, Kilobot.frame_number - Kilobot.starting_frame - 1)]
-            writer.writerow(first_line)
-            j = 1
+                first_line = ["Robot id"] + ["t = %d" %
+                                             i for i in range(0, Kilobot.frame_number - Kilobot.starting_frame - 1)]
+                writer.writerow(first_line)
+                j = 1
 
-            for kilo in Kilobot.kilobot_list:
-                kilo.positions = kilo.positions[Kilobot.starting_frame:-1]
-                kilo.current_position = kilo.positions[0]
-                line = [j] + map(Kilobot.to_meter_disp, [kilo.distance(kilo.positions[i])
-                                                         for i in range(len(kilo.positions))])
-                writer.writerow(line)
-                j += 1
+                for kilo in Kilobot.kilobot_list:
+                    kilo.positions = kilo.positions[Kilobot.starting_frame:-1]
+                    kilo.current_position = kilo.positions[0]
+                    line = [j] + map(Kilobot.to_meter_disp, [kilo.distance(kilo.positions[i])
+                                                             for i in range(len(kilo.positions))])
+                    writer.writerow(line)
+                    j += 1
 
-        with open(communication_range_file_name, 'wb') as comm_range:
-            writer = csv.writer(comm_range, delimiter='\t',
-                                quotechar='|', quoting=csv.QUOTE_NONE)
-            line = []
-            for kilo in Kilobot.kilobot_list:
-                if(kilo.status == 2):
-                    kilo.current_position = kilo.positions[kilo.discovery_time -
-                                                           Kilobot.starting_frame]
-                    distance = kilo.distance(Kilobot.target_coordinates)
-                    distance = Kilobot.to_meter_disp(distance)
-                    line.append(distance)
-            writer.writerow(line)
-
-        with open(initial_distance_file_name, 'wb') as initial_distance:
-            writer = csv.writer(initial_distance, delimiter='\t',
-                                quotechar='|', quoting=csv.QUOTE_NONE)
-            for kilo in Kilobot.kilobot_list:
+            with open(communication_range_file_name, 'wb') as comm_range:
+                writer = csv.writer(comm_range, delimiter='\t',
+                                    quotechar='|', quoting=csv.QUOTE_NONE)
                 line = []
-                kilo.current_position = kilo.positions[0]
-                distance = kilo.distance(Kilobot.target_coordinates)
-                distance = Kilobot.to_meter_disp(distance)
-                line.append(distance)
-                for other_kilo in Kilobot.kilobot_list:
-                    if(other_kilo != kilo):
-                        distance = kilo.distance(other_kilo.positions[0])
+                for kilo in Kilobot.kilobot_list:
+                    if(kilo.status == 2):
+                        kilo.current_position = kilo.positions[kilo.discovery_time -
+                                                               Kilobot.starting_frame]
+                        distance = kilo.distance(Kilobot.target_coordinates)
                         distance = Kilobot.to_meter_disp(distance)
                         line.append(distance)
                 writer.writerow(line)
+
+            with open(initial_distance_file_name, 'wb') as initial_distance:
+                writer = csv.writer(initial_distance, delimiter='\t',
+                                    quotechar='|', quoting=csv.QUOTE_NONE)
+                for kilo in Kilobot.kilobot_list:
+                    line = []
+                    kilo.current_position = kilo.positions[0]
+                    distance = kilo.distance(Kilobot.target_coordinates)
+                    distance = Kilobot.to_meter_disp(distance)
+                    line.append(distance)
+                    for other_kilo in Kilobot.kilobot_list:
+                        if(other_kilo != kilo):
+                            distance = kilo.distance(other_kilo.positions[0])
+                            distance = Kilobot.to_meter_disp(distance)
+                            line.append(distance)
+                    writer.writerow(line)

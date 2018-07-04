@@ -18,7 +18,7 @@
     <kilobot_controller id="kbc_agent">
       <actuators>
         <kilobot_led implementation="default"/>
-        <differential_steering implementation="default" bias_avg="0.0" bias_stddev="0.00" factor_avg="1" factor_stddev="0.00"/>
+        <differential_steering implementation="default" bias_avg="0.0002" bias_stddev="0.0027" factor_avg="1" factor_stddev="0.0000"/>
         <!-- <leds implementation="default" medium="leds" /> -->
         <kilobot_communication implementation="default"/>
       </actuators>
@@ -26,7 +26,7 @@
         <kilobot_communication implementation="default" medium="kilocomm" noise_std_dev="5" distance_bias_mean="1.2" distance_bias_std_dev="0.17"/>
         <!-- <kilobot_light implementation="rot_z_only" /> -->
       </sensors>
-      <params behavior="build/behaviors_simulation/CRWLEVY_2.0_0.90" linearvelocity="1.20" angularvelocity="45"/>
+      <params behavior="build/behaviors_simulation/CRWLEVY_2.0_0.90" linearvelocity="1.00" angularvelocity="45"/>
     </kilobot_controller>
 
     <kilobot_controller id="kbc_target">
@@ -62,7 +62,7 @@
   <!-- ******************* -->
   <!-- * Loop functions * -->
   <!-- ******************* -->
-  <loop_functions library="build/loop_functions/libloop_functions" label="ci_kilobot_loop_functions" num_robots="30" sampling_period_in_ticks="5" arena_radius="0.475" alpha="2.0" rho="0.9" communication_range="0.18" speed="1.20">
+  <loop_functions library="build/loop_functions/libloop_functions" label="ci_kilobot_loop_functions" num_robots="30" sampling_period_in_ticks="5" arena_radius="0.475" alpha="2.0" rho="0.9" communication_range="0.18" speed="1.00">
   </loop_functions>
 
 

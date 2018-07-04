@@ -34,7 +34,7 @@ def main():
     number_of_robots = int(sys.argv[2])
     arena_size = "0.95"
     sim_or_real = sys.argv[3]
-    window_size = int(sys.argv[4])
+    window_size = int(sys.argv[4]) * 2
     argos_ticks_per_second = int(sys.argv[5])
     current_sum_displacement = []
     total_number_of_robots = 0
@@ -104,7 +104,7 @@ def main():
     plt.plot(time_list, linear_approx, color='r', linewidth=2, linestyle=":",
              label="slope : " + "%.4e" % slope + " r^2 = " + "%.4f" % (r_value**2))
     plt.plot(time_list, current_sum_w_displacement, color='b', linewidth=3,
-             label="Window MSD (window = " + str(time_period * window_size / argos_ticks_per_second) + " seconds) overtime on " + str(w_total_number_of_robots) + " robots")
+             label="Window MSD (window = " + str(window_size/2) + " seconds) overtime on " + str(w_total_number_of_robots) + " robots")
 
     plt.xlabel("Time in seconds")
     plt.ylabel("MSD in m^2")
@@ -396,8 +396,8 @@ def window_displacement(folder, position_filename, current_sum_w_displacement, t
                 [xf, yf] = row[i].split(",")
                 [xf, yf] = [float(xf), float(yf)]
 
-                w_displacement = ((xf - xi)/window_size)**2 + \
-                    ((yf - yi)/window_size)**2
+                w_displacement = ((xf - xi)/window_size*2)**2 + \
+                    ((yf - yi)/window_size*2)**2
                 w_displacement /= num_robots
 
                 average_w_displacement[i-1 - window_size] += w_displacement

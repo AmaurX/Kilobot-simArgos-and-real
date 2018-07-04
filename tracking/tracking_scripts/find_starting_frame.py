@@ -1,7 +1,7 @@
 import cv2
 import argparse
 import os
-from ball_tracking_2 import X1, X2, Y1, Y2, arena_center, arena_radius
+from kilobot_tracking import X1, X2, Y1, Y2, arena_center, arena_radius
 
 
 def main():
