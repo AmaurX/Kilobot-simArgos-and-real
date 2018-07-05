@@ -17,7 +17,7 @@ include_directories(/usr/local/include/argos3/plugins/robots/kilobot/control_int
               target_compile_definitions(CRWLEVY_${levy}_${crw} PRIVATE -DLEVY_EXPONENT=${levy} -DCRW_EXPONENT=${crw} -DMAX_TIME=100000000)
               
               foreach(numRobots 10 20 30)
-                    foreach(speed 2.1 2.2 2.3 2.4 2.5 2.6 2.7 2.8 2.9 3.0)
+                    foreach(speed 1.00)
                         add_custom_target(config_file_${numRobots}_${levy}_${crw}_${speed}
                             ALL
                             COMMAND python src/generate_configs.py simulation_config ${numRobots} ${levy} ${crw} ${speed}
