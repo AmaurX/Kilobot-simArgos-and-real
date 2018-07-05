@@ -1,7 +1,6 @@
 #!/bin/bash
 the_folder=$1
 sim_or_real=$2
-cat $the_folder
 for folder in $the_folder/*; do
     if [[ -d "$folder" && ! -L "$folder" ]]; then
         echo $folder;

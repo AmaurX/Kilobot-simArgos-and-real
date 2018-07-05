@@ -12,14 +12,14 @@ from kilobot import Kilobot
 
 kilobot_radius = 16
 # Should be around 9.1 * speed/frame, which means 5 pixel/frame ....
-kilobot_speed = 15
+kilobot_speed = 17
 arena_center = [460, 460]
 arena_radius = 430
 colors = [(255, 120, 0), (120, 255, 120), (255, 0, 255), (0, 255, 0),
           (255, 0, 0), (255, 150, 80)]
 communication_radius = 250
 
-kilobot_threshold = 0.47
+kilobot_threshold = 0.465
 led_threshold = 0.75
 target_threshold = 0.70
 
