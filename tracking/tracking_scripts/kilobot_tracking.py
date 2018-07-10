@@ -19,8 +19,8 @@ colors = [(255, 120, 0), (120, 255, 120), (255, 0, 255), (0, 255, 0),
           (255, 0, 0), (255, 150, 80)]
 communication_radius = 250
 
-kilobot_threshold = 0.50
-led_threshold = 0.75
+kilobot_threshold = 0.485
+led_threshold = 0.74
 target_threshold = 0.70
 
 D = 920
@@ -39,8 +39,11 @@ purple_max = [255, 247, 255]
 
 # grey_min = [28, 109, 81]
 # grey_max = [155, 153, 164]
-grey_min = [45, 65, 45]
-grey_max = [170, 155, 170]
+grey_min = [90, 84, 84]
+grey_max = [170, 155, 160]
+
+deep_green_min = [48, 48, 38]
+deep_green_max = [65, 81, 55]
 
 
 def is_of_color(color_str, (blue, green, red)):
@@ -61,6 +64,12 @@ def is_of_color(color_str, (blue, green, red)):
     elif(color_str == "grey"):
         mini = red >= grey_min[0] and green >= grey_min[1] and blue >= grey_min[2]
         maxi = red <= grey_max[0] and green <= grey_max[1] and blue <= grey_max[2]
+        if(mini and maxi):
+            return True
+        return False
+    elif(color_str == "deep_green"):
+        mini = red >= deep_green_min[0] and green >= deep_green_min[1] and blue >= deep_green_min[2]
+        maxi = red <= deep_green_max[0] and green <= deep_green_max[1] and blue <= deep_green_max[2]
         if(mini and maxi):
             return True
         return False
@@ -236,7 +245,7 @@ def main():
                             blue = frame_copy.item(y + j, x + i, 0)
                             green = frame_copy.item(y + j, x + i, 1)
                             red = frame_copy.item(y + j, x + i, 2)
-                            if(is_of_color("grey", (blue, green, red)) and not is_of_color("green", (blue, green, red)) and not is_of_color("purple", (blue, green, red))):
+                            if((is_of_color("deep_green", (blue, green, red)) or is_of_color("grey", (blue, green, red))) and not is_of_color("green", (blue, green, red)) and not is_of_color("purple", (blue, green, red))):
                                 grey_counter += 1
                 grey_proportion = float(grey_counter)/float(counter)
 
@@ -282,7 +291,7 @@ def main():
                             blue = frame_copy.item(y + j, x + i, 0)
                             green = frame_copy.item(y + j, x + i, 1)
                             red = frame_copy.item(y + j, x + i, 2)
-                            if(is_of_color("grey", (blue, green, red)) and not is_of_color("green", (blue, green, red)) and not is_of_color("purple", (blue, green, red))):
+                            if((is_of_color("deep_green", (blue, green, red)) or is_of_color("grey", (blue, green, red))) and not is_of_color("green", (blue, green, red)) and not is_of_color("purple", (blue, green, red))):
                                 grey_counter += 1
                 grey_proportion = float(grey_counter)/float(counter)
 
