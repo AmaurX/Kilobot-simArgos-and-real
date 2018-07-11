@@ -10,8 +10,8 @@ include_directories(/usr/local/include/argos3/plugins/robots/kilobot/control_int
                    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/..)
 
 
-  foreach(crw 0.90)
-          foreach(levy 2.0)
+  foreach(crw 0.00 0.15 0.30 0.45 0.60 0.75 0.90 0.95 0.99)
+          foreach(levy 1.0 1.2 1.4 1.6 1.8 2.0)
               add_executable(CRWLEVY_${levy}_${crw} CRWLEVY.c )
               target_link_libraries(CRWLEVY_${levy}_${crw} argos3plugin_simulator_kilolib rt m)
               target_compile_definitions(CRWLEVY_${levy}_${crw} PRIVATE -DLEVY_EXPONENT=${levy} -DCRW_EXPONENT=${crw} -DMAX_TIME=100000000)
