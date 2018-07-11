@@ -185,6 +185,21 @@ void CIKilobotLoopFunctions::SetExperiment()
             while (!distant_enough && (++un_init_trials < m_unMaxInitTrials))
             {
                   Real rho = m_pcRNG->Uniform(CRange<Real>(0, m_fArenaRadius));
+                  if ((robot_num == 0))
+                  {
+                        while (true)
+                        {
+                              Real random_refusal = m_pcRNG->Uniform(CRange<Real>(0.1, m_fArenaRadius));
+                              if (rho > random_refusal)
+                              {
+                                    rho = m_pcRNG->Uniform(CRange<Real>(0, m_fArenaRadius));
+                              }
+                              else
+                              {
+                                    break;
+                              }
+                        }
+                  }
                   Real theta = m_pcRNG->Uniform(CRange<Real>(-CRadians::PI.GetValue(), CRadians::PI.GetValue()));
                   CVector3 random_position(rho * cos(theta), rho * sin(theta), 0);
                   if ((robot_num == 0))

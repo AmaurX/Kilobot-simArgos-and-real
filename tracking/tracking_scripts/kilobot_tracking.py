@@ -19,8 +19,9 @@ colors = [(255, 120, 0), (120, 255, 120), (255, 0, 255), (0, 255, 0),
           (255, 0, 0), (255, 150, 80)]
 communication_radius = 250
 
-kilobot_threshold = 0.485
-led_threshold = 0.74
+kilobot_threshold = 0.58
+kilobot_threshold_led = 0.57
+led_threshold = 0.77
 target_threshold = 0.70
 
 D = 920
@@ -39,11 +40,11 @@ purple_max = [255, 247, 255]
 
 # grey_min = [28, 109, 81]
 # grey_max = [155, 153, 164]
-grey_min = [90, 84, 84]
-grey_max = [170, 155, 160]
+grey_min = [95, 88, 104]
+grey_max = [154, 154, 160]
 
 deep_green_min = [48, 48, 38]
-deep_green_max = [65, 81, 55]
+deep_green_max = [63, 81, 49]
 
 
 def is_of_color(color_str, (blue, green, red)):
@@ -225,6 +226,22 @@ def main():
             # cv2.circle(frame, (x+w/2, y+h/2),
             #            16, (255, 0, 255), 2)
 
+        # Do a multiple template matching, to take the rotation and angle of view into account
+        folder = "tracking/templates/kilobot_templates_led/"
+        for template_name in os.listdir(folder):
+            template = cv2.imread(folder + template_name, 0)
+            w, h = template.shape[::-1]
+            res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
+            threshold = kilobot_threshold_led
+            loc = np.where(res >= threshold)
+            for (x, y) in zip(*loc[::-1]):
+                if(is_first_frame):
+                    Kilobot.parse_initial_position([x+w/2, y+h/2])
+                else:
+                    Kilobot.register_position([x+w/2, y+h/2])
+            # cv2.circle(frame, (x+w/2, y+h/2),
+            #            16, (255, 0, 255), 2)
+
         font = cv2.FONT_HERSHEY_SIMPLEX
 
         fontScale = 0.5
@@ -242,9 +259,9 @@ def main():
                     for j in range(-r/2, r/2):
                         if(i*i + j*j <= r*r):
                             counter += 1
-                            blue = frame_copy.item(y + j, x + i, 0)
+                            blue = frame_copy.item(y + j, x + i, 2)
                             green = frame_copy.item(y + j, x + i, 1)
-                            red = frame_copy.item(y + j, x + i, 2)
+                            red = frame_copy.item(y + j, x + i, 0)
                             if((is_of_color("deep_green", (blue, green, red)) or is_of_color("grey", (blue, green, red))) and not is_of_color("green", (blue, green, red)) and not is_of_color("purple", (blue, green, red))):
                                 grey_counter += 1
                 grey_proportion = float(grey_counter)/float(counter)
@@ -288,37 +305,38 @@ def main():
                     for j in range(-r/2, r/2):
                         if(i*i + j*j <= r*r):
                             counter += 1
-                            blue = frame_copy.item(y + j, x + i, 0)
+                            blue = frame_copy.item(y + j, x + i, 2)
                             green = frame_copy.item(y + j, x + i, 1)
-                            red = frame_copy.item(y + j, x + i, 2)
-                            if((is_of_color("deep_green", (blue, green, red)) or is_of_color("grey", (blue, green, red))) and not is_of_color("green", (blue, green, red)) and not is_of_color("purple", (blue, green, red))):
+                            red = frame_copy.item(y + j, x + i, 0)
+                            # if((is_of_color("deep_green", (blue, green, red)) or is_of_color("grey", (blue, green, red))) and (not is_of_color("green", (blue, green, red))) and (not is_of_color("purple", (blue, green, red)))):
+                            if(is_of_color("deep_green", (blue, green, red)) or is_of_color("grey", (blue, green, red))):
                                 grey_counter += 1
                 grey_proportion = float(grey_counter)/float(counter)
 
-                if(grey_proportion > 0.60):
+                if(grey_proportion > 0.45):
                     # kilo.initial_certainty = int(
                     #     round(kilo.initial_certainty / (20.0 * grey_proportion)))
-                    # cv2.circle(frame, (kilo.current_position[0],
-                    #                    kilo.current_position[1]), 5, (255, 255, 120), 2)
+                    cv2.circle(frame, (kilo.current_position[0],
+                                       kilo.current_position[1]), 5, (255, 255, 120), 2)
                     list_to_remove.append(kilo)
-                elif(grey_proportion > 0.30):
+                elif(grey_proportion > 0.25):
                     kilo.initial_certainty = int(round(kilo.initial_certainty /
-                                                       (10.0 * (grey_proportion - 0.20))))
+                                                       (10.0 * (grey_proportion - 0.15))))
 
-                # bottomLeftCornerOfText = (x+w/2, y+h/2)
-                # cv2.putText(frame, "%.2f" % grey_proportion,
-                #             bottomLeftCornerOfText,
-                #             font,
-                #             fontScale,
-                #             (0, 0, 0),
-                #             lineType)
+                bottomLeftCornerOfText = (x+w/2, y+h/2)
+                cv2.putText(frame, "%.2f" % grey_proportion,
+                            bottomLeftCornerOfText,
+                            font,
+                            fontScale,
+                            (0, 0, 0),
+                            lineType)
         # Show the temporary detected kilobots in purple, before assignement to Kilobot lasting entities
             for kilo in list_to_remove:
                 Kilobot.temp_kilobot_list.remove(kilo)
                 del kilo
-            # for kilo in Kilobot.temp_kilobot_list:
-            #     cv2.circle(frame, (kilo.current_position[0],
-            #                        kilo.current_position[1]), kilobot_radius, (120, 0, 120), max(1, int(round(0.05 * kilo.initial_certainty))))
+            for kilo in Kilobot.temp_kilobot_list:
+                cv2.circle(frame, (kilo.current_position[0],
+                                   kilo.current_position[1]), kilobot_radius, (120, 0, 120), max(1, int(round(0.05 * kilo.initial_certainty))))
 
             Kilobot.associate_temp_to_kilobots()
 

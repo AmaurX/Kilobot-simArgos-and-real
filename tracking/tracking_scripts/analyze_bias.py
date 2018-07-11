@@ -38,6 +38,7 @@ def main():
     plt.figure(num=1, figsize=(12, 6), dpi=160, facecolor='w', edgecolor='k')
     plt.figure(num=2, figsize=(12, 6), dpi=160, facecolor='w', edgecolor='k')
     plt.figure(num=3, figsize=(12, 6), dpi=160, facecolor='w', edgecolor='k')
+    plt.figure(num=4, figsize=(12, 6), dpi=160, facecolor='w', edgecolor='k')
 
     if (number_of_args < 3):
         print_help()
@@ -65,7 +66,8 @@ def main():
 
             else:
                 continue
-    for mylist in [left_bias_list, right_bias_list, speed_list]:
+    both_sides = left_bias_list+right_bias_list
+    for mylist in [left_bias_list, right_bias_list, speed_list, both_sides]:
         if(mylist == speed_list):
             mylist = [item for sublist in mylist for item in sublist]
         n2, bins, _ = plt.hist(
@@ -73,8 +75,8 @@ def main():
         centers = (0.5*(bins[1:]+bins[:-1]))
         pars, cov = curve_fit(lambda total_list, mu, sig: norm.pdf(
             total_list, loc=mu, scale=sig), centers, n2, p0=[0, 1])
-        # axes = plt.gca()
-        # axes.set_xlim([0.0, 0.025])
+        axes = plt.gca()
+        axes.set_xlim([-0.005, 0.025])
 
         def gauss(x, mu, sigma, A):
             return A*np.exp(-(x-mu)**2/2/sigma**2)
@@ -123,7 +125,7 @@ def main():
             #          'b--', linewidth=1, label=label)
 
             label = r'$\mathrm{Histogram\ of\ speed\ bias:}$' + "\n" + r'$\mu={: .4e}\pm{: .4e}$, $\sigma={: .4e}\pm{: .4e}$'.format(
-                pars[0], np.sqrt(cov[0, 0]), pars[1], np.sqrt(cov[1, 1])) + "\n" + r'$\mathrm{number\ of\ robots:}\ \ %.d$' % (total_number_of_robots)
+                pars[0], np.sqrt(cov[0, 0]), pars[1], np.sqrt(cov[1, 1]))
             plt.plot(centers, norm.pdf(centers, *pars),
                      'r--', linewidth=1, label=label)
 
@@ -131,13 +133,20 @@ def main():
             print("Could not find a double Gaussian fit")
         side = ""
         if(mylist == left_bias_list):
-            side = "_left"
+            side = "left"
         elif(mylist == right_bias_list):
-            side = "_right"
+            side = "right"
+        elif(mylist == both_sides):
+            side = "both_sides"
+        if(mylist != speed_list):
+            plt.title("Robot histogram of speed bias (%s). " % (side) +
+                      str(len(mylist)) + " measures")
+        else:
+            plt.title("Robot histogram of linear speed. " +
+                      str(len(mylist)) + " measures")
         plt.xlabel("speed in m/s")
-        plt.title("Robot histogram of speed bias (%s). Arena diameter: " % (side) + arena_size + "m " +
-                  str(len(mylist)) + " measures")
         plt.legend()
+
         plt.savefig(folder + "/Speed_bias_" + side + "_" + str(len(mylist)) +
                     "_measures.png", bbox_inches='tight', dpi=200, orientation="landscape")
         # plt.show(block=False)
@@ -270,7 +279,7 @@ def find_bias(directory, element, left_bias_list, right_bias_list, speed_list, o
                 V = B/Dt
                 Omega = theta_diff/Dt
 
-                if(V >= 0.04):
+                if(V >= 0.04 or Omega >= 1.2):
                     print("WARNING: V = %.3f, Omega = %.4f" %
                           (V, Omega))
                 else:

@@ -20,7 +20,7 @@ def print_help():
 def main():
     number_of_args = len(sys.argv)
 
-    plt.figure(num=1, figsize=(12, 6), dpi=160, facecolor='w', edgecolor='k')
+    plt.figure(num=1, figsize=(10, 5), dpi=160, facecolor='w', edgecolor='k')
 
     if (number_of_args < 3):
         print_help()
@@ -87,23 +87,23 @@ def main():
         new_y = []
         for x in centers:
             new_y.append(bimodal_gauss(x, *popt))
-        label = r'$\mathrm{Histogram\ of\ speed\ two\ Gaussians:}$'
+        label = r'$\mathrm{Histogram\ of\ speed\ fitted\ on\ two\ Gaussians:}$'
         plt.plot(centers, new_y,
-                 'r--', linewidth=2, label=label)
+                 'r--', linewidth=4, label=label)
         new_y = []
         label = r'$\mu1={: .4f}\pm{: .4f}$, $\sigma1={: .4f}\pm{: .4f}$'.format(
             popt[0], np.sqrt(pcov[0, 0]), abs(popt[1]), np.sqrt(pcov[1, 1]))
         for x in centers:
             new_y.append(gauss(x, *popt[:3]))
         plt.plot(centers, new_y,
-                 'g--', linewidth=1, label=label)
+                 'y--', linewidth=2, label=label)
         new_y = []
         label = r'$\mu2={: .4f}\pm{: .4f}$, $\sigma2={: .4f}\pm{: .4f}$'.format(
             popt[3], np.sqrt(pcov[3, 3]), abs(popt[4]), np.sqrt(pcov[4, 4]))
         for x in centers:
             new_y.append(gauss(x, *popt[3:]))
         plt.plot(centers, new_y,
-                 'b--', linewidth=1, label=label)
+                 'c--', linewidth=2, label=label)
 
         # label = r'$\mathrm{Histogram\ of\ speed\ one\ Gaussian:}$' + "\n" + r'$\mu={: .4f}\pm{: .4f}$, $\sigma={: .4f}\pm{: .4f}$'.format(
         #     pars[0], np.sqrt(cov[0, 0]), pars[1], np.sqrt(cov[1, 1])) + "\n" + r'$\mathrm{number\ of\ robots:}\ \ %.d$' % (total_number_of_robots)

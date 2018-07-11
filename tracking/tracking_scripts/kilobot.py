@@ -481,7 +481,7 @@ class Kilobot(object):
             for j in range(i+1, len(Kilobot.temp_kilobot_list)):
                 first_kilo = Kilobot.temp_kilobot_list[i]
                 second_kilo = Kilobot.temp_kilobot_list[j]
-                if(first_kilo.in_collision_range(second_kilo.current_position)):
+                if(first_kilo.in_collision_range(second_kilo.current_position, factor=1.2)):
                     couples.append((i, j))
         for (i, j) in couples:
             first_kilo = Kilobot.temp_kilobot_list[i]
