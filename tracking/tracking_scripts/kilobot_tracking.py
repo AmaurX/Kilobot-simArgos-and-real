@@ -41,7 +41,7 @@ purple_max = [255, 247, 255]
 # grey_min = [28, 109, 81]
 # grey_max = [155, 153, 164]
 grey_min = [95, 88, 104]
-grey_max = [154, 154, 160]
+grey_max = [179, 154, 165]
 
 deep_green_min = [48, 48, 38]
 deep_green_max = [63, 81, 49]
@@ -317,26 +317,29 @@ def main():
                     # kilo.initial_certainty = int(
                     #     round(kilo.initial_certainty / (20.0 * grey_proportion)))
                     cv2.circle(frame, (kilo.current_position[0],
-                                       kilo.current_position[1]), 5, (255, 255, 120), 2)
+                                       kilo.current_position[1]), 2, (255, 255, 120), 2)
                     list_to_remove.append(kilo)
                 elif(grey_proportion > 0.25):
                     kilo.initial_certainty = int(round(kilo.initial_certainty /
                                                        (10.0 * (grey_proportion - 0.15))))
 
-                bottomLeftCornerOfText = (x+w/2, y+h/2)
-                cv2.putText(frame, "%.2f" % grey_proportion,
-                            bottomLeftCornerOfText,
-                            font,
-                            fontScale,
-                            (0, 0, 0),
-                            lineType)
+                    bottomLeftCornerOfText = (x+w/2, y+h/2)
+                    cv2.putText(frame, "%.2f" % grey_proportion,
+                                bottomLeftCornerOfText,
+                                font,
+                                fontScale,
+                                (0, 0, 0),
+                                lineType)
         # Show the temporary detected kilobots in purple, before assignement to Kilobot lasting entities
             for kilo in list_to_remove:
                 Kilobot.temp_kilobot_list.remove(kilo)
                 del kilo
+            # for kilo in Kilobot.temp_kilobot_list:
+            #     cv2.circle(frame, (kilo.current_position[0],
+            #                        kilo.current_position[1]), kilobot_radius, (120, 0, 120), max(1, int(round(0.05 * kilo.initial_certainty))))
             for kilo in Kilobot.temp_kilobot_list:
                 cv2.circle(frame, (kilo.current_position[0],
-                                   kilo.current_position[1]), kilobot_radius, (120, 0, 120), max(1, int(round(0.05 * kilo.initial_certainty))))
+                                   kilo.current_position[1]), kilobot_radius, (120, 0, 120), 1)
 
             Kilobot.associate_temp_to_kilobots()
 
