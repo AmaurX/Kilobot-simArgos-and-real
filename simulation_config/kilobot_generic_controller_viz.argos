@@ -7,7 +7,7 @@
 
   <framework>
     <system threads="0"/>
-    <experiment length="2" ticks_per_second="10"/>
+    <experiment length="3000" ticks_per_second="10"/>
   </framework>
 
   <!-- *************** -->
@@ -18,7 +18,7 @@
     <kilobot_controller id="kbc_agent">
       <actuators>
         <kilobot_led implementation="default"/>
-        <differential_steering implementation="default" bias_avg="0.0002" bias_stddev="0.0027" factor_avg="1" factor_stddev="0.0000"/>
+        <differential_steering implementation="default" bias_avg="0.00015" bias_stddev="0.00270" factor_avg="1" factor_stddev="0.0000"/>
         <!-- <leds implementation="default" medium="leds" /> -->
         <kilobot_communication implementation="default"/>
       </actuators>
