@@ -23,10 +23,10 @@
       <actuators>
         <kilobot_led implementation="default" />
         <differential_steering implementation="default"
-                                bias_avg="0.00005"
+                                bias_avg="0.00015"
                                 bias_stddev="0.00270"
                                 factor_avg="1"
-                                factor_stddev="0.0000" />
+                                factor_stddev="0.00010" />
         <!-- <leds implementation="default" medium="leds" /> -->
         <kilobot_communication implementation="default" />
       </actuators>
