@@ -34,17 +34,21 @@ def main():
         exit(-1)
 
     total_dict = dict()
+    number_dict = dict()
 
     for directory, dirs, files in os.walk(folder):
         n = "0"
         rho = -1.0
         alpha = -1.0
         elements = directory.split("_")
+        print(directory)
         for e in elements:
             if e.startswith("robots"):
                 n = e.split("=")[-1]
                 if(not total_dict.has_key(n)):
                     total_dict[n] = dict()
+                    number_dict[n] = dict()
+
             if(e.startswith("rho")):
                 rho = float(e.split("=")[-1])
             if(e.startswith("alpha")):
@@ -56,7 +60,7 @@ def main():
         alpha_str = str(alpha)
         if(not total_dict[n].has_key(rho_str)):
             total_dict[n][rho_str] = dict()
-
+            number_dict[n][rho_str] = dict()
         mean_wmsd = 0.0
         number_of_experiments = 0
         for one_file in files:
@@ -64,7 +68,17 @@ def main():
                 (mean_wmsd, number_of_experiments) = window_displacement(
                     os.path.join(directory, one_file), mean_wmsd, number_of_experiments, window_size, int(n))
 
-        total_dict[n][rho_str][alpha_str] = mean_wmsd
+        if(number_dict[n][rho_str].has_key(alpha_str)):
+            previous_number = number_dict[n][rho_str][alpha_str]
+            total_dict[n][rho_str][alpha_str] *= previous_number
+            total_dict[n][rho_str][alpha_str] += mean_wmsd * \
+                number_of_experiments
+            total_dict[n][rho_str][alpha_str] /= previous_number + \
+                number_of_experiments
+            number_dict[n][rho_str][alpha_str] += number_of_experiments
+        else:
+            total_dict[n][rho_str][alpha_str] = mean_wmsd
+            number_dict[n][rho_str][alpha_str] = number_of_experiments
 
     print(total_dict)
     for key, value in total_dict.iteritems():
@@ -72,6 +86,9 @@ def main():
         dataFrame = pd.DataFrame.from_dict(value)
         reversed_df = dataFrame.iloc[::-1]
         ax = sns.heatmap(reversed_df, annot=True, fmt=".2e")
+        ax.set_title("Heatmap of WMSD for %s robots" % (key))
+        ax.set_ylabel("alpha")
+        ax.set_xlabel("rho")
         plt.savefig("%s/WMSD_%s_robots_heatmap.png" % (folder, key))
     # for i in range(len(current_sum_w_displacement)):
     #     current_sum_w_displacement[i] = current_sum_w_displacement[i] / \
