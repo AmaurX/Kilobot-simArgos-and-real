@@ -50,39 +50,66 @@ def main():
     for folder in folders:
         total_num_robot = 0
         complete_time_dict = {}
+        n_robots = {}
         for directory, dirs, files in os.walk(folder):
             for element in files:
                 if element.endswith('time_results.tsv'):
-                    complete_time_dict, total_num_robot = first_discovery(
-                        directory, element, total_num_robot, complete_time_dict, sim_or_real)
+                    complete_time_dict, total_num_robot, n_robots = first_discovery(
+                        directory, element, total_num_robot, complete_time_dict, n_robots, sim_or_real)
                 else:
                     continue
-
-        times = complete_time_dict.keys()
-        times.append(0)
-        times = sorted(times)
-        values = [0]
-        cummulate = 0
-        linewidth = 3
-        for key in times[1:]:
-            cummulate += complete_time_dict[key]/total_num_robot
-            values.append(cummulate)
-        if(sim_or_real == "real" or "real_experiments" in folder):
-            tick_per_second = 2
-            linewidth = 5
-            print(folder)
-        else:
-            tick_per_second = kilobot_ticks_per_second
-        times = [float(i)/tick_per_second for i in times]
-        legend = folder.strip("/").split('/')[-1]
-        plt.plot(times, values, linewidth=linewidth, label=legend)
+        for n, value in complete_time_dict.iteritems():
+            if(n == "all"):
+                times = value.keys()
+                times.append(0)
+                times = sorted(times)
+                values = [0]
+                cummulate = 0
+                linewidth = 5
+                linestyle = '--'
+                for key in times[1:]:
+                    cummulate += value[key]/total_num_robot
+                    values.append(cummulate)
+                if(sim_or_real == "real" or "real_experiments" in folder):
+                    tick_per_second = 2
+                    linestyle = '-'
+                    print(folder)
+                else:
+                    tick_per_second = kilobot_ticks_per_second
+                times = [float(i)/tick_per_second for i in times]
+                legend = folder.strip("/").split('/')[-1] + " " + n + " robots"
+                if(n == "all"):
+                    plt.plot(times, values, linestyle,
+                             linewidth=linewidth, label=legend)
+            else:
+                times = value.keys()
+                times.append(0)
+                times = sorted(times)
+                values = [0]
+                cummulate = 0
+                linewidth = 2
+                for key in times[1:]:
+                    cummulate += value[key]/n_robots[n]
+                    values.append(cummulate)
+                linestyle = '--'
+                if(sim_or_real == "real" or "real_experiments" in folder):
+                    tick_per_second = 2
+                    linestyle = '-'
+                    print(folder)
+                else:
+                    tick_per_second = kilobot_ticks_per_second
+                times = [float(i)/tick_per_second for i in times]
+                legend = folder.strip("/").split('/')[-1] + " " + n + " robots"
+                if(n == "all"):
+                    plt.plot(times, values, linestyle,
+                             linewidth=linewidth, label=legend)
     plt.xlabel("Time in seconds")
     axes = plt.gca()
-    axes.set_xlim([0.0, 1040])
-    axes.set_ylim([0.0, 0.8])
+    axes.set_xlim([0.0, 600])
+    axes.set_ylim([0.0, 0.6])
 
     plt.ylabel("proportion of discovery")
-    plt.title("Arena diameter: " + arena_size + "m ")
+    plt.title("First passage time distribution")
     plt.legend()
     plt.savefig("DiscoveryProportion_comparison.png",
                 bbox_inches='tight', dpi=200, orientation="landscape")
@@ -90,14 +117,23 @@ def main():
     plt.close()
 
 
-def first_discovery(folder, time_filename, total_number_of_robots, complete_time_dict, sim_or_real):
+def first_discovery(folder, time_filename, total_number_of_robots, complete_time_dict, n_robots, sim_or_real):
     complete_filename = folder + "/" + time_filename
     time_file = open(complete_filename, mode='rb')
     tsvin = csv.reader(time_file, delimiter='\t')
     num_robots = sum(1 for line in open(complete_filename)) - 1
 
     discovery_times = {}
-
+    n = "0"
+    elements = folder.split("_")
+    for e in elements:
+        if(e.startswith("robots")):
+            n = e.split("=")[-1]
+    if(not complete_time_dict.has_key(n)):
+        complete_time_dict[n] = dict()
+        n_robots[n] = 0
+    if(not complete_time_dict.has_key("all")):
+        complete_time_dict["all"] = dict()
     for row in tsvin:
         if(row[0] == "Robot id"):
             continue
@@ -111,10 +147,15 @@ def first_discovery(folder, time_filename, total_number_of_robots, complete_time
                 else:
                     discovery_times[discovery] += 1.0/num_robots
 
-                if(not discovery in complete_time_dict):
-                    complete_time_dict[discovery] = 1.0
+                if(not discovery in complete_time_dict[n]):
+                    complete_time_dict[n][discovery] = 1.0
                 else:
-                    complete_time_dict[discovery] += 1.0
+                    complete_time_dict[n][discovery] += 1.0
+
+                if(not discovery in complete_time_dict["all"]):
+                    complete_time_dict["all"][discovery] = 1.0
+                else:
+                    complete_time_dict["all"][discovery] += 1.0
 
     times = discovery_times.keys()
     times.append(0)
@@ -135,8 +176,9 @@ def first_discovery(folder, time_filename, total_number_of_robots, complete_time
     times = [float(i)/tick_per_second for i in times]
     # plt.plot(times, values, linewidth=0.5, linestyle='dashed')
     total_number_of_robots += num_robots
+    n_robots[n] += num_robots
 
-    return (complete_time_dict, total_number_of_robots)
+    return (complete_time_dict, total_number_of_robots, n_robots)
 
 
 if __name__ == '__main__':

@@ -12,7 +12,7 @@ Kilobot_tick_per_second = 31
 
 
 def print_help():
-    print("usage : folder_path (without / at the end), sim_or_real")
+    print("usage : folder_path (without / at the end), sim_or_real, optionnal max time")
 
 
 def main():
@@ -25,6 +25,9 @@ def main():
     rho = 0.0
     folder = sys.argv[1]
     sim_or_real = sys.argv[2]
+    maximum = float("inf")
+    if(len(sys.argv) > 3):
+        maximum = float(sys.argv[3]) * 31.0
     if "results" in folder:
         print("folder = result")
         return 0
@@ -61,13 +64,13 @@ def main():
                 # print os.path.join(subdir, file)
                 filepath = subdir + os.sep + file_name
                 if filepath.endswith('time_results.tsv'):
-                    line = time_synthesis(filepath, multiplieur)
+                    line = time_synthesis(filepath, multiplieur, maximum)
                     writer.writerow(line)
                 else:
                     continue
 
 
-def time_synthesis(filename, multiplieur):
+def time_synthesis(filename, multiplieur, maximum):
     complete_filename = filename
     time_file = open(complete_filename, mode='rt')
     tsvin = csv.reader(time_file, delimiter='\t')
@@ -90,17 +93,21 @@ def time_synthesis(filename, multiplieur):
                 number_of_robots += 1
                 if(row[1] > 0):
                     value = int(round(row[1]*multiplieur))
-                    line.append(value)
-                    number_of_discovery += 1
-                    if(value < first_ever_discovery):
-                        first_ever_discovery = value
+                    if(value < maximum):
+                        line.append(value)
+                        number_of_discovery += 1
+                        if(value < first_ever_discovery):
+                            first_ever_discovery = value
+                    else:
+                        line.append("NaN")
                 else:
                     line.append("NaN")
                 if(row[2] > 0):
                     value = int(round(row[2]*multiplieur))
-                    number_of_information += 1
-                    if(value > convergence_time):
-                        convergence_time = value
+                    if(value < maximum):
+                        number_of_information += 1
+                        if(value > convergence_time):
+                            convergence_time = value
     discovery_proportion = number_of_discovery / number_of_robots
     information_proportion = number_of_information / number_of_robots
     complete_information = 1
