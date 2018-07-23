@@ -34,3 +34,5 @@ dist/
 interesting_folders_comm_params.tsv
 interesting_folders_initial.tsv
 interesting_folders_without_initial.tsv
+simulation_config/kilobot_generic_controller_viz.argos
+tracking/tracking_scripts/kilobot.pyc
