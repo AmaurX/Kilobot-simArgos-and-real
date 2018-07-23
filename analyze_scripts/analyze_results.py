@@ -58,26 +58,26 @@ def main():
         current_sum_displacement[i] = current_sum_displacement[i] / \
             float(total_number_of_robots)
 
-    time_list = time_list[:len(current_sum_displacement)]
-    slope, intercept, r_value, p_value, std_err = stats.linregress(
-        time_list, current_sum_displacement)
+    # time_list = time_list[:len(current_sum_displacement)]
+    # slope, intercept, r_value, p_value, std_err = stats.linregress(
+    #     time_list, current_sum_displacement)
 
-    linear_approx = [slope * i + intercept for i in time_list]
+    # linear_approx = [slope * i + intercept for i in time_list]
 
-    plt.plot(time_list, linear_approx, color='r', linewidth=2, linestyle=":",
-             label="slope : " + "%.4e" % slope + " r^2 = " + "%.4f" % (r_value**2))
-    plt.plot(time_list, current_sum_displacement, color='b', linewidth=3,
-             label="MSD overtime on " + str(total_number_of_robots) + " robots")
+    # plt.plot(time_list, linear_approx, color='r', linewidth=2, linestyle=":",
+    #          label="slope : " + "%.4e" % slope + " r^2 = " + "%.4f" % (r_value**2))
+    # plt.plot(time_list, current_sum_displacement, color='b', linewidth=3,
+    #          label="MSD overtime on " + str(total_number_of_robots) + " robots")
 
-    plt.xlabel("Time in seconds")
-    plt.ylabel("MSD in m^2")
-    plt.title("Arena diameter: " + arena_size + "m "
-              + str(number_of_robots) + " kilobots per run, " + str(displacement_run_count) + " runs")
-    plt.legend()
-    plt.savefig(folder + "/MSD_" + str(number_of_robots) + "kilobots_" + str(displacement_run_count) +
-                " runs.png", bbox_inches='tight', dpi=200, orientation="landscape")
-    # plt.show(block=False)
-    plt.close()
+    # plt.xlabel("Time in seconds")
+    # plt.ylabel("MSD in m^2")
+    # plt.title("Arena diameter: " + arena_size + "m "
+    #           + str(number_of_robots) + " kilobots per run, " + str(displacement_run_count) + " runs")
+    # plt.legend()
+    # plt.savefig(folder + "/MSD_" + str(number_of_robots) + "kilobots_" + str(displacement_run_count) +
+    #             " runs.png", bbox_inches='tight', dpi=200, orientation="landscape")
+    # # plt.show(block=False)
+    # plt.close()
 
     current_sum_w_displacement = []
     w_total_number_of_robots = 0
@@ -101,11 +101,11 @@ def main():
         time_list, current_sum_w_displacement)
 
     linear_approx = [slope * i + intercept for i in time_list]
-    plt.plot(time_list, linear_approx, color='r', linewidth=2, linestyle=":",
-             label="slope : " + "%.4e" % slope + " r^2 = " + "%.4f" % (r_value**2))
+    plt.plot(time_list, linear_approx, color='r', linewidth=2, linestyle=":")
     plt.plot(time_list, current_sum_w_displacement, color='b', linewidth=3,
              label="Window MSD (window = " + str(window_size/2) + " seconds) overtime on " + str(w_total_number_of_robots) + " robots")
-
+    ax = plt.gcf()
+    plt.ylim([0, 0.00007])
     plt.xlabel("Time in seconds")
     plt.ylabel("MSD in m^2")
     plt.title("Arena diameter: " + arena_size + "m " +
@@ -140,7 +140,7 @@ def main():
         values.append(cummulate)
     times = [float(i)/tick_per_second for i in times]
 
-    plt.plot(times, values, linewidth=3, color='b')
+    # plt.plot(times, values, linewidth=3, color='b')
     plt.xlabel("Time in seconds")
     plt.ylabel("proportion of discovery")
     plt.title("Arena diameter: " + arena_size + "m " +
@@ -172,7 +172,7 @@ def main():
 
     times = [float(i)/tick_per_second for i in times]
 
-    plt.plot(times, values, linewidth=3, color='b')
+    # plt.plot(times, values, linewidth=3, color='b')
     plt.xlabel("Time in seconds")
     plt.ylabel("proportion of information")
     plt.title("Arena diameter: " + arena_size + "m " +
@@ -229,43 +229,43 @@ def main():
 
     p = [first_centroid, sigma[0], height[0],
          second_centroid, sigma[1], height[0]]
-    try:
-        popt, pcov = curve_fit(bimodal_gauss, centers, n2, p0=p[:])
-        print(popt)
-        new_y = []
-        for x in centers:
-            new_y.append(gauss(x, *popt[:3]))
-        plt.plot(centers, new_y,
-                 'w--', linewidth=1)
-        new_y = []
-        for x in centers:
-            new_y.append(gauss(x, *popt[3:]))
-        plt.plot(centers, new_y,
-                 'b--', linewidth=1)
-        new_y = []
-        for x in centers:
-            new_y.append(bimodal_gauss(x, *popt))
-        label = r'$\mathrm{Histogram\ of\ speed\ two\ Gaussians:}$' + "\n" + r'$\mu1={: .4f}\pm{: .4f}$, $\sigma1={: .4f}\pm{: .4f}$'.format(
-            popt[0], np.sqrt(pcov[0, 0]), abs(popt[1]), np.sqrt(pcov[1, 1])) + "\n" + r'$\mu2={: .4f}\pm{: .4f}$, $\sigma2={: .4f}\pm{: .4f}$'.format(popt[3], np.sqrt(pcov[3, 3]), abs(popt[4]), np.sqrt(pcov[4, 4]))
-        plt.plot(centers, new_y,
-                 'r--', linewidth=2, label=label)
+    # try:
+    #     popt, pcov = curve_fit(bimodal_gauss, centers, n2, p0=p[:])
+    #     print(popt)
+    #     new_y = []
+    #     for x in centers:
+    #         new_y.append(gauss(x, *popt[:3]))
+    #     plt.plot(centers, new_y,
+    #              'w--', linewidth=1)
+    #     new_y = []
+    #     for x in centers:
+    #         new_y.append(gauss(x, *popt[3:]))
+    #     plt.plot(centers, new_y,
+    #              'b--', linewidth=1)
+    #     new_y = []
+    #     for x in centers:
+    #         new_y.append(bimodal_gauss(x, *popt))
+    #     label = r'$\mathrm{Histogram\ of\ speed\ two\ Gaussians:}$' + "\n" + r'$\mu1={: .4f}\pm{: .4f}$, $\sigma1={: .4f}\pm{: .4f}$'.format(
+    #         popt[0], np.sqrt(pcov[0, 0]), abs(popt[1]), np.sqrt(pcov[1, 1])) + "\n" + r'$\mu2={: .4f}\pm{: .4f}$, $\sigma2={: .4f}\pm{: .4f}$'.format(popt[3], np.sqrt(pcov[3, 3]), abs(popt[4]), np.sqrt(pcov[4, 4]))
+    #     plt.plot(centers, new_y,
+    #              'r--', linewidth=2, label=label)
 
-        label = r'$\mathrm{Histogram\ of\ speed\ one\ Gaussian:}$' + "\n" + r'$\mu={: .4f}\pm{: .4f}$, $\sigma={: .4f}\pm{: .4f}$'.format(
-                pars[0], np.sqrt(cov[0, 0]), pars[1], np.sqrt(cov[1, 1])) + "\n" + r'$\mathrm{number\ of\ robots:}\ \ %.d$' % (total_number_of_robots)
-        plt.plot(centers, norm.pdf(centers, *pars),
-                 'k--', linewidth=0.1, label=label)
+    #     label = r'$\mathrm{Histogram\ of\ speed\ one\ Gaussian:}$' + "\n" + r'$\mu={: .4f}\pm{: .4f}$, $\sigma={: .4f}\pm{: .4f}$'.format(
+    #             pars[0], np.sqrt(cov[0, 0]), pars[1], np.sqrt(cov[1, 1])) + "\n" + r'$\mathrm{number\ of\ robots:}\ \ %.d$' % (total_number_of_robots)
+    #     plt.plot(centers, norm.pdf(centers, *pars),
+    #              'k--', linewidth=0.1, label=label)
 
-    except RuntimeError:
-        print("Could not find a double Gaussian fit")
+    # except RuntimeError:
+    #     print("Could not find a double Gaussian fit")
 
-    plt.xlabel("speed in m/s")
-    plt.title("Robot histogram of speed. Arena diameter: " + arena_size + "m " +
-              str(number_of_robots) + " kilobots per run, " + str(w_displacement_run_count) + " runs")
-    plt.legend()
-    plt.savefig(folder + "/Speed_" + str(number_of_robots) + "kilobots_" +
-                str(w_displacement_run_count) + " runs.png", bbox_inches='tight', dpi=200, orientation="landscape")
-    # plt.show(block=False)
-    plt.close()
+    # plt.xlabel("speed in m/s")
+    # plt.title("Robot histogram of speed. Arena diameter: " + arena_size + "m " +
+    #           str(number_of_robots) + " kilobots per run, " + str(w_displacement_run_count) + " runs")
+    # plt.legend()
+    # plt.savefig(folder + "/Speed_" + str(number_of_robots) + "kilobots_" +
+    #             str(w_displacement_run_count) + " runs.png", bbox_inches='tight', dpi=200, orientation="landscape")
+    # # plt.show(block=False)
+    # plt.close()
 
 
 def n_sec_dist(directory, element, n_sec_distance_list, n, total_number_of_robots, number_of_robots, argos_ticks_per_second, sim_or_real):
@@ -347,8 +347,8 @@ def displacement(folder, filename, current_sum_displacement, total_number_of_rob
         current_sum_displacement[i] += float(num_robots) * \
             average_displacement[i]
     time_list = [float(i)/argos_ticks_per_second for i in time_list]
-    plt.plot(time_list, average_displacement,
-             linewidth=0.5, linestyle='dashed')
+    # plt.plot(time_list, average_displacement,
+    #          linewidth=0.5, linestyle='dashed')
 
     return (current_sum_displacement, total_number_of_robots, time_list)
 
@@ -365,18 +365,18 @@ def window_displacement(folder, position_filename, current_sum_w_displacement, t
 
     for row in tsvin:
         if(row[0] == "Robot id"):
-            expe_length = len(row) - 1 - 2 * window_size
+            expe_length = len(row) - 20 - 2 * window_size
 
             average_w_displacement = np.zeros(expe_length)
             time_list = np.zeros(expe_length)
             time_period = int(row[2].strip("T = ").strip("t = ").strip('\t\n'))
 
-            for i in range(1 + window_size, len(row) - window_size):
+            for i in range(20 + window_size, len(row) - window_size):
                 timestep = row[i].strip("T = ")
                 timestep = timestep.strip("t = ")
                 timestep = timestep.strip('\t\n')
                 timestep = float(timestep)
-                time_list[i-1 - window_size] = timestep
+                time_list[i-20 - window_size] = timestep
         else:
             # for i in range(1, window_size + 1):
             #     [xi, yi] = row[1].split(",")
@@ -389,7 +389,7 @@ def window_displacement(folder, position_filename, current_sum_w_displacement, t
             #     w_displacement /= num_robots
 
             #     average_w_displacement[i-1] += w_displacement
-            for i in range(1 + window_size, len(row)-window_size):
+            for i in range(20 + window_size, len(row)-window_size):
                 [xi, yi] = row[i-window_size].split(",")
                 [xi, yi] = [float(xi), float(yi)]
 
@@ -400,7 +400,7 @@ def window_displacement(folder, position_filename, current_sum_w_displacement, t
                     ((yf - yi)/window_size*2)**2
                 w_displacement /= num_robots
 
-                average_w_displacement[i-1 - window_size] += w_displacement
+                average_w_displacement[i-20 - window_size] += w_displacement
 
     if(len(current_sum_w_displacement) == 0):
         current_sum_w_displacement = np.zeros(expe_length)
@@ -424,8 +424,8 @@ def window_displacement(folder, position_filename, current_sum_w_displacement, t
 
     time_list = [float(i)/tick_per_second for i in time_list]
 
-    plt.plot(time_list, average_w_displacement,
-             linewidth=0.5, linestyle='dashed')
+    # plt.plot(time_list, average_w_displacement,
+    #          linewidth=0.5, linestyle='dashed')
 
     return (current_sum_w_displacement, total_number_of_robots, time_list, time_period)
 
@@ -468,7 +468,7 @@ def first_discovery(folder, time_filename, num_robots, total_number_of_robots, c
         tick_per_second = kilobot_ticks_per_second
 
     times = [float(i)/tick_per_second for i in times]
-    plt.plot(times, values, linewidth=0.5, linestyle='dashed')
+    # plt.plot(times, values, linewidth=0.5, linestyle='dashed')
     total_number_of_robots += num_robots
 
     return (complete_time_dict, total_number_of_robots)
@@ -511,7 +511,7 @@ def first_information(folder, time_filename, num_robots, total_number_of_robots,
         tick_per_second = kilobot_ticks_per_second
     times = [float(i)/tick_per_second for i in times]
 
-    plt.plot(times, values, linewidth=0.5, linestyle='dashed')
+    # plt.plot(times, values, linewidth=0.5, linestyle='dashed')
     total_number_of_robots += num_robots
 
     return (complete_time_dict, total_number_of_robots)

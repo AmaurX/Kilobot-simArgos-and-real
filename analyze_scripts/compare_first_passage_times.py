@@ -12,21 +12,26 @@ from scipy.stats import norm
 # default value
 kilobot_ticks_per_second = 31
 
+colors = {"10": 'm',
+          "20": 'c',
+          "30": 'y',
+          "all": 'b'}
+
 
 def print_help():
-    print("usage :  sim or real, [folders]")
+    print(
+        "usage :  sim or real, [folders or text file containing the list of experiment folders]")
 
 
 def main():
     number_of_args = len(sys.argv)
 
-    plt.figure(num=1, figsize=(15, 9), dpi=200, facecolor='w', edgecolor='k')
+    plt.figure(num=1, figsize=(10, 6), dpi=200, facecolor='w', edgecolor='k')
 
     if (number_of_args < 2):
         print_help()
         exit(-1)
 
-    arena_size = "0.95"
     sim_or_real = sys.argv[1]
 
     folders = sys.argv[2:]
@@ -37,21 +42,22 @@ def main():
         folders = []
         for row in tsvin:
             if(len(row) != 1):
-                print("badly formatted interesting_folder file")
+                print("badly formatted interesting_folders file")
                 exit(-1)
             else:
                 folders.append(row[0])
                 print(row[0])
 
     if(sim_or_real != "sim" and sim_or_real != "real"):
-        print("ERROR: you must specify if this is sim or real as third argument")
+        print("ERROR: you must specify if this is sim or real as first argument. \n \
+              If the folder contains the string 'real_experiments' it will be considered as a real experiment een if the rest is sim.")
         exit(-1)
 
     for folder in folders:
         total_num_robot = 0
         complete_time_dict = {}
         n_robots = {}
-        for directory, dirs, files in os.walk(folder):
+        for directory, _, files in os.walk(folder):
             for element in files:
                 if element.endswith('time_results.tsv'):
                     complete_time_dict, total_num_robot, n_robots = first_discovery(
@@ -65,8 +71,8 @@ def main():
                 times = sorted(times)
                 values = [0]
                 cummulate = 0
-                linewidth = 5
-                linestyle = '--'
+                linewidth = 4
+                linestyle = ':'
                 for key in times[1:]:
                     cummulate += value[key]/total_num_robot
                     values.append(cummulate)
@@ -77,21 +83,23 @@ def main():
                 else:
                     tick_per_second = kilobot_ticks_per_second
                 times = [float(i)/tick_per_second for i in times]
-                legend = folder.strip("/").split('/')[-1] + " " + n + " robots"
-                if(n == "all"):
-                    plt.plot(times, values, linestyle,
-                             linewidth=linewidth, label=legend)
+                legend = (folder.strip("/").split('/')
+                          [-1]).split("_")[0] + " " + (folder.strip("/").split('/')
+                                                       [-1]).split("_")[1] + " " + n + " robots"
+                # if(n == "all"):
+                plt.plot(times, values, linestyle + colors[n],
+                         linewidth=linewidth, label=legend)
             else:
                 times = value.keys()
                 times.append(0)
                 times = sorted(times)
                 values = [0]
                 cummulate = 0
-                linewidth = 2
+                linewidth = 1
                 for key in times[1:]:
                     cummulate += value[key]/n_robots[n]
                     values.append(cummulate)
-                linestyle = '--'
+                linestyle = ':'
                 if(sim_or_real == "real" or "real_experiments" in folder):
                     tick_per_second = 2
                     linestyle = '-'
@@ -99,18 +107,23 @@ def main():
                 else:
                     tick_per_second = kilobot_ticks_per_second
                 times = [float(i)/tick_per_second for i in times]
-                legend = folder.strip("/").split('/')[-1] + " " + n + " robots"
-                if(n == "all"):
-                    plt.plot(times, values, linestyle,
-                             linewidth=linewidth, label=legend)
+                legend = (folder.strip("/").split('/')
+                          [-1]).split("_")[0] + " " + (folder.strip("/").split('/')
+                                                       [-1]).split("_")[1] + " " + n + " robots"
+                # if(n == "all"):
+                plt.plot(times, values, linestyle + colors[n],
+                         linewidth=linewidth, label=legend)
     plt.xlabel("Time in seconds")
     axes = plt.gca()
     axes.set_xlim([0.0, 600])
     axes.set_ylim([0.0, 0.6])
+    handles, labels = plt.gca().get_legend_handles_labels()
 
+    order = [1, 5, 0, 4, 3, 7, 2, 6]
+    plt.legend([handles[idx] for idx in order], [labels[idx] for idx in order])
+    # plt.legend()
     plt.ylabel("proportion of discovery")
     plt.title("First passage time distribution")
-    plt.legend()
     plt.savefig("DiscoveryProportion_comparison.png",
                 bbox_inches='tight', dpi=200, orientation="landscape")
     # plt.show(block=False)

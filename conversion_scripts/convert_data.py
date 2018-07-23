@@ -12,26 +12,14 @@ Kilobot_tick_per_second = 31
 
 
 def print_help():
-    print("usage : folder_path (without / at the end), sim_or_real, optionnal max time")
+    print("usage : folder_path, sim or real, optionnal max time")
 
 
-def main():
-    if (number_of_args < 2):
-        print_help()
-        exit(-1)
-
+def main(folder, sim_or_real, maximum):
     num_robots = 0
     alpha = 0.0
     rho = 0.0
-    folder = sys.argv[1]
-    sim_or_real = sys.argv[2]
-    maximum = float("inf")
-    if(len(sys.argv) > 3):
-        maximum = float(sys.argv[3]) * 31.0
-    if "results" in folder:
-        print("folder = result")
-        return 0
-    print(folder)
+    # print(folder)
     multiplieur = 1.0
     if(sim_or_real == "real"):
         multiplieur = 31.0 / 2.0
@@ -45,12 +33,14 @@ def main():
             alpha = float(element.split("=")[-1])
         elif(element.startswith("rho=")):
             rho = float(element.split("=")[1])
-    print(filename)
-    print(folder)
+    # print(filename)
+    # print(folder)
 
     result_folder = folder[:-len(filename)] + \
         "results_" + folder.split("/")[-2][12:]
-    print(result_folder)
+    if(maximum < float("inf")):
+        result_folder += "cropped_at_%d" % int(maximum / 31.0)
+    # print(result_folder)
 
     if not os.path.exists(result_folder):
         os.mkdir(result_folder)
@@ -68,6 +58,7 @@ def main():
                     writer.writerow(line)
                 else:
                     continue
+    return result_folder
 
 
 def time_synthesis(filename, multiplieur, maximum):
@@ -113,7 +104,7 @@ def time_synthesis(filename, multiplieur, maximum):
     complete_information = 1
 
     if(number_of_information != number_of_robots):
-        print("everybody didnt get the info")
+        # print("everybody didnt get the info")
         complete_information = 0
 
     disconted_convergence_time = convergence_time - first_ever_discovery
@@ -124,4 +115,16 @@ def time_synthesis(filename, multiplieur, maximum):
 
 
 if __name__ == '__main__':
-    main()
+    if (number_of_args < 2):
+        print_help()
+        exit(-1)
+
+    folder = sys.argv[1]
+    sim_or_real = sys.argv[2]
+    maximum = float("inf")
+    if(len(sys.argv) > 3):
+        maximum = float(sys.argv[3]) * 31.0
+    if "results" in folder:
+        print("folder = result")
+    else:
+        main(folder, sim_or_real, maximum)

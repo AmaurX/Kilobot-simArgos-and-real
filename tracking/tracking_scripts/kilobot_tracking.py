@@ -8,7 +8,7 @@ import numpy as np
 
 import cv2
 import imutils
-from kilobot import Kilobot
+from tracking.tracking_scripts.kilobot import Kilobot
 
 kilobot_radius = 16
 # Should be around 9.1 * speed/frame, which means 5 pixel/frame ....

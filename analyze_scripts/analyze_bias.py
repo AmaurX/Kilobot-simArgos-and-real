@@ -29,10 +29,16 @@ def butter_lowpass_filter(data, cutoff, fs, order=5):
 
 
 def print_help():
-    print("usage : folder_path,  sim or real  argos ticks per second")
+    print("usage : folder_path,  sim or real")
 
 
 def main():
+    """
+    This script take a folder of processed experiments data, from a calibration run (where robots are asked to go straight) 
+    It first applies a low_pass filter on the position of all robots, then it produces plots that analyze the bias in the turning of the robots, based on a differential drive model
+    The results can be used to tune the ARGoS simulator.
+    The time window used here is defined in the function find_bias
+    """
     number_of_args = len(sys.argv)
 
     plt.figure(num=1, figsize=(12, 6), dpi=160, facecolor='w', edgecolor='k')
@@ -40,25 +46,22 @@ def main():
     plt.figure(num=3, figsize=(12, 6), dpi=160, facecolor='w', edgecolor='k')
     plt.figure(num=4, figsize=(12, 6), dpi=160, facecolor='w', edgecolor='k')
 
-    if (number_of_args < 3):
+    if (number_of_args < 2):
         print_help()
         exit(-1)
 
     folder = sys.argv[1]
-    arena_size = "0.95"
     sim_or_real = sys.argv[2]
-    argos_ticks_per_second = int(sys.argv[3])
-    total_number_of_robots = 0
 
     if(sim_or_real != "sim" and sim_or_real != "real"):
-        print("ERROR: you must specify if this is sim or real as third argument")
+        print("ERROR: you must specify if this is sim or real as second argument")
         exit(-1)
     left_bias_list = []
     right_bias_list = []
     speed_list = []
     omega_list = []
     info_list = []
-    for directory, dirs, files in os.walk(folder):
+    for directory, _, files in os.walk(folder):
         for element in files:
             if element.endswith('position.tsv'):
                 (left_bias_list, right_bias_list, speed_list, omega_list, info_list) = find_bias(directory, element,
@@ -78,59 +81,11 @@ def main():
         axes = plt.gca()
         axes.set_xlim([-0.005, 0.025])
 
-        def gauss(x, mu, sigma, A):
-            return A*np.exp(-(x-mu)**2/2/sigma**2)
-
-        def bimodal_gauss(x, mu1, sigma1, A1, mu2, sigma2, A2):
-            return gauss(x, mu1, sigma1, A1)+gauss(x, mu2, sigma2, A2)
-
-        """""
-        Gaussian fitting parameters recognized in each file
-        """""
-        first_centroid = 0.004
-        second_centroid = 0.01
-        centroid = []
-        centroid += (first_centroid, second_centroid)
-
-        sigma = [0.001, 0.001]
-
-        height = [1, 1]
-
-        p = []
-
-        p = [first_centroid, sigma[0], height[0],
-             second_centroid, sigma[1], height[0]]
-        try:
-            # popt, pcov = curve_fit(bimodal_gauss, centers, n2, p0=p[:])
-            # print(popt)
-            # new_y = []
-            # for x in centers:
-            #     new_y.append(bimodal_gauss(x, *popt))
-            # label = r'$\mathrm{Histogram\ of\ speed\ two\ Gaussians:}$'
-            # plt.plot(centers, new_y,
-            #          'r--', linewidth=2, label=label)
-            # new_y = []
-            # label = r'$\mu1={: .4f}\pm{: .4f}$, $\sigma1={: .4f}\pm{: .4f}$'.format(
-            #     popt[0], np.sqrt(pcov[0, 0]), abs(popt[1]), np.sqrt(pcov[1, 1]))
-            # for x in centers:
-            #     new_y.append(gauss(x, *popt[:3]))
-            # plt.plot(centers, new_y,
-            #          'g--', linewidth=1, label=label)
-            # new_y = []
-            # label = r'$\mu2={: .4f}\pm{: .4f}$, $\sigma2={: .4f}\pm{: .4f}$'.format(
-            #     popt[3], np.sqrt(pcov[3, 3]), abs(popt[4]), np.sqrt(pcov[4, 4]))
-            # for x in centers:
-            #     new_y.append(gauss(x, *popt[3:]))
-            # plt.plot(centers, new_y,
-            #          'b--', linewidth=1, label=label)
-
-            label = r'$\mathrm{Histogram\ of\ speed\ bias:}$' + "\n" + r'$\mu={: .4e}\pm{: .4e}$, $\sigma={: .4e}\pm{: .4e}$'.format(
+        label = r'$\mathrm{Histogram\ of\ speed\ bias:}$' + "\n" + r'$\mu={: .4e}\pm{: .4e}$, $\sigma={: .4e}\pm{: .4e}$'.format(
                 pars[0], np.sqrt(cov[0, 0]), pars[1], np.sqrt(cov[1, 1]))
-            plt.plot(centers, norm.pdf(centers, *pars),
-                     'r--', linewidth=1, label=label)
+        plt.plot(centers, norm.pdf(centers, *pars),
+                 'r--', linewidth=1, label=label)
 
-        except RuntimeError:
-            print("Could not find a double Gaussian fit")
         side = ""
         if(mylist == left_bias_list):
             side = "left"
@@ -158,18 +113,18 @@ def sub(x, offset):
 
 
 def find_bias(directory, element, left_bias_list, right_bias_list, speed_list, omega_list, info_list):
+    """
+    Applies here the low_pass filter function
+    Dt is the time window
+     
+    """
+    
     complete_filename = directory + "/" + element
     position_file = open(complete_filename, mode='rb')
     tsvin = csv.reader(position_file, delimiter='\t')
-    tick_period = 0
     Dt = 2.0
     tick_per_second = 2
-    # for row in tsvin:
-    #     if(row[0] == "Robot id"):
-    #         t1 = int(row[2].strip("T = ").strip("t = "))
-    #         t0 = int(row[1].strip("T = ").strip("t = "))
-    #         tick_period = t1 - t0
-    #         break
+
     count = 0
     for row in tsvin:
         if(row[0] != "Robot id"):

@@ -16,15 +16,15 @@ def main():
     folder = args["folder"]
 
     if(video):
-        find_first_frame(video)
+        show_first_and_last_frame(video)
 
     elif(folder):
         for video in os.listdir(folder):
             if(video.endswith(".MP4")):
-                find_first_frame(video, folder=folder)
+                show_first_and_last_frame(video, folder=folder)
 
 
-def find_first_frame(video, folder=""):
+def show_first_and_last_frame(video, folder=""):
     complete_file_name = video
     if(folder):
         complete_file_name = "%s/%s" % (folder, complete_file_name)
@@ -33,9 +33,6 @@ def find_first_frame(video, folder=""):
     camera.set(cv2.CAP_PROP_FPS, 29)
     print("Opening video %s" % video)
     frame_counter = 0
-    x_offset = 0
-    y_offset = 0
-    r_offset = 0
     old_frame = None
     while True:
         # grab the current frame
@@ -61,13 +58,6 @@ def find_first_frame(video, folder=""):
             cv2.imshow("Frame", old_frame)
             key = cv2.waitKey(5000) & 0xFF
             break
-
-
-def create_config(pathname, frame_number, x_offset, y_offset, r_offset):
-    new_path_name = pathname.split(".")[0] + ".txt"
-    f = open(new_path_name, "w+")
-    f.write("%d\n%d\n%d\n%d" % (frame_number, x_offset, y_offset, r_offset))
-    f.close()
 
 
 if __name__ == "__main__":

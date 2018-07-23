@@ -16,7 +16,7 @@ include_directories(/usr/local/include/argos3/plugins/robots/kilobot/control_int
               target_link_libraries(CRWLEVY_${levy}_${crw} argos3plugin_simulator_kilolib rt m)
               target_compile_definitions(CRWLEVY_${levy}_${crw} PRIVATE -DLEVY_EXPONENT=${levy} -DCRW_EXPONENT=${crw} -DMAX_TIME=100000000)
               
-              foreach(numRobots 5 10 20 30 50 100)
+              foreach(numRobots 5 10 20 30 40 50 60 70 80 90 100)
                     foreach(speed 1.00)
                         add_custom_target(config_file_${numRobots}_${levy}_${crw}_${speed}
                             ALL

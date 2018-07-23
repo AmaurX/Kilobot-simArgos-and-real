@@ -110,7 +110,7 @@ def main():
         fig=plt.figure(figsize = (12, 8))
         dataFrame=pd.DataFrame.from_dict(value)
         reversed_df=dataFrame.iloc[::-1]
-        ax=sns.heatmap(reversed_df, annot = True, fmt = ".2e", vmin=0.000035, vmax=0.000072)
+        ax=sns.heatmap(reversed_df, annot = True, fmt = ".2e", vmin=0.0000335, vmax=0.0000751)
         ax.set_title("Heatmap of WMSD for %s robots" % (key))
         ax.set_ylabel("alpha")
         ax.set_xlabel("rho")

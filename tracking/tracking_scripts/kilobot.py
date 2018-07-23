@@ -1,7 +1,6 @@
 import math
 import csv
 from scipy import spatial
-from smartquadtree import Quadtree
 import matplotlib.pyplot as plt
 import cv2
 import itertools
@@ -273,7 +272,6 @@ class Kilobot(object):
         self.purple_led_position[1] = int(round(self.purple_led_position[1]))
         return
 
-#
     @staticmethod
     def find_unupdated_kilobots():
         unupdated_list = []
@@ -282,7 +280,6 @@ class Kilobot(object):
                 unupdated_list.append(kilo)
         return unupdated_list
 
-#
     @staticmethod
     def find_updated_kilobots():
         updated_list = []
@@ -291,19 +288,16 @@ class Kilobot(object):
                 updated_list.append(kilo)
         return updated_list
 
-#
     @staticmethod
     def new_frame():
         Kilobot.frame_number += 1
         for kilo in Kilobot.kilobot_list:
             kilo._new_frame()
 
-#
     @staticmethod
     def get_number_of_kilobots():
         return len(Kilobot.kilobot_list)
 
-#
     @staticmethod
     def parse_initial_position(position):
         if(not Kilobot.is_a_valid_position(position)):
@@ -317,7 +311,6 @@ class Kilobot(object):
         # Then if not, create a new kilobot instance
         Kilobot(position)
 
-#
     @staticmethod
     def filter_initial_list(max_num_robots):
         Kilobot.number_of_kilobots = max_num_robots
@@ -329,7 +322,6 @@ class Kilobot(object):
             Kilobot.remove_kilobots(Kilobot.kilobot_list, len(
                 Kilobot.kilobot_list) - max_num_robots)
 
-#
     @staticmethod
     def remove_kilobots(kilo_list, number_to_remove):
         count = number_to_remove
@@ -344,7 +336,6 @@ class Kilobot(object):
             del lowest_kilo
             count -= 1
 
-#
     @staticmethod
     def register_position(position):
         if(not Kilobot.is_a_valid_position(position)):
@@ -365,7 +356,6 @@ class Kilobot(object):
         # Then if not, create a new kilobot instance
         Kilobot(position, kilo_type="temp")
 
-#
     @staticmethod
     def compare_certainty(kilo1, kilo2):
         if(kilo1.initial_certainty > kilo2.initial_certainty):
@@ -374,7 +364,6 @@ class Kilobot(object):
             return 1
         return 0
 
-#
     @staticmethod
     def __broken_associate_temp_to_kilobots():
         if(len(Kilobot.temp_kilobot_list) < Kilobot.number_of_kilobots):
@@ -436,7 +425,6 @@ class Kilobot(object):
             del kilo
         Kilobot.temp_kilobot_list[:] = []
 
-#
     @staticmethod
     def associate_temp_to_kilobots():
         if(len(Kilobot.temp_kilobot_list) < Kilobot.number_of_kilobots):
@@ -472,7 +460,6 @@ class Kilobot(object):
             del kilo
         Kilobot.temp_kilobot_list[:] = []
 
-#
     @staticmethod
     def filter_temp_list():
         couples = []
@@ -501,7 +488,6 @@ class Kilobot(object):
         for kilo in list_to_del:
             Kilobot.temp_kilobot_list.remove(kilo)
 
-#
     @staticmethod
     def print_quad_tree():
         for kilo in Kilobot.kilobot_list:
@@ -509,14 +495,12 @@ class Kilobot(object):
         plt.gca().invert_yaxis()
         plt.show()
 
-#
     @staticmethod
     def set_kilobot_param(speed, radius, comm_radius):
         Kilobot.radius = radius
         Kilobot.speed = speed
         Kilobot.communication_radius = comm_radius
 
-#
     @staticmethod
     def set_arena_param(center, radius, starting_frame, pixel_per_m, video_name, use_led_position=False, calib=False):
         Kilobot.arena_radius = radius
@@ -527,7 +511,6 @@ class Kilobot(object):
         Kilobot.use_led_position = use_led_position
         Kilobot.calib = calib
 
-#
     @staticmethod
     def is_in_arena(position):
         distance_to_center = int(math.sqrt(math.pow(
@@ -537,7 +520,6 @@ class Kilobot(object):
             return False
         return True
 
-#
     @staticmethod
     def parse_target_location(position):
         if(not Kilobot.is_in_arena(position)):
@@ -551,7 +533,6 @@ class Kilobot(object):
         # Then if not, create a new kilobot instance
         Kilobot(position, kilo_type="target")
 
-#
     @staticmethod
     def filter_target_list(number_of_targets):
         if(number_of_targets > 1):
@@ -564,7 +545,6 @@ class Kilobot(object):
             Kilobot.remove_kilobots(Kilobot.potential_target_list,
                                     len(Kilobot.potential_target_list) - number_of_targets)
 
-#
     @staticmethod
     def compute_target_location():
         if(len(Kilobot.potential_target_list) != 1):
@@ -572,7 +552,6 @@ class Kilobot(object):
             exit()
         Kilobot.target_coordinates = Kilobot.potential_target_list[0].current_position
 
-#
     @staticmethod
     def target_collision(position):
         if(Kilobot.calib):
@@ -585,14 +564,12 @@ class Kilobot(object):
         print("Error: No targets were defined")
         exit(-1)
 
-#
     @staticmethod
     def is_a_valid_position(position):
         in_arena = Kilobot.is_in_arena(position)
         target_collision = Kilobot.target_collision(position)
         return (in_arena and not target_collision)
 
-#
     @staticmethod
     def parse_led_position(position, color):
         if(Kilobot.frame_number < Kilobot.starting_frame):
@@ -607,7 +584,6 @@ class Kilobot(object):
                     closest_kilo.update_purple_led(position)
                     # closest_kilo.potential_purple += 1
 
-#
     @staticmethod
     def find_closest_kilo(position, factor=1.5):
         closest = None
@@ -620,7 +596,6 @@ class Kilobot(object):
                     closest = kilo
         return closest
 
-#
     @staticmethod
     def decide_led_color():
         if(Kilobot.frame_number < Kilobot.starting_frame):
@@ -686,17 +661,14 @@ class Kilobot(object):
             # kilo.purple_led_position = [0, 0]
         return
 
-#
     @staticmethod
     def to_meter(position):
         return "%.5f, %.5f" % (float(position[0])/Kilobot.pixel_per_m, float(position[1])/Kilobot.pixel_per_m)
 
-#
     @staticmethod
     def to_meter_disp(distance):
         return "%.5f" % (float(distance)/Kilobot.pixel_per_m)
 
-#
     @staticmethod
     def finish_experiment(folder, only_position=False):
         date = strftime("%Y%m%d", gmtime())

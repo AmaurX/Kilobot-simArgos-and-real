@@ -19,3 +19,15 @@ DiscoveryProportion_comparison.png
 DiscoveryProportion_comparison_with_initial_change.png
 DiscoveryProportion_comparison_without_change_initial_pos.png
 real_experiments_calib_and_old/
+average_first_passage_time_N_alpha_rho=0,75.png
+average_WMSD_N_alpha_rho=0,75.png
+average_WMSD_N_alpha_rho=0,75_with_optimal.png
+DiscoveryProportion_comparison_all.png
+DiscoveryProportion_comparison_only_all.png
+Window_MSD_20kilobots_20 runs.png
+Window_MSD_30kilobots_100 runs.png
+Kilobot_scripts.egg-info/
+Kilobot_ima*
+images_comm_range
+images_initial_distance
+dist/
