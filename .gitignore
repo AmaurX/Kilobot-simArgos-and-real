@@ -36,3 +36,8 @@ interesting_folders_initial.tsv
 interesting_folders_without_initial.tsv
 simulation_config/kilobot_generic_controller_viz.argos
 tracking/tracking_scripts/kilobot.pyc
+tracking/tracking_scripts/kilobot_tracking.pyc
+tracking/templates/calibration/
+tracking/templates/kilobot_templates_old/
+conversion_scripts/convert_data.pyc
+analyze_scripts/*.pyc
