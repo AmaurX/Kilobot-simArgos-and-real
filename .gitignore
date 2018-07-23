@@ -41,3 +41,8 @@ tracking/templates/calibration/
 tracking/templates/kilobot_templates_old/
 conversion_scripts/convert_data.pyc
 analyze_scripts/*.pyc
+launch_multiple_argos_10.sh
+launch_multiple_argos_20.sh
+launch_multiple_argos_30.sh
+launch_multiple_argos_5_50_100.sh
+launch_multiple_argos.sh
