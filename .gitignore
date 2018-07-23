@@ -31,3 +31,6 @@ Kilobot_ima*
 images_comm_range
 images_initial_distance
 dist/
+interesting_folders_comm_params.tsv
+interesting_folders_initial.tsv
+interesting_folders_without_initial.tsv
