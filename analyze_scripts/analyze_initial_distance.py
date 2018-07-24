@@ -1,27 +1,30 @@
 import csv
 import matplotlib.pyplot as plt
-import argparse
 import os
 from scipy.stats import norm
 import math
 from scipy.optimize import curve_fit
 import numpy as np
-
+import sys
 image_folder = "images_initial_distance/"
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("-f", "--folder",
-                    help="path to the experiment folder")
+def print_help():
+    print("usage : experiment folder")
 
-    args = vars(ap.parse_args())
+
+def main():
+    number_of_args = len(sys.argv)
+
+    if(number_of_args < 1):
+        print_help()
+        exit(-1)
+    folder = sys.argv[1]
 
     total_list = []
     target_distance = []
     number_of_experiment = 0
-    folder = args["folder"]
-    for directory, dirs, files in os.walk(folder):
+    for directory, _, files in os.walk(folder):
         for filename in files:
             filepath = directory + os.sep + filename
             if(filename.endswith("initial_distances.tsv")):
