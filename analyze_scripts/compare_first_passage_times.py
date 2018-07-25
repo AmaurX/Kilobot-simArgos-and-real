@@ -35,7 +35,6 @@ def main():
 
     sim_or_real = sys.argv[1]
 
-
     folders = sys.argv[2:]
 
     if len(folders) == 1 and not os.path.isdir(folders[0]):
@@ -59,14 +58,15 @@ def main():
         total_num_robot = 0
         complete_time_dict = {}
         n_robots = {}
+        data_or_tsv = {}
         for directory, _, files in os.walk(folder):
             for element in files:
                 if element.endswith('time_results.tsv'):
-                    complete_time_dict, total_num_robot, n_robots = first_discovery_tsv(
-                        directory, element, total_num_robot, complete_time_dict, n_robots, sim_or_real)
+                    complete_time_dict, total_num_robot, n_robots, data_or_tsv = first_discovery_tsv(
+                        directory, element, total_num_robot, complete_time_dict, n_robots, data_or_tsv, sim_or_real)
                 elif element.endswith('.dat'):
-                    complete_time_dict, total_num_robot, n_robots = first_discovery_dat(
-                        directory, element, total_num_robot, complete_time_dict, n_robots, sim_or_real)
+                    complete_time_dict, total_num_robot, n_robots, data_or_tsv = first_discovery_dat(
+                        directory, element, total_num_robot, complete_time_dict, n_robots, data_or_tsv, sim_or_real)
                 else:
                     continue
         for n, value in complete_time_dict.iteritems():
@@ -81,12 +81,13 @@ def main():
                 for key in times[1:]:
                     cummulate += value[key]/total_num_robot
                     values.append(cummulate)
+                tick_per_second = kilobot_ticks_per_second
+
                 if(sim_or_real == "real" or "real_experiments" in folder):
-                    tick_per_second = 2
                     linestyle = '-'
-                    print(folder)
-                else:
-                    tick_per_second = kilobot_ticks_per_second
+                    if(data_or_tsv[n] == "tsv"):
+                        tick_per_second = 2
+
                 times = [float(i)/tick_per_second for i in times]
                 legend = (folder.strip("/").split('/')
                           [-1]).split("_")[0] + " " + (folder.strip("/").split('/')
@@ -105,12 +106,12 @@ def main():
                     cummulate += value[key]/n_robots[n]
                     values.append(cummulate)
                 linestyle = ':'
+                tick_per_second = kilobot_ticks_per_second
+
                 if(sim_or_real == "real" or "real_experiments" in folder):
-                    tick_per_second = 2
                     linestyle = '-'
-                    print(folder)
-                else:
-                    tick_per_second = kilobot_ticks_per_second
+                    if(data_or_tsv[n] == "tsv"):
+                        tick_per_second = 2
                 times = [float(i)/tick_per_second for i in times]
                 legend = (folder.strip("/").split('/')
                           [-1]).split("_")[0] + " " + (folder.strip("/").split('/')
@@ -122,11 +123,11 @@ def main():
     axes = plt.gca()
     axes.set_xlim([0.0, 600])
     axes.set_ylim([0.0, 0.6])
-    # handles, labels = plt.gca().get_legend_handles_labels()
+    handles, labels = plt.gca().get_legend_handles_labels()
 
-    # order = [1, 5, 0, 4, 3, 7, 2, 6]
-    # plt.legend([handles[idx] for idx in order], [labels[idx] for idx in order])
-    plt.legend()
+    order = [1, 5, 0, 4, 3, 7, 2, 6]
+    plt.legend([handles[idx] for idx in order], [labels[idx] for idx in order])
+    # plt.legend()
     plt.ylabel("proportion of discovery")
     plt.title("First passage time distribution")
     plt.savefig("DiscoveryProportion_comparison.png",
@@ -135,7 +136,7 @@ def main():
     plt.close()
 
 
-def first_discovery_tsv(folder, time_filename, total_number_of_robots, complete_time_dict, n_robots, sim_or_real):
+def first_discovery_tsv(folder, time_filename, total_number_of_robots, complete_time_dict, n_robots, data_or_tsv, sim_or_real):
     complete_filename = folder + "/" + time_filename
     time_file = open(complete_filename, mode='rb')
     tsvin = csv.reader(time_file, delimiter='\t')
@@ -152,6 +153,10 @@ def first_discovery_tsv(folder, time_filename, total_number_of_robots, complete_
         n_robots[n] = 0
     if(not complete_time_dict.has_key("all")):
         complete_time_dict["all"] = dict()
+    if(not data_or_tsv.has_key(n)):
+        data_or_tsv[n] = "tsv"
+    if(not data_or_tsv.has_key("all")):
+        data_or_tsv["all"] = "tsv"
     for row in tsvin:
         if(row[0] == "Robot id"):
             continue
@@ -196,10 +201,10 @@ def first_discovery_tsv(folder, time_filename, total_number_of_robots, complete_
     total_number_of_robots += num_robots
     n_robots[n] += num_robots
 
-    return (complete_time_dict, total_number_of_robots, n_robots)
+    return (complete_time_dict, total_number_of_robots, n_robots, data_or_tsv)
 
 
-def first_discovery_dat(folder, time_filename, total_number_of_robots, complete_time_dict, n_robots, sim_or_real):
+def first_discovery_dat(folder, time_filename, total_number_of_robots, complete_time_dict, n_robots, data_or_tsv, sim_or_real):
     complete_filename = folder + "/" + time_filename
     time_file = open(complete_filename, mode='rb')
     tsvin = csv.reader(time_file, delimiter=' ')
@@ -217,6 +222,10 @@ def first_discovery_dat(folder, time_filename, total_number_of_robots, complete_
         n_robots[n] = 0
     if(not complete_time_dict.has_key("all")):
         complete_time_dict["all"] = dict()
+    if(not data_or_tsv.has_key(n)):
+        data_or_tsv[n] = "data"
+    if(not data_or_tsv.has_key("all")):
+        data_or_tsv["all"] = "data"
     for row in tsvin:
         if(done == False):
             num_robots *= len(row) - 5
@@ -255,7 +264,7 @@ def first_discovery_dat(folder, time_filename, total_number_of_robots, complete_
     total_number_of_robots += num_robots
     n_robots[n] += num_robots
 
-    return (complete_time_dict, total_number_of_robots, n_robots)
+    return (complete_time_dict, total_number_of_robots, n_robots, data_or_tsv)
 
 
 if __name__ == '__main__':
