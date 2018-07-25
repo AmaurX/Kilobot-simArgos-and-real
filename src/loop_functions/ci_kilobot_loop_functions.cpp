@@ -434,7 +434,9 @@ void CIKilobotLoopFunctions::PostExperiment()
 
       std::ofstream of_1(time_results_file, std::ios::out);
       // std::ofstream of_2(displacement_file, std::ios::out);
-      std::ofstream of_3(position_file, std::ios::out);
+      std::ofstream of_3;
+      if (m_unNumRobots == 10 || m_unNumRobots == 50 || m_unNumRobots == 100)
+            of_3 = std::ofstream(position_file, std::ios::out);
       // std::ofstream of_4(config_file, std::ios::out);
       // std::ofstream of_5(comm_range_file, std::ios::out);
       // std::ofstream of_6(initial_distances_file, std::ios::out);
@@ -445,24 +447,25 @@ void CIKilobotLoopFunctions::PostExperiment()
 
       of_1 << "Robot id\tFirst discovery time\tFirst information time" << std::endl;
       // of_2 << "Robot id";
-      of_3 << "Robot id";
-
-      for (uint j = 0; j < m_cKilobotDisplacements[1].size(); j++)
+      if (m_unNumRobots == 10 || m_unNumRobots == 50 || m_unNumRobots == 100)
       {
-            int t = j * m_samplingPeriod;
-            // of_2 << "\tt = " << t;
-            of_3 << "\tt = " << t;
-      }
-      // of_2 << std::endl;
-      of_3 << std::endl;
+            of_3 << "Robot id";
 
+            for (uint j = 0; j < m_cKilobotDisplacements[1].size(); j++)
+            {
+                  int t = j * m_samplingPeriod;
+                  // of_2 << "\tt = " << t;
+                  of_3 << "\tt = " << t;
+            }
+            // of_2 << std::endl;
+            of_3 << std::endl;
+      }
       bool first = true;
       CVector2 target_pos = CVector2(m_target_position.GetX(), m_target_position.GetY());
       for (uint i = 1; i <= m_unNumRobots; i++)
       {
             of_1 << i;
             // of_2 << i;
-            of_3 << i;
 
             for (uint j = 0; j < m_cKilobotDiscoveryInformationTime[i].size(); j++)
             {
@@ -475,13 +478,16 @@ void CIKilobotLoopFunctions::PostExperiment()
             //       of_2 << '\t' << std::setprecision(4) << (m_cKilobotDisplacements[i])[j];
             // }
             // of_2 << std::endl;
-
-            for (uint j = 0; j < m_cKilobotPositions[i].size(); j++)
+            if (m_unNumRobots == 10 || m_unNumRobots == 50 || m_unNumRobots == 100)
             {
-                  of_3 << '\t' << std::setprecision(3) << (m_cKilobotPositions[i])[j];
-            }
-            of_3 << std::endl;
+                  of_3 << i;
 
+                  for (uint j = 0; j < m_cKilobotPositions[i].size(); j++)
+                  {
+                        of_3 << '\t' << std::setprecision(3) << (m_cKilobotPositions[i])[j];
+                  }
+                  of_3 << std::endl;
+            }
             // if (m_cKilobotDiscoveryInformationTime[i][0] > 0)
             // {
             //       int discoveryTime = int(std::round(float(m_cKilobotDiscoveryInformationTime[i][0]) * float(m_argos_tick_per_seconds) / (float(m_samplingPeriod) * 31.0)));

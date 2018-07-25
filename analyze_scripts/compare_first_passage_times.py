@@ -12,7 +12,8 @@ from scipy.stats import norm
 # default value
 kilobot_ticks_per_second = 31
 
-colors = {"10": 'm',
+colors = {'0': "r",
+          "10": 'm',
           "20": 'c',
           "30": 'y',
           "all": 'b'}
@@ -34,9 +35,10 @@ def main():
 
     sim_or_real = sys.argv[1]
 
+
     folders = sys.argv[2:]
 
-    if len(folders) == 1:
+    if len(folders) == 1 and not os.path.isdir(folders[0]):
         interesting_folders = open(folders[0], 'rb')
         tsvin = csv.reader(interesting_folders, delimiter='\t')
         folders = []
@@ -60,7 +62,10 @@ def main():
         for directory, _, files in os.walk(folder):
             for element in files:
                 if element.endswith('time_results.tsv'):
-                    complete_time_dict, total_num_robot, n_robots = first_discovery(
+                    complete_time_dict, total_num_robot, n_robots = first_discovery_tsv(
+                        directory, element, total_num_robot, complete_time_dict, n_robots, sim_or_real)
+                elif element.endswith('.dat'):
+                    complete_time_dict, total_num_robot, n_robots = first_discovery_dat(
                         directory, element, total_num_robot, complete_time_dict, n_robots, sim_or_real)
                 else:
                     continue
@@ -117,11 +122,11 @@ def main():
     axes = plt.gca()
     axes.set_xlim([0.0, 600])
     axes.set_ylim([0.0, 0.6])
-    handles, labels = plt.gca().get_legend_handles_labels()
+    # handles, labels = plt.gca().get_legend_handles_labels()
 
-    order = [1, 5, 0, 4, 3, 7, 2, 6]
-    plt.legend([handles[idx] for idx in order], [labels[idx] for idx in order])
-    # plt.legend()
+    # order = [1, 5, 0, 4, 3, 7, 2, 6]
+    # plt.legend([handles[idx] for idx in order], [labels[idx] for idx in order])
+    plt.legend()
     plt.ylabel("proportion of discovery")
     plt.title("First passage time distribution")
     plt.savefig("DiscoveryProportion_comparison.png",
@@ -130,7 +135,7 @@ def main():
     plt.close()
 
 
-def first_discovery(folder, time_filename, total_number_of_robots, complete_time_dict, n_robots, sim_or_real):
+def first_discovery_tsv(folder, time_filename, total_number_of_robots, complete_time_dict, n_robots, sim_or_real):
     complete_filename = folder + "/" + time_filename
     time_file = open(complete_filename, mode='rb')
     tsvin = csv.reader(time_file, delimiter='\t')
@@ -187,6 +192,65 @@ def first_discovery(folder, time_filename, total_number_of_robots, complete_time
         tick_per_second = kilobot_ticks_per_second
 
     times = [float(i)/tick_per_second for i in times]
+    # plt.plot(times, values, linewidth=0.5, linestyle='dashed')
+    total_number_of_robots += num_robots
+    n_robots[n] += num_robots
+
+    return (complete_time_dict, total_number_of_robots, n_robots)
+
+
+def first_discovery_dat(folder, time_filename, total_number_of_robots, complete_time_dict, n_robots, sim_or_real):
+    complete_filename = folder + "/" + time_filename
+    time_file = open(complete_filename, mode='rb')
+    tsvin = csv.reader(time_file, delimiter=' ')
+    num_robots = sum(1 for line in open(complete_filename))
+    done = False
+    discovery_times = {}
+    n = "0"
+    elements = time_filename.split("_")
+    for e in elements:
+        if(e.startswith("pop")):
+            n = e[3:8]
+            n = str(int(n))
+    if(not complete_time_dict.has_key(n)):
+        complete_time_dict[n] = dict()
+        n_robots[n] = 0
+    if(not complete_time_dict.has_key("all")):
+        complete_time_dict["all"] = dict()
+    for row in tsvin:
+        if(done == False):
+            num_robots *= len(row) - 5
+            done = True
+            print(num_robots)
+        if(len(row) < 6):
+            print(complete_filename)
+        for discovery in row[5:]:
+            if(discovery != "NaN"):
+                discovery = int(discovery)
+                if(not discovery in discovery_times):
+                    discovery_times[discovery] = 1.0/num_robots
+                else:
+                    discovery_times[discovery] += 1.0/num_robots
+
+                if(not discovery in complete_time_dict[n]):
+                    complete_time_dict[n][discovery] = 1.0
+                else:
+                    complete_time_dict[n][discovery] += 1.0
+
+                if(not discovery in complete_time_dict["all"]):
+                    complete_time_dict["all"][discovery] = 1.0
+                else:
+                    complete_time_dict["all"][discovery] += 1.0
+
+    times = discovery_times.keys()
+    times.append(0)
+    times = sorted(times)
+    values = [0]
+    cummulate = 0
+    for key in times[1:]:
+        cummulate += discovery_times[key]
+        values.append(cummulate)
+
     # plt.plot(times, values, linewidth=0.5, linestyle='dashed')
     total_number_of_robots += num_robots
     n_robots[n] += num_robots

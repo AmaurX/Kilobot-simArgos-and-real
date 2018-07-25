@@ -47,3 +47,6 @@ launch_multiple_argos_30.sh
 launch_multiple_argos_5_50_100.sh
 launch_multiple_argos.sh
 images.tar.gz
+real_experiments_part1.tar.gz
+real_experiments_part2.tar.gz
+simulation_experiments.tar.gz
