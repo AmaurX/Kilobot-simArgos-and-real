@@ -1,8 +1,8 @@
 # src folder
 
-creation : Amaury Camus
-mail : amaury.camus92@gmail.com
-supervision : Vito Trianni
+creation : Amaury Camus   
+mail : amaury.camus92@gmail.com   
+supervision : Vito Trianni   
 
 ## Behaviors folder
 The behaviors (native kilobot code) should work the same exact way for

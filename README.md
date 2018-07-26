@@ -12,7 +12,21 @@ This is an attempt to create a self sufficient and clean repository for kilobots
 ## src folder
 It contains all the code. See internal README for more information  
 
-## Build and use
+## tracking folder
+It contains scripts to analyze the videos taken during real experiments:
+- From over the robot
+- with a gopro at 2Hz
+
+## anayze_script folder
+It contains python scripts that will analyze data produced by the simulations or by the tracking scripts (that follow the same format).
+
+## conversion_scripts folder
+To use the data produced here with Aishwayra's plotting tools (see RandomWalkRealoaded/multi_agent_simulation), a python script convert my data format into hers.
+
+## simulation_config folder
+It contains the ARGoS config files, which will be generated on building (see below and in the src/README.md)
+
+# Build and use
 
 ### Dependancies
 Prior to using this work, you should have installed:
@@ -35,7 +49,6 @@ It should compile everything.
      - The config files in simulation_config/generated_configs
 - The .hex files needed for real kilobots are in build/behaviors_real
 
-**TODO** : install step : create a install folder, that would only contain dynamic libs and the above files.
 
 ### Launching a simulation
 Steps:

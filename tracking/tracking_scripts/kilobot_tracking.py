@@ -84,18 +84,18 @@ def main():
     ap.add_argument("-b", "--buffer", type=int, default=64,
                     help="max buffer size")
     ap.add_argument("-s", "--starting_frame", type=int, default=3,
-                    help="visualize result during processing (default = 1)")
+                    help="starting frame for the experiment (default = 3)")
     ap.add_argument("-i", "--visualization", type=int, default=1,
                     help="visualize result during processing (default = 1)")
     ap.add_argument("-n", "--numberOfRobots",
-                    help="number of robots to find in the image (not counting the target)", type=int, default=30)
+                    help="number of robots to find in the image (not counting the target), default = 30", type=int, default=30)
 
     ap.add_argument("-x", "--x_offset",
                     help="number of pixel to offset x (from the left)", type=int, default=0)
     ap.add_argument("-y", "--y_offset",
                     help="number of pixel to offset y (from the top)", type=int, default=0)
     ap.add_argument("-r", "--r_offset",
-                    help="number of pixel to offset the radius", type=int, default=0)
+                    help="number of pixel to offset the radius of the arena", type=int, default=0)
     args = vars(ap.parse_args())
 
     numberOfRobots = args["numberOfRobots"]
